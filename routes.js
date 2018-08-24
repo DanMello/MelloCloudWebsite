@@ -12,7 +12,4 @@ exports = module.exports = function(app) {
   app.post('/account/login', require('./src/api/userVerification/login').login)
   app.post('/account/signup', require('./src/api/userVerification/signup').signup)
   app.post('/account/signup/emailCheck', require('./src/api/userVerification/emailcheck').checkEmail)
-
-  //internal api routes
-  app.get('/dev/getLocalIp', require('./src/internalApi/getLocalIp').getLocalIp)
 }
