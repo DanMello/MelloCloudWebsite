@@ -11,7 +11,7 @@ exports = module.exports = function(app) {
         connection: {
           host: 'localhost', // Default local mysql host
           user: 'root', // Put your user for mysql here
-          password: 'mellodev',
+          password: 'Mysecurepassword1!',
           database: 'mellocloud' // Put your development database name here, for this project
         }
       },

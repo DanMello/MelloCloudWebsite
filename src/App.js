@@ -1,21 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux'
+import { fetchUser } from './actions/userActions'
 
 class App extends Component {
+    
+  componentWillMount () {
+
+    this.props.dispatch(fetchUser())
+  }
+
   render() {
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Testing changes WHAT</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return { 
+    user: state.users.users 
+  }
+}
+
+export default connect(mapStateToProps)(App)
