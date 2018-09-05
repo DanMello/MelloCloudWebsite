@@ -1,6 +1,8 @@
 exports.signup = function (req, res, next) {
 
   let newUser = {
+    first_name: req.body.firstName,
+    last_name: req.body.lastName,
     email: req.body.email.toLowerCase(),
     password: req.app.bcrypt.hashSync(req.body.password)
   }

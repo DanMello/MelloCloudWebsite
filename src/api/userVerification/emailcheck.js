@@ -1,7 +1,5 @@
 exports.checkEmail = function (req, res, next) {
 
-  console.log('request received')
-
   let email = req.body.email.toLowerCase()
 
   req.app.db('users')

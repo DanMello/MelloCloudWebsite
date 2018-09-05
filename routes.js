@@ -6,11 +6,10 @@ exports = module.exports = function(app) {
   //   res.sendFile(app.path.join(__dirname, 'build', 'index.html'))
   // })
 
-  //api routes
+  //api post routes
   app.post('/account/login', require('./src/api/userVerification/login').login)
   app.post('/account/signup', require('./src/api/userVerification/signup').signup)
   app.post('/account/signup/emailCheck', require('./src/api/userVerification/emailcheck').checkEmail)
-
   app.get('/users', function (req, res) {
 
     req.app.db('users')
