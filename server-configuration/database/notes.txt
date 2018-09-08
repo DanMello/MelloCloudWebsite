@@ -31,3 +31,7 @@ Usefull commands
 ALTER TABLE users ADD first_name VARCHAR(255) AFTER id;
 
 ALTER TABLE users DROP COLUMN fullname;
+
+DELETE FROM users; //deletes all columns from that table
+
+INSERT INTO users(first_name,last_name,username,email) VALUES('Dan', 'Mello', 'jdanmello', 'jdanmello@gmail.com');

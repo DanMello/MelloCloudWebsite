@@ -13,7 +13,7 @@ exports = module.exports = function(app) {
   app.get('/users', function (req, res) {
 
     req.app.db('users')
-      .where('email', 'jdanmello@gmcim.com')
+      .where('email', 'jdanmello@gmail.com')
       .first()
       .then(user => {
 
