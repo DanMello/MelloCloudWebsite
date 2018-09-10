@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FaCloud } from 'react-icons/fa'
+import { FaCloud, FaAngleRight } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
 import { createEvents } from '../../api/frontend/eventListener'
@@ -17,7 +17,8 @@ export default class Login extends Component {
       password: '',
       passwordError: '',
       emailError: '',
-      event: {}
+      event: {},
+      hoverLogo: false
     }
   }
 
@@ -25,27 +26,61 @@ export default class Login extends Component {
 
     let event = createEvents({
       mobile: [
-        { event: 'onTouchStart', method: (e) => {e.target.style.backgroundColor = 'pink'}, target: 'loginButton'} //based on event id which is just a string for reference
+        { event: 'onTouchStart', method: (e) => {e.target.style.backgroundColor = 'pink'}, target: 'loginButton'}, //based on event id which is just a string for reference
+        { event: 'onTouchStart', method: (e) => { this.props.history.push('/') }, target: 'logoGoHome'},
       ],
       desktop: [
         { 
           target: 'loginButton',
-          event: 'onMouseEnter', 
+          event: 'onMouseEnter',
           method: (e) => {
 
             if (e.target.attributes.enabled.value === 'false') return
 
             e.target.style.opacity = '0.5'
-          },
-        },
+          }},
         { 
-          event: 'onMouseLeave', 
+          target: 'loginButton',
+          event: 'onMouseLeave',
           method: (e) => {
             if (e.target.attributes.enabled.value === 'false') return
 
             e.target.style.opacity = '1'
-          }, 
-          target: 'loginButton' }
+          }},
+        { 
+          target: 'logoGoHome',
+          event: 'onClick', 
+          method: (e) => {
+            this.props.history.push('/')
+          }},
+        { 
+          target: 'logoGoHome',
+          event: 'onMouseEnter',
+          method: (e) => {
+
+            this.setState({hoverLogo: true})
+          }},
+        { 
+          target: 'logoGoHome',
+          event: 'onMouseLeave',
+          method: (e) => {
+
+            this.setState({hoverLogo: false})
+          }},
+        { 
+          target: 'signupButton',
+          event: 'onMouseEnter',
+          method: (e) => {
+
+            this.refs.signupButton.style.opacity = '0.5'
+          }},
+        { 
+          target: 'signupButton',
+          event: 'onMouseLeave',
+          method: (e) => {
+
+            this.refs.signupButton.style.opacity = '1'
+          }},
       ]
     })
 
@@ -63,8 +98,11 @@ export default class Login extends Component {
       <form style={styles.formContainer} onSubmit={this.handleSubmit}>
       
         <div style={styles.titleContainer}>
-          <FaCloud size={'2.5em'} color={'rgb(58, 61, 80)'} style={{marginRight: '15px'}}/>
-          <h1 style={styles.title}>mello cloud</h1>
+          <FaCloud size={'2.5em'} color={!this.state.hoverLogo ? 'rgb(58, 61, 80)' : '#ccc'} style={{marginRight: '15px'}}/>
+          <h1
+            {...this.state.event.logoGoHome}
+            style={styles.title}
+            >mello cloud</h1>
         </div>
 
         <div>
@@ -160,7 +198,7 @@ export default class Login extends Component {
           <div style={{textAlign: 'center', marginTop: '20px',}}>
             <Link 
               to='/account/forgot'
-              style={styles.singUpLink}
+              style={styles.forgotAccount}
               onMouseEnter={(e) => e.target.style.color = 'rgb(0, 122, 255)'}
               onMouseLeave={(e) => e.target.style.color = '#444'}
               >
@@ -168,6 +206,20 @@ export default class Login extends Component {
             </Link>
           </div>
 
+        </div>
+
+        <div
+          {...this.state.event.signupButton}
+          ref='signupButton'
+          style={styles.signupContainer}
+          >
+          <Link
+            to='/account/signup'
+            style={styles.signuplink}
+            >
+            Create account
+            <FaAngleRight size={'1.2em'} color={'rgb(0, 122, 255)'} style={{marginLeft: '5px'}}/>
+          </Link>
         </div>
 
       </form>
@@ -183,7 +235,7 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
-    width: '500px',
+    width: '450px',
     minHeight: '400px',
     backgroundColor: 'white',
     marginTop: '50px',
@@ -200,7 +252,8 @@ const styles = {
   },
   title: {
     display: 'block',
-    color: '#444'
+    color: '#444',
+    cursor: 'pointer'
   },
   inputContainers: {
     padding: '5px'
@@ -230,12 +283,25 @@ const styles = {
     textAlign: 'center',
     backgroundColor: 'rgb(58, 61, 80)'
   },
-  singUpLink: {
+  forgotAccount: {
     color: '#444',
     display: 'inline-block',
     alignSelf: 'center',
     textDecorationLine: 'underline',
     fontSize: '17px'
+  },
+  signupContainer: {
+    position: 'absolute',
+    bottom: -35,
+    right: 0,
+    cursor: 'pointer'
+  },
+  signuplink: {
+    color: 'rgb(0, 122, 255)',
+    textDecorationLine: 'none',
+    fontSize: '19px',
+    display: 'flex',
+    alignItems: 'center',
   },
   error: {
     color: 'red',

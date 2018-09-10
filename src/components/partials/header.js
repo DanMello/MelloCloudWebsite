@@ -20,7 +20,9 @@ export default class Header extends Component {
 
     let navItems = [
       {name: 'Home', key: 'Home', to: '/'},
-      {name: 'About', key: 'About', to: '/about'}
+      {name: 'About', key: 'About', to: '/about'},
+      {name: 'Terms', key: 'Terms', to: '/terms'},
+      {name: 'Contact', key: 'Contact', to: '/contact'}
     ]
 
     return (
@@ -40,8 +42,8 @@ export default class Header extends Component {
           onMouseLeave={() => this.setState(prevState => ({navOpen: !prevState.navOpen}))}
           >
           <div style={{color: 'white'}}>
-            <div style={{fontSize: '17px'}}>Welcome</div>
-            <div style={{fontSize: '13px', textAlign: 'right'}}>View menu</div>
+            <div style={{fontSize: '13px'}}>Welcome</div>
+            <div style={{fontSize: '15px', fontWeight: 'bold'}}>View menu</div>
           </div>
           { !!this.state.navOpen ? 
             <FaTimes
@@ -82,7 +84,7 @@ export default class Header extends Component {
               <hr 
                 style={styles.hrLine}
               />
-              { !this.state.loggedIn && this.props.location.pathname !== '/account/login' &&  this.props.location.pathname !== '/account/signup' &&
+              { !this.state.loggedIn ?
 
                 <div style={styles.verificatoinContainer}>
                   <Link
@@ -104,30 +106,8 @@ export default class Header extends Component {
                     Dont have an account?
                   </Link>
                 </div>
-              }
-              { !this.state.loggedIn && this.props.location.pathname === '/account/login' &&
-
-
+                :
                 <div style={styles.verificatoinContainer}>
-
-                  <div style={styles.question}>Need an account?</div>
-
-                  <Link
-                    to='/account/signup'
-                    style={styles.signupButton}
-                    onClick={() => this.setState(prevState => ({navOpen: !prevState.navOpen}))}
-                    onMouseEnter={(e) => e.target.style.opacity = '0.5'}
-                    onMouseLeave={(e) => e.target.style.opacity = '1'}
-                    >
-                    Sign up
-                  </Link>
-                </div>
-              }
-              { !this.state.loggedIn && this.props.location.pathname === '/account/signup' &&
-
-                <div style={styles.verificatoinContainer}>
-
-                  <div style={styles.question}>Already have an account?</div>
 
                   <Link
                     to='/account/login'
@@ -136,7 +116,7 @@ export default class Header extends Component {
                     onMouseEnter={(e) => e.target.style.opacity = '0.5'}
                     onMouseLeave={(e) => e.target.style.opacity = '1'}
                     >
-                    Log In
+                    Log Out
                   </Link>
                 </div>
               }
