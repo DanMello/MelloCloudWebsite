@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { FaCloud, FaAngleRight } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
-import { createEvents } from '../../api/frontend/eventListener'
+import { createEvents } from '../../api/eventListener'
 
 export default class Login extends Component {
 
@@ -17,79 +17,101 @@ export default class Login extends Component {
       password: '',
       passwordError: '',
       emailError: '',
+      error: null,
       event: {},
-      hoverLogo: false
+      hoverLogo: false,
+      focused: false
     }
   }
 
   componentWillMount() {
 
     let event = createEvents({
-      mobile: [
-        { event: 'onTouchStart', method: (e) => {e.target.style.backgroundColor = 'pink'}, target: 'loginButton'}, //based on event id which is just a string for reference
-        { event: 'onTouchStart', method: (e) => { this.props.history.push('/') }, target: 'logoGoHome'},
+      mobileTouch: [
+        { event: 'onTouchEnd', method: this.handleSubmit, target: 'loginButton' },
+        { event: 'onTouchEnd', method: () => {this.props.history.push('/')}, target: 'logoGoHome'},
+      ],
+      mobileClick: [
+        { event: 'onClick', method: this.handleSubmit, target: 'loginButton'},
+        { event: 'onClick', method: () => { this.props.history.push('/') }, target: 'logoGoHome'}
       ],
       desktop: [
-        { 
-          target: 'loginButton',
-          event: 'onMouseEnter',
-          method: (e) => {
-
-            if (e.target.attributes.enabled.value === 'false') return
-
-            e.target.style.opacity = '0.5'
-          }},
-        { 
-          target: 'loginButton',
-          event: 'onMouseLeave',
-          method: (e) => {
-            if (e.target.attributes.enabled.value === 'false') return
-
-            e.target.style.opacity = '1'
-          }},
-        { 
-          target: 'logoGoHome',
-          event: 'onClick', 
-          method: (e) => {
-            this.props.history.push('/')
-          }},
-        { 
-          target: 'logoGoHome',
-          event: 'onMouseEnter',
-          method: (e) => {
-
-            this.setState({hoverLogo: true})
-          }},
-        { 
-          target: 'logoGoHome',
-          event: 'onMouseLeave',
-          method: (e) => {
-
-            this.setState({hoverLogo: false})
-          }},
-        { 
-          target: 'signupButton',
-          event: 'onMouseEnter',
-          method: (e) => {
-
-            this.refs.signupButton.style.opacity = '0.5'
-          }},
-        { 
-          target: 'signupButton',
-          event: 'onMouseLeave',
-          method: (e) => {
-
-            this.refs.signupButton.style.opacity = '1'
-          }},
+        { event: 'onClick', method: this.handleSubmit, target: 'loginButton' },
+        { event: 'onMouseEnter', method: this.hover, target: 'loginButton' },
+        { event: 'onMouseLeave', method: this.hover, target: 'loginButton' },
+        { event: 'onClick', method: () => {this.props.history.push('/')}, target: 'logoGoHome'},
+        { event: 'onMouseEnter', method: () => {this.setState({hoverLogo: true})}, target: 'logoGoHome'},
+        { event: 'onMouseLeave', method: () => {this.setState({hoverLogo: false})}, target: 'logoGoHome' },
+        { event: 'onMouseEnter', method: () => {this.refs.signupButton.style.opacity = '0.5'}, target: 'signupButton'},
+        { event: 'onMouseLeave', method: () => {this.refs.signupButton.style.opacity = '1'}, target: 'signupButton'},
       ]
     })
 
     this.setState({event: event})
   }
 
-  handleSubmit (event) {
+  componentWillUnmount() {
 
-    event.preventDefault()
+    if (this.state.focused !== false) {
+      this.state.focused.blur()
+    }
+  }
+
+  hover (e) {
+
+    if (e.target.attributes.enabled.value === 'false') return
+
+    switch(e.type) {
+      case 'mouseenter':
+        e.target.style.opacity = '0.5'
+        break
+      case 'mouseleave':
+        e.target.style.opacity = '1'
+        break
+    }
+  }
+
+  handleSubmit(e) {
+
+    if (e.target.attributes.enabled.value === 'false') return
+
+    if (!this.state.email || !this.state.password) {
+
+      this.setState({error: 'Input fields cannot be empty'})
+
+    } else {
+      
+      fetch(window.location.origin + '/account/login', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }, 
+        body: JSON.stringify({
+          email: this.state.email,
+          password: this.state.password
+        })
+
+      }).then(res => {
+
+        return res.json()
+
+      }).then(resJson => {
+
+        if (resJson.error) {
+
+          this.setState({error: resJson.message})
+
+        } else {
+
+          alert('success')
+        }
+          
+      }).catch(err => {
+
+        this.setState({error: 'There was a problem trying to connect to the server, please try again.'})
+      })
+    }
   }
 
   render() {
@@ -105,8 +127,10 @@ export default class Login extends Component {
             >mello cloud</h1>
         </div>
 
+        <div style={styles.error}>{this.state.error}</div>
+
         <div>
-          
+
           <div style={styles.inputContainers}>
             
             <div style={styles.error}>{this.state.emailError}</div>
@@ -115,16 +139,18 @@ export default class Login extends Component {
             <input 
               type='text'
               name='email'
+              ref='emailInput'
+              autoFocus={false}
               autoComplete='off'
               value={this.state.email}
               style={styles.formInputs}
               onChange={(e) => {
                 
                 this.setState({email: e.target.value})
-              }} 
+              }}
               onFocus={(e) => {
 
-                this.setState({emailError: ''})
+                this.setState({emailError: '', focused: this.refs.emailInput })
 
                 e.target.style.outline = 'none'
                 e.target.style.borderBottom = '1px solid'
@@ -135,7 +161,8 @@ export default class Login extends Component {
                 if (!this.state.email) {
                   
                   this.setState({
-                    emailError: 'Email cannot be empty.'
+                    emailError: 'Email cannot be empty.',
+                    focused: false
                   })
 
                   e.target.style.outline = 'solid 1px red'
@@ -145,6 +172,8 @@ export default class Login extends Component {
                   
                   e.target.style.outline = 'none'
                   e.target.style.borderBottomColor = '#ccc'
+
+                  this.setState({focused: false})
                 }
               }}
             />
@@ -155,12 +184,13 @@ export default class Login extends Component {
             <input
               type='password'
               name='password'
+              ref='passwordInput'
               autoComplete='off'
               style={styles.formInputs}
               onChange={(e) => this.setState({password: e.target.value})}
               onFocus={(e) => {
 
-                this.setState({passwordError: ''})
+                this.setState({passwordError: '', focused: this.refs.passwordInput })
 
                 e.target.style.outline = 'none'
                 e.target.style.borderBottom = '1px solid'
@@ -171,13 +201,16 @@ export default class Login extends Component {
                 if (!this.state.password) {
                   
                   this.setState({
-                    passwordError: 'Password cannot be empty.'
+                    passwordError: 'Password cannot be empty.',
+                    focused: false
                   })
 
                   e.target.style.outline = 'solid 1px red'
                   e.target.style.border = 'none'
 
                 } else {
+
+                  this.setState({focused: false})
                   
                   e.target.style.outline = 'none'
                   e.target.style.borderBottomColor = '#ccc'
@@ -236,7 +269,8 @@ const styles = {
     justifyContent: 'space-around',
     alignItems: 'center',
     width: '450px',
-    minHeight: '400px',
+    maxWidth: '450px',
+    minHeight: '500px',
     backgroundColor: 'white',
     marginTop: '50px',
     marginBottom: '50px',
@@ -305,6 +339,7 @@ const styles = {
   },
   error: {
     color: 'red',
-    fontSize: '14px'
+    fontSize: '14px',
+    textAlign: 'center'
   }
 }

@@ -1,8 +1,11 @@
 import axios from 'axios'
 
-export function fetchUser() {
+export function fetchUser(url) {
+
+  console.log(url + '/user')
+
   return {
     type: "FETCH_USER",
-    payload: axios.get('http://localhost:3001/users')
+    payload: axios.get(url + '/user')
   }
 }

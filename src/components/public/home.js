@@ -1,25 +1,32 @@
 import React, { Component } from 'react'
-// import { Link } from 'react-router-dom'
+import { fetchUser } from '../../actions/userActions'
 
 export default class Home extends Component {
 
+  componentWillMount() {
+
+    this.props.dispatch(fetchUser(this.props.state.config.url))
+  }
+
   render() {
 
-    let component
-    let user = this.props.user
+    console.log(this.props)
 
-    if (!!user.fetching) {
+    // let component
+    // let user = this.props.user
+
+    // if (!!user.fetching) {
       
-      component = <img src='/assets/loader.gif' alt='loader' />
+    //   component = <img src='/assets/loader.gif' alt='loader' />
 
-    } else if (!!user.fetched) {
+    // } else if (!!user.fetched) {
 
-      component = <p>Welcome {user.profile['first_name']}</p>
-    }
+    //   component = <p>Welcome {user.profile['first_name']}</p>
+    // }
 
     return (
       <div>
-        {component}
+        hi
       </div>
     )
   }

@@ -3,17 +3,67 @@ import { FaBars, FaTimes, FaCloud } from 'react-icons/fa'
 
 import { NavLink, Link } from 'react-router-dom'
 
+import { createEvents } from '../../api/eventListener'
+
 export default class Header extends Component {
 
   constructor() {
 
     super()
 
+    this.hover = this.hover.bind(this)
+    this.goToLogin = this.goToLogin.bind(this)
+
     this.state = {
       navOpen: false,
       loggedIn: false,
-      hover: false
+      event: {}
     }
+  }
+
+  componentWillMount () {
+    
+    let event = createEvents({
+      mobileTouch: [
+        { event: 'onTouchEnd', method: () => {this.props.history.push('/')}, target: 'goHome'},
+        { event: 'onTouchEnd', method: () => {this.setState(prevState => ({navOpen: !prevState.navOpen}))}, target: 'navOpenMobile'},
+        { event: 'onTouchEnd', method: this.goToLogin, target: 'logInButton'},
+      ],
+      mobileClick: [
+        { event: 'onClick', method: () => {this.props.history.push('/')}, target: 'goHome'},
+        { event: 'onClick', method: () => {this.setState(prevState => ({navOpen: !prevState.navOpen}))}, target: 'navOpenMobile'},
+        { event: 'onClick', method: this.goToLogin, target: 'logInButton'},
+      ],
+      desktop: [
+        { event: 'onClick', method: () => {this.props.history.push('/')}, target: 'goHome'},
+        { event: 'onMouseEnter', method: () => {this.setState(prevState => ({navOpen: !prevState.navOpen}))}, target: 'navOpenDesktop'},
+        { event: 'onMouseLeave', method: () => {this.setState(prevState => ({navOpen: !prevState.navOpen}))}, target: 'navOpenDesktop'},
+        { event: 'onClick', method: () => {this.props.history.push('/account/login')}, target: 'logInButton'},
+        { event: 'onMouseEnter', method: this.hover, target: 'logInButton'},
+        { event: 'onMouseLeave', method: this.hover, target: 'logInButton'},
+      ]
+    })
+
+    this.setState({ event: event })
+  }
+
+  hover (e) {
+
+    switch(e.type) {
+      case 'mouseenter':
+        e.target.style.opacity = '0.5'
+        break
+      case 'mouseleave':
+        e.target.style.opacity = '1'
+        break
+    }
+  }
+
+  goToLogin (e) {
+
+    e.preventDefault()
+
+    this.props.history.push('/account/login')
   }
 
   render() {
@@ -29,17 +79,16 @@ export default class Header extends Component {
       <div style={styles.headingContainer}>
         <div style={styles.headingSubContainer}>
           <FaCloud size={'2.5em'} color={'white'} style={{marginRight: '15px'}}/>
-          <h1 
+          <h1
+            {...this.state.event.goHome}
             style={styles.heading}
             >
             mello cloud
           </h1>
         </div>
         <nav
+          {...this.state.event.navOpenDesktop}
           style={styles.nav}
-          onTouchStart={() => this.setState(prevState => ({navOpen: !prevState.navOpen}))}
-          onMouseEnter={() => this.setState(prevState => ({navOpen: !prevState.navOpen}))}
-          onMouseLeave={() => this.setState(prevState => ({navOpen: !prevState.navOpen}))}
           >
           <div style={{color: 'white'}}>
             <div style={{fontSize: '13px'}}>Welcome</div>
@@ -47,11 +96,13 @@ export default class Header extends Component {
           </div>
           { !!this.state.navOpen ? 
             <FaTimes
+              {...this.state.event.navOpenMobile}
               style={styles.icon}
               size={'1.3em'}
               />
             :
             <FaBars
+              {...this.state.event.navOpenMobile}
               style={styles.icon}
               size={'1.3em'}
               />            
@@ -87,15 +138,12 @@ export default class Header extends Component {
               { !this.state.loggedIn ?
 
                 <div style={styles.verificatoinContainer}>
-                  <Link
-                    to='/account/login'
+                  <div
+                    {...this.state.event.logInButton}
                     style={styles.logInButton}
-                    onClick={() => this.setState(prevState => ({navOpen: !prevState.navOpen}))}
-                    onMouseEnter={(e) => e.target.style.opacity = '0.5'}
-                    onMouseLeave={(e) => e.target.style.opacity = '1'}
                     >
                     Log In
-                  </Link>
+                  </div>
                   <Link 
                     to='/account/signup'
                     style={styles.singUpLink}
@@ -148,7 +196,8 @@ const styles = {
   },
   heading: {
     color: 'white',
-    display: 'inline-block'
+    display: 'inline-block',
+    cursor: 'pointer'
   },
   navButton: {
     color: 'white',
@@ -156,7 +205,7 @@ const styles = {
     backgroundColor: 'green'
   },
   icon: {
-    marginLeft: '15px', 
+    marginLeft: '15px',
     color: 'white'
   },
   nav: {
