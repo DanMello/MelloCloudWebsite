@@ -76,6 +76,8 @@ export default class Login extends Component {
 
     } else {
 
+      alert(this.props.config.url, window.location.hostname)
+
       fetch(this.props.config.url + '/account/login', {
         method: 'POST',
         headers: {
@@ -123,7 +125,7 @@ export default class Login extends Component {
           <FaCloud size={'2.5em'} color={!this.state.hoverLogo ? 'rgb(58, 61, 80)' : '#ccc'} style={{marginRight: '15px'}}/>
           
           <h1 {...this.state.event.logoGoHome} style={styles.title}>mello cloud</h1>
-          
+
         </div>
 
         <div style={styles.error}>{this.state.error}</div>
