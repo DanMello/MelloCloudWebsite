@@ -3,6 +3,8 @@ import { FaBars, FaTimes, FaCloud } from 'react-icons/fa'
 
 import { NavLink, Link } from 'react-router-dom'
 
+import { userLogout } from '../../actions/userActions'
+
 import { createEvents } from '../../api/eventListener'
 
 export default class Header extends Component {
@@ -42,21 +44,15 @@ export default class Header extends Component {
         { event: 'onMouseEnter', method: this.hover, target: 'logInButton'},
         { event: 'onMouseLeave', method: this.hover, target: 'logInButton'},
       ]
-    })
+    }, this.props.config)
 
     this.setState({ event: event })
   }
 
   hover (e) {
 
-    switch(e.type) {
-      case 'mouseenter':
-        e.target.style.opacity = '0.5'
-        break
-      case 'mouseleave':
-        e.target.style.opacity = '1'
-        break
-    }
+    if (e.type === 'mouseenter') e.target.style.opacity = '0.5'
+    if (e.type === 'mouseleave') e.target.style.opacity = '1'
   }
 
   goToLogin (e) {
@@ -91,8 +87,8 @@ export default class Header extends Component {
           style={styles.nav}
           >
           <div style={{color: 'white'}}>
-            <div style={{fontSize: '13px'}}>Welcome</div>
-            <div style={{fontSize: '15px', fontWeight: 'bold'}}>View menu</div>
+            <div style={{fontSize: '13px'}}>Welcome {!this.props.user.loggedIn ? '' : this.props.user['first_name']}</div>
+            <div style={{fontSize: '15px', fontWeight: 'bold'}}>View menu {!this.props.user.loggedIn ? '' : '& your account'}</div>
           </div>
           { !!this.state.navOpen ? 
             <FaTimes
@@ -115,8 +111,8 @@ export default class Header extends Component {
 
               <h3>Menu</h3>
               
-              {navItems.map(item => {
-                return (
+                {navItems.map(item => {
+                  return (
                   <div key={item.key}>
                     <li style={styles.liItems} key={item.key}>
                       <NavLink
@@ -130,12 +126,12 @@ export default class Header extends Component {
                       </NavLink>
                     </li>
                   </div>
-                )
-              })}
+                  )
+                })}
               <hr 
                 style={styles.hrLine}
               />
-              { !this.state.loggedIn ?
+              { !this.props.user.loggedIn ?
 
                 <div style={styles.verificatoinContainer}>
                   <div
@@ -157,15 +153,19 @@ export default class Header extends Component {
                 :
                 <div style={styles.verificatoinContainer}>
 
-                  <Link
-                    to='/account/login'
+                  <div
                     style={styles.logInButton}
-                    onClick={() => this.setState(prevState => ({navOpen: !prevState.navOpen}))}
+                    onClick={() => {
+                      localStorage.removeItem('user')
+                      this.props.dispatch(userLogout())
+                      this.props.history.push('/')
+                      this.setState(prevState => ({navOpen: !prevState.navOpen}))
+                    }}
                     onMouseEnter={(e) => e.target.style.opacity = '0.5'}
                     onMouseLeave={(e) => e.target.style.opacity = '1'}
                     >
                     Log Out
-                  </Link>
+                  </div>
                 </div>
               }
               </ul>

@@ -1,19 +1,17 @@
 export default function reducer(state={
-  profile: {},
-  fetching: false,
-  fetched: false,
-  error: null
-}, action) {
+  loggedIn: false,
+  first_name: null,
+  last_name: null,
+  email: null,
+  token: null
+}, action) {  
 
   switch (action.type) {
-    case "FETCH_USER_PENDING": {
-      return {...state, fetching: true}
+    case "USER_LOGIN": {
+      return {...state, ...action.payload, loggedIn: true}
     }
-    case "FETCH_USER_REJECTED": {
-      return {...state, fetching: true, error: action.payload}
-    }
-    case "FETCH_USER_FULFILLED": {
-      return {...state, fetching: false, fetched: true, profile: action.payload.data}
+    case "USER_LOGOUT": {
+      return {...state, ...action.payload}
     }
     default :
       return state

@@ -1,11 +1,8 @@
-import { getCookie } from './cookies'
-
-export function device () {
+export function device (deviceSettings) {
 
   let device = {}
-  let deviceCookie = getCookie('device')
 
-  if (deviceCookie === 'mobile') {
+  if (deviceSettings.device === 'mobile') {
 
     if ('ontouchstart' in document.documentElement) {
 

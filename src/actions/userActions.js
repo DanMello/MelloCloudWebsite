@@ -1,11 +1,19 @@
-import axios from 'axios'
-
-export function fetchUser(url) {
-
-  console.log(url + '/user')
-
+export function userLogin(user) {
   return {
-    type: "FETCH_USER",
-    payload: axios.get(url + '/user')
+    type: "USER_LOGIN",
+    payload: user
+  }
+}
+
+export function userLogout() {
+  return {
+    type: "USER_LOGOUT",
+    payload: {
+      token: null,
+      email: null,
+      first_name: null,
+      last_name: null,
+      loggedIn:false
+    }
   }
 }

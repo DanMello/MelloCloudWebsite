@@ -1,17 +1,8 @@
 export default function reducer(state={
-  enviroment: null,
+  apiUrl: null,
   device: null,
-  url: null
-}, action) {
+  enviroment: null
+}, action) {  
 
-  switch (action.type) {
-    case "DEVELOPMENT_DESKTOP": {
-      return {...state, ...action.payload}
-    }
-    case "DEVELOPMENT_MOBILE": {
-      return {...state, ...action.payload}
-    }
-    default :
-      return state
-  }
+  return state
 }

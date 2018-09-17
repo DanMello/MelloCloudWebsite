@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { FaCloud, FaAngleRight } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
+import { userLogin } from '../../actions/userActions'
+
 import { createEvents } from '../../api/eventListener'
 
 export default class Login extends Component {
@@ -45,7 +47,7 @@ export default class Login extends Component {
         { event: 'onMouseEnter', method: () => {this.refs.signupButton.style.opacity = '0.5'}, target: 'signupButton'},
         { event: 'onMouseLeave', method: () => {this.refs.signupButton.style.opacity = '1'}, target: 'signupButton'},
       ]
-    })
+    }, this.props.config)
 
     this.setState({event: event})
   }
@@ -60,15 +62,8 @@ export default class Login extends Component {
   hover (e) {
 
     if (e.target.attributes.enabled.value === 'false') return
-
-    switch(e.type) {
-      case 'mouseenter':
-        e.target.style.opacity = '0.5'
-        break
-      case 'mouseleave':
-        e.target.style.opacity = '1'
-        break
-    }
+    if (e.type === 'mouseenter') e.target.style.opacity = '0.5'
+    if (e.type === 'mouseleave') e.target.style.opacity = '1'
   }
 
   handleSubmit(e) {
@@ -80,8 +75,8 @@ export default class Login extends Component {
       this.setState({error: 'Input fields cannot be empty'})
 
     } else {
-      
-      fetch(window.location.origin + '/account/login', {
+
+      fetch(this.props.config.url + '/account/login', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -104,7 +99,11 @@ export default class Login extends Component {
 
         } else {
 
-          alert('success')
+          localStorage.setItem('user', JSON.stringify(resJson))
+
+          this.props.dispatch(userLogin(resJson))
+
+          this.props.history.push('/')
         }
           
       }).catch(err => {
@@ -117,19 +116,19 @@ export default class Login extends Component {
   render() {
 
     return (
-      <form style={styles.formContainer} onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} style={Object.assign({}, styles.formContainer, this.props.config.device !== 'mobile' ? {width: '450px', maxWidth: '450px'} : {width: '95%', maxWidth: '95%'})}>
       
         <div style={styles.titleContainer}>
+          
           <FaCloud size={'2.5em'} color={!this.state.hoverLogo ? 'rgb(58, 61, 80)' : '#ccc'} style={{marginRight: '15px'}}/>
-          <h1
-            {...this.state.event.logoGoHome}
-            style={styles.title}
-            >mello cloud</h1>
+          
+          <h1 {...this.state.event.logoGoHome} style={styles.title}>mello cloud</h1>
+          
         </div>
 
         <div style={styles.error}>{this.state.error}</div>
 
-        <div>
+        <div style={{width: this.props.config.device !== 'mobile' ? '65%' : '95%' }}>
 
           <div style={styles.inputContainers}>
             
@@ -137,7 +136,7 @@ export default class Login extends Component {
             <div style={styles.formLabels}>Email:</div>
             
             <input 
-              type='text'
+              type='email'
               name='email'
               ref='emailInput'
               autoFocus={false}
@@ -303,7 +302,8 @@ const styles = {
     padding: '4px',
     color: 'black',
     fontSize: '17px',
-    borderBottom: '1px solid #ccc'
+    borderBottom: '1px solid #ccc',
+    width: '100%'
   },
   logInButton: {
     width: '100%',

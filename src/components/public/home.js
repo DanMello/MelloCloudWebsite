@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
-import { fetchUser } from '../../actions/userActions'
 
 export default class Home extends Component {
 
   componentWillMount() {
 
-    this.props.dispatch(fetchUser(this.props.state.config.url))
+    // this.props.dispatch(fetchUser(this.props.config.url))
   }
 
   render() {
-
-    console.log(this.props)
 
     // let component
     // let user = this.props.user
@@ -26,7 +23,7 @@ export default class Home extends Component {
 
     return (
       <div>
-        hi
+        <p>hi</p>
       </div>
     )
   }

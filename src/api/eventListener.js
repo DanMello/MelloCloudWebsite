@@ -1,10 +1,10 @@
 import { device } from './device'
 
-export function createEvents(obj) {
+export function createEvents(obj, deviceSettings) {
 
   let eventsObj = {}
   let events = []
-  let currentDevice = device()
+  let currentDevice = device(deviceSettings)
   
   if (currentDevice.type === 'mobile' && currentDevice.eventType === 'touch') {
 

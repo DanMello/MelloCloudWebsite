@@ -5,6 +5,11 @@
   font-family: sans-serif, verdana;
 }
 
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
 .navLinks {
   color: #444;
   text-decoration: none;
