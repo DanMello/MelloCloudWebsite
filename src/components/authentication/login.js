@@ -76,7 +76,8 @@ export default class Login extends Component {
 
     } else {
 
-      alert(this.props.config.url, window.location.hostname)
+      alert(this.props.config.url)
+      alert(window.location.hostname)
 
       fetch(this.props.config.url + '/account/login', {
         method: 'POST',
