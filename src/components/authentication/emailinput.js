@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
 import { createEvents } from '../../api/eventListener'
 
+const emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 export default class EmailInput extends Component {
 
   constructor () {
@@ -11,6 +13,7 @@ export default class EmailInput extends Component {
     this.next = this.next.bind(this)
     this.previous = this.previous.bind(this)
     this.hover = this.hover.bind(this)
+    this.onKeyDown = this.onKeyDown.bind(this)
 
     this.state = {
       event: {},
@@ -46,7 +49,7 @@ export default class EmailInput extends Component {
 
     if (!!this.state.alreadyTouched) return
 
-    let emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!this.props.state.email) return
 
     if (emailTest.test(this.props.state.email)) {
 
@@ -94,8 +97,6 @@ export default class EmailInput extends Component {
 
       }).catch(err => {
 
-        console.log(err)
-
         this.props.thisRef.setState({
           error: "There was an error connection to the server, this most likely means the server is down or under maintenance. Please try again in a couple of hours.",
         })
@@ -105,7 +106,9 @@ export default class EmailInput extends Component {
 
     } else {
 
-      this.props.thisRef.setState({error: 'Please enter a valid email address'})
+      this.props.thisRef.setState({emailError: 'Please enter a valid email address'})
+      this.refs.emailInput.style.outline = 'solid 1px red'
+      this.refs.emailInput.style.border = 'none'
     }
 
   }
@@ -131,6 +134,19 @@ export default class EmailInput extends Component {
     if (e.type === 'mouseleave') e.target.style.opacity = '1'
   }
 
+  onKeyDown (e) {
+
+    if (e.key === 'Enter') {
+
+      if (this.props.state.focused !== false) {
+      
+        this.props.state.focused.blur()
+      }
+
+      return
+    }
+  }
+
   render() {
     return (
       <div>
@@ -150,6 +166,7 @@ export default class EmailInput extends Component {
             ref='emailInput'
             autoFocus={false}
             autoComplete='off'
+            onKeyDown={this.onKeyDown}
             value={this.props.state.email}
             style={styles.formInputs}
             onChange={(e) => {
@@ -170,14 +187,26 @@ export default class EmailInput extends Component {
                 
                 this.props.thisRef.setState({
                   emailError: 'Email cannot be empty.',
+                  error: '',
                   focused: false
                 })
 
                 e.target.style.outline = 'solid 1px red'
                 e.target.style.border = 'none'
 
-              } else {
+              } else if (!emailTest.test(this.props.state.email)) {
+
+                this.props.thisRef.setState({
+                  emailError: 'Please enter a valid email address',
+                  error: '',
+                  focused: false
+                })
+
+                e.target.style.outline = 'solid 1px red'
+                e.target.style.border = 'none'
                 
+              } else {
+
                 e.target.style.outline = 'none'
                 e.target.style.borderBottomColor = '#ccc'
 

@@ -2,20 +2,26 @@ import React, { Component } from 'react'
 import { FaCloud } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
-import { userLogin } from '../../actions/userActions'
+import { signup } from '../../actions/userActions'
+import { filterEvents } from '../../actions/eventActions'
+
+import events from '../../events/signup'
 
 import Nameinputs from './nameInputs'
 import Emailinput from './emailinput'
 import Passwordinput from './passwordinput'
 
-import { createEvents } from '../../api/eventListener'
-
 export default class Signup extends Component {
 
-  constructor () {
+  constructor (props) {
 
-    super()
+    super(props)
 
+    let boundEvents = events.bind(this)()
+
+    this.props.dispatch(filterEvents(boundEvents, this.props.config, 'Signup'))
+
+    this.signup = signup.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
 
     this.state = {
@@ -30,31 +36,12 @@ export default class Signup extends Component {
       emailError: '',
       passwordError: '',
       passwordRepeatError: '',
-      event: {},
+      events: {},
       hoverLogo: false,
       focused: false,
       step: 1,
+      alreadyTouched: false
     }
-  }
-
-  componentWillMount() {
-
-    let event = createEvents({
-      mobileTouch: [
-        { event: 'onTouchEnd', method: () => {this.props.history.push('/')}, target: 'logoGoHome'},
-      ],
-      mobileClick: [
-        { event: 'onClick', method: this.handleSubmit, target: 'button'},
-        { event: 'onClick', method: () => { this.props.history.push('/') }, target: 'logoGoHome'}
-      ],
-      desktop: [
-        { event: 'onClick', method: () => {this.props.history.push('/')}, target: 'logoGoHome'},
-        { event: 'onMouseEnter', method: () => {this.setState({hoverLogo: true})}, target: 'logoGoHome'},
-        { event: 'onMouseLeave', method: () => {this.setState({hoverLogo: false})}, target: 'logoGoHome' }
-      ]
-    }, this.props.config)
-
-    this.setState({event: event})
   }
 
   componentWillUnmount() {
@@ -64,9 +51,12 @@ export default class Signup extends Component {
     }
   }
 
-  handleSubmit(e) {
+  componentDidMount() {
 
-    e.preventDefault()
+    console.log('mount', this.props)
+  }
+
+  handleSubmit() {
 
     if (!this.state.firstName || !this.state.lastName || !this.state.email || !this.state.password || !this.state.passwordRepeat) {
 
@@ -74,44 +64,7 @@ export default class Signup extends Component {
 
     } else {
       
-      fetch(this.props.config.url + '/account/signup', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }, 
-        body: JSON.stringify({
-          first_name: this.state.firstName,
-          last_name: this.state.lastName,
-          email: this.state.email,
-          password: this.state.password
-        })
-
-      }).then(res => {
-
-        return res.json()
-
-      }).then(resJson => {
-
-        if (resJson.error) {
-
-          this.setState({error: resJson.message})
-
-        } else {
-
-          console.log(JSON.stringify(resJson))
-
-          localStorage.setItem('user', JSON.stringify(resJson))
-          
-          this.props.dispatch(userLogin(resJson))
-
-          this.props.history.push('/')
-        }
-          
-      }).catch(err => {
-
-        this.setState({error: 'There was a problem trying to connect to the server, please try again.'})
-      })
+      this.props.dispatch(this.signup())
     }
   }
 
@@ -131,26 +84,36 @@ export default class Signup extends Component {
         break
     }
 
-    return (
+    if (this.props.events.Signup !== undefined) {
 
-      <form onSubmit={this.handleSubmit} style={Object.assign({}, styles.formContainer, this.props.config.device !== 'mobile' ? {width: '450px', maxWidth: '450px'} : {width: '95%', maxWidth: '95%'})}>
-      
-        <div style={styles.titleContainer}>
-          
-          <FaCloud size={'2.5em'} color={!this.state.hoverLogo ? 'rgb(58, 61, 80)' : '#ccc'} style={{marginRight: '15px'}}/>
+      return (
 
-          <h1 {...this.state.event.logoGoHome} style={styles.title}>mello cloud</h1>
+        <form style={Object.assign({}, styles.formContainer, this.props.config.device !== 'mobile' ? {width: '450px', maxWidth: '450px'} : {width: '95%', maxWidth: '95%'})}>
+        
+          <div style={styles.titleContainer}>
+            
+            <FaCloud size={'2.5em'} color={!this.state.hoverLogo ? 'rgb(58, 61, 80)' : '#ccc'} style={{marginRight: '15px'}}/>
 
-        </div>
+            <h1 {...this.props.events.Signup.logoGoHome} style={styles.title}>mello cloud</h1>
 
-        <div style={{width: this.props.config.device !== 'mobile' ? '65%' : '95%' }}>
+            <div style={styles.error}>{this.props.user.error}</div>
 
-          {component}
+          </div>
 
-        </div>
+          <div style={{width: this.props.config.device !== 'mobile' ? '65%' : '95%' }}>
 
-      </form>
-    )
+            {component}
+
+          </div>
+
+        </form>
+      )
+
+    } else {
+
+      return ( null )
+    }
+
   }
 }
 

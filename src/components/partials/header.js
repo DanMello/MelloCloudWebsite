@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
 import { FaBars, FaTimes, FaCloud } from 'react-icons/fa'
 
-import { NavLink, Link } from 'react-router-dom'
-
-import { userLogout } from '../../actions/userActions'
-
 import { createEvents } from '../../api/eventListener'
+
+import DesktopNav from './desktopNav'
+import MobileNav from './mobileNav'
 
 export default class Header extends Component {
 
-  constructor() {
+  constructor(props) {
 
-    super()
+    super(props)
 
     this.hover = this.hover.bind(this)
     this.goToLogin = this.goToLogin.bind(this)
+    this.toggleNav = this.toggleNav.bind(this)
 
     this.state = {
       navOpen: false,
@@ -28,7 +28,7 @@ export default class Header extends Component {
     let event = createEvents({
       mobileTouch: [
         { event: 'onTouchEnd', method: () => {this.props.history.push('/')}, target: 'goHome'},
-        { event: 'onTouchEnd', method: () => {this.setState(prevState => ({navOpen: !prevState.navOpen}))}, target: 'navOpenMobile'},
+        { event: 'onTouchEnd', method: this.toggleNav, target: 'navOpenMobile'},
         { event: 'onTouchEnd', method: this.goToLogin, target: 'logInButton'},
       ],
       mobileClick: [
@@ -62,114 +62,69 @@ export default class Header extends Component {
     this.props.history.push('/account/login')
   }
 
+  toggleNav (e) {
+
+    e.preventDefault()
+    
+    this.setState(prevState => ({navOpen: !prevState.navOpen}))
+  }
+
   render() {
 
-    let navItems = [
-      {name: 'Home', key: 'Home', to: '/'},
-      {name: 'About', key: 'About', to: '/about'},
-      {name: 'Terms', key: 'Terms', to: '/terms'},
-      {name: 'Contact', key: 'Contact', to: '/contact'}
-    ]
+    let welcome
+    let filler
 
-    return (
-      <div style={styles.headingContainer}>
-        <div style={styles.headingSubContainer}>
-          <FaCloud size={'2.5em'} color={'white'} style={{marginRight: '15px'}}/>
-          <h1
-            {...this.state.event.goHome}
-            style={styles.heading}
-            >
-            mello cloud
-          </h1>
-        </div>
-        <nav
-          {...this.state.event.navOpenDesktop}
-          style={styles.nav}
-          >
+    switch (this.props.config.device) {
+      case 'desktop':
+        welcome = (
           <div style={{color: 'white'}}>
-            <div style={{fontSize: '13px'}}>Welcome {!this.props.user.loggedIn ? '' : this.props.user['first_name']}</div>
+            <div style={{fontSize: '13px'}}>Welcome {!this.props.user.loggedIn ? '' : this.props.user.profile['first_name']}</div>
             <div style={{fontSize: '15px', fontWeight: 'bold'}}>View menu {!this.props.user.loggedIn ? '' : '& your account'}</div>
           </div>
-          { !!this.state.navOpen ? 
+        )
+        break
+      case 'mobile': 
+        filler = <div style={{flexGrow: 1, flexBasis: 0, flexShrink: 0}}/>
+        break
+    }
+
+    return (
+      
+      <div style={styles.headingContainer}>
+
+        {filler}
+
+        <div style={Object.assign({}, styles.headingSubContainer, this.props.config.device === 'mobile' && {flexGrow: 3, flexBasis: 0, flexShrink: 0, fontSize: '11px'} )}>
+          <FaCloud size={'2.5em'} color={'white'} style={{marginRight: '15px'}}/>
+          <h1 {...this.state.event.goHome} style={styles.heading}>mello cloud</h1>
+        </div>
+
+        <nav
+          {...this.state.event.navOpenDesktop}
+          style={Object.assign({}, styles.nav, this.props.config.device === 'mobile' && {flexGrow: 1, flexBasis: 0, flexShrink: 0, justifyContent: 'flex-end', paddingRight: '15px'} )}
+          >
+          {welcome}
+          <div {...this.state.event.navOpenMobile} style={{padding: '10px', display: 'flex'}}>
+          { !!this.state.navOpen ?
             <FaTimes
-              {...this.state.event.navOpenMobile}
               style={styles.icon}
               size={'1.3em'}
               />
             :
             <FaBars
-              {...this.state.event.navOpenMobile}
               style={styles.icon}
               size={'1.3em'}
               />            
-          }       
-          { !!this.state.navOpen &&
+          }
+          </div>
 
-            <ul style={styles.navUl}>
-
-              <div style={styles.triangle} />
-
-              <h3>Menu</h3>
-              
-                {navItems.map(item => {
-                  return (
-                  <div key={item.key}>
-                    <li style={styles.liItems} key={item.key}>
-                      <NavLink
-                        exact
-                        onClick={() => this.setState(prevState => ({navOpen: !prevState.navOpen}))}
-                        to={item.to}
-                        activeStyle={styles.active}
-                        className="navLinks"
-                        >
-                        {item.name}
-                      </NavLink>
-                    </li>
-                  </div>
-                  )
-                })}
-              <hr 
-                style={styles.hrLine}
-              />
-              { !this.props.user.loggedIn ?
-
-                <div style={styles.verificatoinContainer}>
-                  <div
-                    {...this.state.event.logInButton}
-                    style={styles.logInButton}
-                    >
-                    Log In
-                  </div>
-                  <Link 
-                    to='/account/signup'
-                    style={styles.singUpLink}
-                    onClick={() => this.setState(prevState => ({navOpen: !prevState.navOpen}))}
-                    onMouseEnter={(e) => e.target.style.color = 'rgb(0, 122, 255)'}
-                    onMouseLeave={(e) => e.target.style.color = '#444'}
-                    >
-                    Dont have an account?
-                  </Link>
-                </div>
+          { !this.state.navOpen ? null
+            : ( this.props.config.device === 'mobile' ?
+                <MobileNav userLoggedIn={this.props.user.loggedIn} toggleNav={this.toggleNav} events={this.state.event} dispatch={this.props.dispatch} />
                 :
-                <div style={styles.verificatoinContainer}>
-
-                  <div
-                    style={styles.logInButton}
-                    onClick={() => {
-                      localStorage.removeItem('user')
-                      this.props.dispatch(userLogout())
-                      this.props.history.push('/')
-                      this.setState(prevState => ({navOpen: !prevState.navOpen}))
-                    }}
-                    onMouseEnter={(e) => e.target.style.opacity = '0.5'}
-                    onMouseLeave={(e) => e.target.style.opacity = '1'}
-                    >
-                    Log Out
-                  </div>
-                </div>
-              }
-              </ul>
-              }
+                <DesktopNav userLoggedIn={this.props.user.loggedIn} toggleNav={this.toggleNav} events={this.state.event} dispatch={this.props.dispatch}/>
+              )
+          }
           </nav>
       </div>
     )
@@ -192,11 +147,12 @@ const styles = {
   },
   headingSubContainer: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   heading: {
     color: 'white',
-    display: 'inline-block',
+    display: 'block',
     cursor: 'pointer'
   },
   navButton: {
@@ -205,8 +161,7 @@ const styles = {
     backgroundColor: 'green'
   },
   icon: {
-    marginLeft: '15px',
-    color: 'white'
+    color: 'white',
   },
   nav: {
     display: 'flex', 

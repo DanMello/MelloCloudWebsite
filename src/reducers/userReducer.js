@@ -1,14 +1,19 @@
 export default function reducer(state={
+  profile: {},
   loggedIn: false,
-  first_name: null,
-  last_name: null,
-  email: null,
-  token: null
+  loading: false,
+  error: null
 }, action) {  
 
   switch (action.type) {
-    case "USER_LOGIN": {
-      return {...state, ...action.payload, loggedIn: true}
+    case "LOGIN": {
+      return {...state, loading: true}
+    }
+    case "LOGIN_SUCCESS": {
+      return {...state, loading: false, loggedIn: true, profile: action.payload}
+    }
+    case "LOGIN_ERROR": {
+      return {...state, loading: false, error: action.payload.message}
     }
     case "USER_LOGOUT": {
       return {...state, ...action.payload}

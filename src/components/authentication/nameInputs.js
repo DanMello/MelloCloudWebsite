@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { FaAngleRight } from 'react-icons/fa'
 import { createEvents } from '../../api/eventListener'
 
+let nameTest = /^[a-zA-Z\s]*$/
+
 export default class Nameinputs extends Component {
 
   constructor () {
@@ -11,6 +13,7 @@ export default class Nameinputs extends Component {
 
     this.next = this.next.bind(this)
     this.hover = this.hover.bind(this)
+    this.onKeyDown = this.onKeyDown.bind(this)
 
     this.state = {
       event: {},
@@ -33,6 +36,8 @@ export default class Nameinputs extends Component {
       ]
     }, this.props.config)
 
+    console.log(event)
+
     this.setState({event: event})
   }
 
@@ -40,7 +45,13 @@ export default class Nameinputs extends Component {
 
     if (!this.props.state.firstName || !this.props.state.lastName) {
 
-       this.props.thisRef.setState({error: 'Input fields cannot be empty'})
+      return
+
+    } else if (!nameTest.test(this.props.state.firstName) || !nameTest.test(this.props.state.lastName)) {
+
+      this.props.thisRef.setState({error: 'Name can only only contain letters'})
+
+      return
 
     } else {
 
@@ -62,6 +73,19 @@ export default class Nameinputs extends Component {
     if (e.type === 'mouseleave') e.target.style.opacity = '1'
   }
 
+  onKeyDown (e) {
+
+    if (e.key === 'Enter') {
+
+      if (this.props.state.focused !== false) {
+      
+        this.props.state.focused.blur()
+      }
+
+      return
+    }
+  }
+
   render() {
     return (
       <div>
@@ -81,6 +105,7 @@ export default class Nameinputs extends Component {
             ref='firstNameInput'
             autoFocus={false}
             autoComplete='off'
+            onKeyDown={this.onKeyDown}
             value={this.props.state.firstName}
             style={styles.formInputs}
             onChange={(e) => {
@@ -107,8 +132,18 @@ export default class Nameinputs extends Component {
                 e.target.style.outline = 'solid 1px red'
                 e.target.style.border = 'none'
 
-              } else {
+              } else if (!nameTest.test(this.props.state.firstName)) {
+
+                this.props.thisRef.setState({
+                  firstNameError: 'First Name can only contain letters',
+                  focused: false
+                })
+
+                e.target.style.outline = 'solid 1px red'
+                e.target.style.border = 'none'
                 
+              } else {
+
                 e.target.style.outline = 'none'
                 e.target.style.borderBottomColor = '#ccc'
 
@@ -129,12 +164,13 @@ export default class Nameinputs extends Component {
             name='lastName'
             ref='lastNameInput'
             autoComplete='off'
+            onKeyDown={this.onKeyDown}
             value={this.props.state.lastName}
             style={styles.formInputs}
             onChange={(e) => this.props.thisRef.setState({lastName: e.target.value})}
             onFocus={(e) => {
 
-              this.props.thisRef.setState({lastNameError: '', focused: this.refs.lastNameInput })
+              this.props.thisRef.setState({lastNameError: '', error: '', focused: this.refs.lastNameInput })
 
               e.target.style.outline = 'none'
               e.target.style.borderBottom = '1px solid'
@@ -152,12 +188,22 @@ export default class Nameinputs extends Component {
                 e.target.style.outline = 'solid 1px red'
                 e.target.style.border = 'none'
 
+              } else if (!nameTest.test(this.props.state.lastName)) {
+
+                this.props.thisRef.setState({
+                  lastNameError: 'First Name can only contain letters',
+                  focused: false
+                })
+
+                e.target.style.outline = 'solid 1px red'
+                e.target.style.border = 'none'
+                
               } else {
 
-                this.props.thisRef.setState({focused: false})
-                
                 e.target.style.outline = 'none'
                 e.target.style.borderBottomColor = '#ccc'
+
+                this.props.thisRef.setState({focused: false})
               }
             }}
           />

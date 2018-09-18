@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { FaCloud, FaAngleRight } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
-import { userLogin } from '../../actions/userActions'
+import { login } from '../../actions/userActions'
 
 import { createEvents } from '../../api/eventListener'
 
@@ -12,6 +12,7 @@ export default class Login extends Component {
 
     super()
 
+    this.login = login.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
 
     this.state = {
@@ -72,47 +73,13 @@ export default class Login extends Component {
 
     if (!this.state.email || !this.state.password) {
 
-      this.setState({error: 'Input fields cannot be empty'})
+      this.setState({
+        error: 'Input fields cannot be empty'
+      })
 
     } else {
 
-      alert(this.props.config.url)
-      alert(window.location.hostname)
-
-      fetch(this.props.config.url + '/account/login', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }, 
-        body: JSON.stringify({
-          email: this.state.email,
-          password: this.state.password
-        })
-
-      }).then(res => {
-
-        return res.json()
-
-      }).then(resJson => {
-
-        if (resJson.error) {
-
-          this.setState({error: resJson.message})
-
-        } else {
-
-          localStorage.setItem('user', JSON.stringify(resJson))
-
-          this.props.dispatch(userLogin(resJson))
-
-          this.props.history.push('/')
-        }
-          
-      }).catch(err => {
-
-        this.setState({error: 'There was a problem trying to connect to the server, please try again.'})
-      })
+      this.props.dispatch(this.login())
     }
   }
 
@@ -129,7 +96,7 @@ export default class Login extends Component {
 
         </div>
 
-        <div style={styles.error}>{this.state.error}</div>
+        <div style={styles.error}>{this.props.user.error}</div>
 
         <div style={{width: this.props.config.device !== 'mobile' ? '65%' : '95%' }}>
 

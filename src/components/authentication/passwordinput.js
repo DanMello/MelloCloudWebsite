@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { FaAngleLeft } from 'react-icons/fa'
 import { createEvents } from '../../api/eventListener'
 
+let passwordTest = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+
 export default class passwordInput extends Component {
 
   constructor () {
@@ -10,6 +12,8 @@ export default class passwordInput extends Component {
 
     this.previous = this.previous.bind(this)
     this.hover = this.hover.bind(this)
+    this.validatePassword = this.validatePassword.bind(this)
+    this.onKeyDown = this.onKeyDown.bind(this)
 
     this.state = {
       event: {}
@@ -20,15 +24,15 @@ export default class passwordInput extends Component {
 
     let event = createEvents({
       mobileTouch: [
-        { event: 'onTouchEnd', method: this.props.thisRef.handleSubmit, target: 'button' },
+        { event: 'onTouchEnd', method: this.validatePassword, target: 'button' },
         { event: 'onTouchEnd', method: this.previous, target: 'previousButton' },
       ],
       mobileClick: [
-        { event: 'onClick', method: this.props.thisRef.handleSubmit, target: 'button'},
+        { event: 'onClick', method: this.validatePassword, target: 'button'},
         { event: 'onClick', method: this.previous, target: 'previousButton'},
       ],
       desktop: [
-        { event: 'onClick', method: this.props.thisRef.handleSubmit, target: 'button' },
+        { event: 'onClick', method: this.validatePassword, target: 'button' },
         { event: 'onMouseEnter', method: this.hover, target: 'button' },
         { event: 'onMouseLeave', method: this.hover, target: 'button' },
         { event: 'onMouseEnter', method: () => {this.refs.previosButton.style.opacity = '0.5'}, target: 'previousButton'},
@@ -63,6 +67,54 @@ export default class passwordInput extends Component {
     if (e.type === 'mouseleave') e.target.style.opacity = '1'
   }
 
+  onKeyDown (e) {
+
+    if (e.key === 'Enter') {
+
+      if (this.props.state.focused !== false) {
+      
+        this.props.state.focused.blur()
+      }
+
+      return
+    }
+  }
+
+  validatePassword () {
+
+    if (!!this.props.state.alreadyTouched) return
+
+    if (!this.props.state.password || !this.props.state.passwordRepeat) return
+
+    if (!passwordTest.test(this.props.state.password) || !passwordTest.test(this.props.state.passwordRepeat)) {
+
+      this.props.thisRef.setState({
+        passwordError: "Password doesn't contain at least 8 characters and 1 number",
+        alreadyTouched: false
+      })
+
+    } else if (this.props.state.password !== this.props.state.passwordRepeat) {
+
+      this.props.thisRef.setState({
+        passwordError: 'Passwords do not match',
+        alreadyTouched: false
+      })
+
+    } else {
+
+      if (this.props.state.focused !== false) {
+      
+        this.props.state.focused.blur()
+      }
+
+      this.props.thisRef.setState({ 
+        alreadyTouched: true
+      })
+
+      this.props.thisRef.handleSubmit()
+    }
+  }
+
   render() {
     return (
       <div>
@@ -82,6 +134,7 @@ export default class passwordInput extends Component {
             ref='passwordInput'
             autoFocus={false}
             autoComplete='off'
+            onKeyDown={this.onKeyDown}
             style={styles.formInputs}
             onChange={(e) => {
               
@@ -107,8 +160,18 @@ export default class passwordInput extends Component {
                 e.target.style.outline = 'solid 1px red'
                 e.target.style.border = 'none'
 
-              } else {
+              } else if (!passwordTest.test(this.props.state.password)) {
+
+                this.props.thisRef.setState({
+                  passwordError: "Password doesn't contain at least 8 characters and 1 number",
+                  focused: false
+                })
+
+                e.target.style.outline = 'solid 1px red'
+                e.target.style.border = 'none'
                 
+              } else {
+
                 e.target.style.outline = 'none'
                 e.target.style.borderBottomColor = '#ccc'
 
@@ -131,6 +194,7 @@ export default class passwordInput extends Component {
             ref='passwordRepeatInput'
             autoFocus={false}
             autoComplete='off'
+            onKeyDown={this.onKeyDown}
             style={styles.formInputs}
             onChange={(e) => {
               
@@ -156,8 +220,18 @@ export default class passwordInput extends Component {
                 e.target.style.outline = 'solid 1px red'
                 e.target.style.border = 'none'
 
-              } else {
+              } else if (!passwordTest.test(this.props.state.passwordRepeat)) {
+
+                this.props.thisRef.setState({
+                  passwordRepeatError: "Password doesn't contain at least 8 characters and 1 number",
+                  focused: false
+                })
+
+                e.target.style.outline = 'solid 1px red'
+                e.target.style.border = 'none'
                 
+              } else {
+
                 e.target.style.outline = 'none'
                 e.target.style.borderBottomColor = '#ccc'
 
@@ -178,6 +252,10 @@ export default class passwordInput extends Component {
             <span>Submit</span>
           </div>
 
+        </div>
+
+        <div style={{marginTop: '20px', fontSize: '13px', textAlign: 'center '}}>
+          <p style={{color: 'grey'}}>Password must contain atleast 8 characters and 1 number</p>
         </div>
 
         <div

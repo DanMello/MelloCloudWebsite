@@ -17,6 +17,8 @@ class AppRoutes extends Component {
 
   render() {
 
+    console.log(this.props)
+
     let background
     let bodyRef = document.body
 
@@ -61,7 +63,8 @@ class AppRoutes extends Component {
             return (
               <Home 
                 {...props} 
-                config={this.props.state.config} 
+                config={this.props.state.config}
+                user={this.props.state.user.profile}
                 dispatch={this.props.dispatch} 
                 />
             )
@@ -75,6 +78,7 @@ class AppRoutes extends Component {
               <Login 
                 {...props} 
                 config={this.props.state.config}
+                user={this.props.state.user}
                 dispatch={this.props.dispatch} 
                 />
             ) 
@@ -87,6 +91,8 @@ class AppRoutes extends Component {
               <Signup 
                 {...props} 
                 config={this.props.state.config}
+                user={this.props.state.user}
+                events={this.props.state.events}
                 dispatch={this.props.dispatch}
                 />
             ) 

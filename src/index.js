@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker'
 
 import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
+import { Router } from 'react-router-dom'
+import history from './history'
 
 import AppRouter from './routes'
 import store from './store'
@@ -12,9 +13,9 @@ import './index.css'
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <Router history={history}>
       <AppRouter />
-    </BrowserRouter>
+    </Router>
   </Provider>,
   document.getElementById('root'))
   registerServiceWorker()
