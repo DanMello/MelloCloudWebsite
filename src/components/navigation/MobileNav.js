@@ -119,8 +119,6 @@ class MobileNav extends Component {
       }
     )
 
-    console.log(this.props)
-
     return (
 
       <ul className={navClass} ref={this.props.mobileNavRef}>
@@ -156,7 +154,6 @@ class MobileNav extends Component {
                         {listItem.name}
                       </NavLink>
                     )
-
                   },
                   button: (listItem) => {
 
@@ -178,16 +175,13 @@ class MobileNav extends Component {
                     </li>
                   </div>
                 )
-
               })}
 
               {arr.length - 1 !== i && <div className='nav-line' />}
 
             </div>
           )
-
         })}
-
       </ul>
     )
   }
