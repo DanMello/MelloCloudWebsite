@@ -1,0 +1,90 @@
+.header-headingContainer {
+  display: flex;
+  height: 65px;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgb(58, 61, 80);
+  box-shadow: 0px 2px 10px rgba(0,0,0,.2);
+}
+
+.header-logoContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+  flex: 1;
+}
+
+.header-mobile-logoContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+  flex: 2;
+}
+
+.header-logoIcon {
+  color: white;
+  font-size: 1.5em;
+}
+
+.header-logoIcon-container-mobile {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.header-logoIcon-subcontainer-mobile {
+  padding: 20px;
+}
+
+.header-logoIcon-mobile {
+  color: white;
+  font-size: 1.5em;
+}
+
+.header-logoHeading {
+  color: white;
+  margin-left: 10px;
+  font-size: 1.5em;
+}
+
+.header-logoHeading-mobile {
+  color: white;
+  margin-left: 10px;
+  font-size: 1.5em;
+}
+
+.header-navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+  padding-left: 15px;
+  padding-right: 15px;
+  flex: 1;
+}
+
+.header-welcomeContainer {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.header-welcome-big {
+  color: white;
+  font-size: 16px;
+}
+
+.header-welcome-small {
+  color: white;
+  font-size: 15px;
+}
+
+.header-filler {
+  flex-grow: 1; 
+  flex-basis: 0; 
+  flex-shrink: 0;
+}

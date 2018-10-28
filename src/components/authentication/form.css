@@ -1,0 +1,184 @@
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #F0F3F4;
+  height: 100vh;
+}
+
+.formContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 500px;
+  background-color: white;
+  margin-top: 15px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 10px rgba(0,0,0,.2);
+  padding: 80px 15px 80px 15px;
+}
+
+.formSubwrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  text-decoration: none;
+}
+
+.title {
+  display: block;
+  color: #444;
+  cursor: pointer;
+}
+
+.cloudIcon {
+  margin-right: 15px;
+  color: rgb(58, 61, 80);
+  font-size: 2em;
+}
+
+.inputContainers {
+  padding: 5px;
+  width: 100%;
+}
+
+.formLabels {
+  font-size: 20px;
+  margin-bottom: 3px;
+  color: #666;
+}
+.formInputs {
+  border: none;
+  border-radius: 0px;
+  padding: 4px;
+  color: black;
+  font-size: 17px;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+}
+
+.errorText {
+  color: red;
+  font-size: 12px;
+  text-align: center;
+  min-height: 17px;
+}
+
+.errorBorder {
+  outline: solid 1px red !important;
+  border: none !important;
+}
+
+.focusedBorder {
+  outline: none !important;
+  border-bottom: 1px solid rgb(0, 122, 255) !important;
+}
+
+.successText {
+  color: green;
+  font-size: 12px;
+  text-align: center;
+  min-height: 17px;
+}
+
+.button {
+  font-size: 20px;
+  color: white;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 10px;
+  border: none;
+  width: 100%;
+  border-radius: 5px;
+  background-color: rgb(58, 61, 80);
+  margin-top: 20px;
+  cursor: pointer;
+  height: 50px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.disabled {
+  opacity: .5;
+  cursor: default;
+}
+
+.forgotAccountContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.forgotAccount {
+  color: #444;
+  display: inline-block;
+  align-self: center;
+  text-decoration: underline;
+  font-size: 17px;
+}
+
+.signupContainer {
+  cursor: pointer;
+  align-self: flex-end;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.signupLink {
+  color: rgb(0, 122, 255);
+  text-decoration: none;
+  font-size: 19px;
+  display: flex;
+}
+
+.previousButtonContainer {
+  position: absolute;
+  bottom: -35px;
+  left: 0;
+  border: none;
+  background: none;
+}
+
+.previousButton {
+  text-decoration: none;
+  font-size: 19px;
+  color: rgb(0, 122, 255);
+  display: flex;
+  cursor: pointer;
+}
+
+.inputWrapper {
+  width: 95%;
+}
+
+.heading {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #444;
+}
+
+.terms {
+  margin-top: 20px;
+  text-align: center;
+  color: #444;
+  font-size: 13px;
+}
+
+.note {
+  color: #444;
+  margin-top: 20px;
+  font-size: 13px;
+  text-align: center;
+}

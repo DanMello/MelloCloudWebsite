@@ -1,0 +1,43 @@
+.about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  background: white;
+  border-radius: 5px;
+  color: #444;
+  padding: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.about-paragraph {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.about-scroll-parent {
+  display: flex;
+  justify-content: center;
+}
+
+.about-picture {
+  border-radius: 5px;
+  width: auto;
+  height: 100%;
+  display: inline-block;
+}
+
+.about-picture-margin {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.about-scroll-container {
+  margin-top: 20px;
+  height: 300px;
+}
+
+.about-journey-paragraph {
+  text-align: center;
+}

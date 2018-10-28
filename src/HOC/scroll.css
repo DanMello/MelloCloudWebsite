@@ -1,0 +1,10 @@
+.scroll-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+}
+
+.scroll-hidden {
+  overflow: hidden !important;
+}
