@@ -1,6 +1,6 @@
 import history from '../history.js'
 
-const auth = ({ dispatch, getState }) => next => action => {
+const auth = ({ dispatch, getState}) => next => action => {
 
   if (action.type === 'USER_LOGOUT') {
 

@@ -13,5 +13,4 @@ class About extends Component {
   }
 }
 
-
 export default hot(module)(About)
