@@ -17,22 +17,7 @@ class About extends Component {
 
     super()
 
-    this.state = {
-      numPages: null,
-      pageNumber: 1,
-      file: null
-    }
-
-    this.openPdf = this.openPdf.bind(this)
-
     this._scrollRef = React.createRef()
-  }
-
-  openPdf (e) {
-
-    this.setState({
-      file: e.target.dataset.file,
-    })
   }
 
   render() {
@@ -88,7 +73,7 @@ class About extends Component {
   }
 }
 
-export default hot(module)(PDFviewer(About))
+export default hot(module)(About)
 
 // major key
 // left = (parentWidth - elementWidth) / 2 
