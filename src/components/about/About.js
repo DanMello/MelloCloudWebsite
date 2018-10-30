@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
+import { Link } from 'react-router-dom'
 
-import { Scroll } from '../../HOC/melloWebScrollView'
-
+import Scroll from '../scrollView/ScrollView'
 import ContentWrapper from '../contentwrapper/ContentWrapper'
+
+import me from './me.jpeg'
+import me2 from './me2.jpeg'
+import me3 from './me3.jpeg'
 
 import './about.css'
 
@@ -13,7 +17,22 @@ class About extends Component {
 
     super()
 
+    this.state = {
+      numPages: null,
+      pageNumber: 1,
+      file: null
+    }
+
+    this.openPdf = this.openPdf.bind(this)
+
     this._scrollRef = React.createRef()
+  }
+
+  openPdf (e) {
+
+    this.setState({
+      file: e.target.dataset.file,
+    })
   }
 
   render() {
@@ -39,9 +58,9 @@ class About extends Component {
 
         <div className='about-scroll-parent'>
           <Scroll className='about-scroll-container' navOpen={this.props.navOpen} scrollRef={this._scrollRef}>
-            <img src='/assets/me2.jpeg' className='about-picture'/>
-            <img src='/assets/me.jpeg' className='about-picture about-picture-margin'/>
-            <img src='/assets/me3.jpeg' className='about-picture'/>
+            <img src={me2} className='about-picture'/>
+            <img src={me} className='about-picture about-picture-margin'/>
+            <img src={me3} className='about-picture'/>
           </Scroll>
         </div>
 
@@ -55,18 +74,21 @@ class About extends Component {
         </div>
 
         <div className='about-container'>
+          
           <h1>The journey.</h1>
+          
           <p className='about-paragraph about-journey-paragraph'>
             With all that said, here is all my notes from day one.
           </p>
-        </div>
+
+        </div> 
 
       </ContentWrapper>
     )
   }
 }
 
-export default hot(module)(About)
+export default hot(module)(PDFviewer(About))
 
 // major key
 // left = (parentWidth - elementWidth) / 2 

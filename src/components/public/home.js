@@ -7,7 +7,7 @@ class Home extends Component {
 
     return (
       <div>
-        <p style={{fontSize: '60px', fontWeight: 'bold'}}>Hi {this.props.user['first_name']}</p>
+        <h1>hi</h1>
       </div>
     )
   }

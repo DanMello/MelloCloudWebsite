@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
-import { compose } from 'redux'
-
 import classNames from 'classnames'
 
 import './scroll.css'
 
-export class Scroll extends Component {
+class Scroll extends Component {
 
   componentDidMount() {
 
@@ -34,3 +32,5 @@ export class Scroll extends Component {
     )
   }
 }
+
+export default hot(module)(Scroll)

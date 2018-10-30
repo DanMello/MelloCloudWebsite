@@ -41,3 +41,9 @@
 .about-journey-paragraph {
   text-align: center;
 }
+
+.about-pdf-link {
+  background: red;
+  padding: 20px;
+  color: white;
+}

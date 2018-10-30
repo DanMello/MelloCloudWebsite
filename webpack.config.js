@@ -51,9 +51,15 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          MiniCssExtractPlugin.loader,
-          // "style-loader",
+          // MiniCssExtractPlugin.loader,
+          "style-loader",
           "css-loader"
+        ]
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/,
+        use: [
+          'file-loader'
         ]
       }
     ]
@@ -67,7 +73,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new CopyWebpackPlugin([
-      { from: 'public/assets', to: 'assets' }
+      { from: 'public/assets', to: 'assets' },
+      { from: 'node_modules/pdfjs-dist/cmaps/', to: 'cmaps/'}
     ]),
     new HtmlWebpackPlugin({
       template: './public/index.html'
