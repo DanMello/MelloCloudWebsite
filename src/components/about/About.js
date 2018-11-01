@@ -5,10 +5,6 @@ import { Link } from 'react-router-dom'
 import Scroll from '../scrollView/ScrollView'
 import ContentWrapper from '../contentwrapper/ContentWrapper'
 
-import me from './me.jpeg'
-import me2 from './me2.jpeg'
-import me3 from './me3.jpeg'
-
 import './about.css'
 
 class About extends Component {
@@ -43,9 +39,9 @@ class About extends Component {
 
         <div className='about-scroll-parent'>
           <Scroll className='about-scroll-container' navOpen={this.props.navOpen} scrollRef={this._scrollRef}>
-            <img src={me2} className='about-picture'/>
-            <img src={me} className='about-picture about-picture-margin'/>
-            <img src={me3} className='about-picture'/>
+            <img src='/assets/me2.jpeg' className='about-picture'/>
+            <img src='/assets/me.jpeg' className='about-picture about-picture-margin'/>
+            <img src='/assets/me3.jpeg' className='about-picture'/>
           </Scroll>
         </div>
 
