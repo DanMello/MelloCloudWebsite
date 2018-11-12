@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 echo "Creating production build."
 npm run build
 echo "Sending production build to remote server."

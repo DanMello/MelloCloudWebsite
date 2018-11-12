@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import Loader from '../partials/myloader'
 
-class Home extends Component {
+class Helio extends Component {
 
   constructor() {
     super()
@@ -110,4 +110,4 @@ const styles = {
   }
 }
 
-export default hot(module)(Home)
+export default hot(module)(Helio)

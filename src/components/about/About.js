@@ -7,6 +7,8 @@ import ContentWrapper from '../contentwrapper/ContentWrapper'
 
 import './about.css'
 
+const pdfInfo = require('../../json/pdfInfo.json')
+
 class About extends Component {
 
   constructor() {
@@ -19,8 +21,9 @@ class About extends Component {
   render() {
 
     return (
-      <ContentWrapper mobile={this.props.config.isMobile}>
-        
+
+      <ContentWrapper config={this.props.config} dispatch={this.props.dispatch} user={this.props.user} >
+
         <div className='about-container'>
           <h1>What is mello cloud?</h1>
           <p className='about-paragraph'>
@@ -59,11 +62,31 @@ class About extends Component {
           <h1>The journey.</h1>
           
           <p className='about-paragraph about-journey-paragraph'>
-            With all that said, here is all my notes from day one.
+            With all that said, here is all my notes from day one in order.
           </p>
 
-        </div> 
+          <div className='about-pdfFlexContainer'>
 
+            {pdfInfo.map(file => {
+
+              return (
+                <Link 
+                  key={file.name}
+                  to={`/pdfviewer?file=${file.name}`}
+                  className='about-thumbnailContainer'
+                >
+                  <div className='about-imageContainer'>
+                    <img className='about-image' src={file.thumbnailPath} alt='oops thumbnail not found.'/>
+                    <div className='about-filename-container'>
+                      <span className='about-filename'>{file.nameWithoutNum}</span>
+                    </div>
+                  </div>
+                </Link>
+              )
+            })}
+
+          </div>
+        </div> 
       </ContentWrapper>
     )
   }

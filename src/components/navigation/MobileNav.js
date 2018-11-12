@@ -120,7 +120,7 @@ class MobileNav extends Component {
     )
 
     return (
-
+      
       <ul className={navClass} ref={this.props.mobileNavRef}>
 
         {navItems.filter(array => {

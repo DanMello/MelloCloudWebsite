@@ -8,14 +8,10 @@ class Scroll extends Component {
 
   componentDidMount() {
 
-    setTimeout(() => {
-
       let center = (this.props.scrollRef.current.scrollWidth - this.props.scrollRef.current.offsetWidth) / 2
 
       this.props.scrollRef.current.scrollLeft = 0
       this.props.scrollRef.current.scrollLeft = center
-
-    }, 100)
   }
 
   render() {

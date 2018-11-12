@@ -1,0 +1,87 @@
+.pdfviewer-pdfoverlay {
+  background: rgba(0,0,0,.5);
+}
+
+.pdfviewer-fixed-pdf-backbutton-container {
+  z-index: 9999;  
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: fixed;
+  color: white;
+  background: rgb(0, 122, 255);
+  bottom: 50px;
+  left: 50px;
+}
+
+.pdfviewer-pdfContainer {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-top: 60px;
+  z-index: 999;
+}
+
+.pdfviewer-pdfImageContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  padding-bottom: 129.30834560782225%;
+}
+
+.pdfviewer-pdfImages {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding-bottom: 5px;
+}
+
+.pdfviewer-backicon {
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+.pdfviewer-topheader {
+  background: rgba(0,0,0,.5);
+  display: flex;
+  align-items: center;
+  height: 50px; 
+  width: 100%;
+  position: fixed;
+  z-index: 9999;
+}
+
+.pdfviewer-filename {
+  color: white;
+  font-weight: bold;
+  margin-left: 20px;
+  font-size: 15px;
+}
+
+.pdfviewer-iconContainer{
+  display: flex;
+  align-items: center;
+}
+
+.pdfviewer-pageConunt-container {
+  bottom: 20px;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.pdfviewer-pageConunt {
+  background: rgba(0,0,0,.5);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.pdfviewer-flex1 {
+  flex: 1;
+}
