@@ -19,14 +19,15 @@ class PdfViewer extends Component {
       images: [],
       pages: null,
       fileNameWithoutnum: null,
-      currentPage: null
+      currentPage: 1
     }
 
     this.pdfInViewport = this.pdfInViewport.bind(this)
+    this.viewPort = this.viewPort.bind(this)
   }
 
   componentDidMount() {
-    
+
     window.scroll(0,0)
 
     window.addEventListener('scroll', this.pdfInViewport)
@@ -40,6 +41,9 @@ class PdfViewer extends Component {
         pages: file.pages,
         fileName: file.name,
         fileNameWithoutnum: file.nameWithoutNum
+      }, () => {
+
+        this.viewPort('lazyLoad')
       })
     })
   }
@@ -51,36 +55,69 @@ class PdfViewer extends Component {
 
   pdfInViewport() {
 
-    Object.keys(this.refs).filter(pdf => {
+    this.viewPort('countPages')
+    this.viewPort('lazyLoad')
+  }
 
-      const offset = 0
-      const ref = this.refs[pdf].getBoundingClientRect()
-      const windowHeight = (window.innerHeight || document.documentElement.clientHeight)
-      const windowWidth = (window.innerWidth || document.documentElement.clientWidth)
+  viewPort(method) {
 
-      if (ref.height > windowHeight) {
+    const offset = 0
+    const windowHeight = (window.innerHeight || document.documentElement.clientHeight)
+    const windowWidth = (window.innerWidth || document.documentElement.clientWidth)
 
-        return (ref.top + offset) >= 0 && (ref.top - offset) <= windowHeight
+    const viewportFuncs = {
+      countPages: () => {
 
-      } else {
+        Object.keys(this.refs).filter(pdf => {
 
-        return ref.top >= 0 &&
-          ref.left >= 0 &&
-          ref.bottom <= windowHeight && 
-          ref.right <= windowWidth
-      }
+          const ref = this.refs[pdf].getBoundingClientRect()
 
-    }).map(pdf => {
+          if (ref.height > windowHeight) {
 
-      let pageNumber = this.state.images.indexOf(pdf) + 1
+            return (ref.top + offset) >= 0 && (ref.top - offset) <= windowHeight
 
-      if (this.state.currentPage !== pageNumber) {
+          } else {
 
-        this.setState({
-          currentPage: pageNumber
+            return ref.top >= 0 &&
+              ref.left >= 0 &&
+              ref.bottom <= windowHeight && 
+              ref.right <= windowWidth
+          }
+
+        }).map(pdf => {
+
+          let pageNumber = this.state.images.indexOf(pdf) + 1
+
+          if (this.state.currentPage !== pageNumber) {
+
+            this.setState({
+              currentPage: pageNumber
+            })
+          }
+        })
+      },
+      lazyLoad: () => {
+
+        Object.keys(this.refs).filter(pdf => {
+
+          const ref = this.refs[pdf].getBoundingClientRect()
+
+          const vertInView = (ref.top <= windowHeight) && ((ref.top + ref.height) >= 0)
+          const horInView = (ref.left <= windowWidth) && ((ref.left + ref.width) >= 0)
+
+          return (vertInView && horInView)
+
+        }).map(pdf => {
+
+          if (this.refs[pdf].src !== pdf) {
+
+            this.refs[pdf].src = pdf
+          }
         })
       }
-    })
+    }
+
+    return viewportFuncs[method]()
   }
 
   render() {
@@ -91,12 +128,14 @@ class PdfViewer extends Component {
 
         <div className='pdfviewer-topheader'>
           
-          <div className='pdfviewer-iconContainer pdfviewer-flex1'>
+          <div className='pdfviewer-iconContainer'>
             <Link to='/about'>
               <FaAngleLeft className='pdfviewer-backicon'/>
             </Link>
             <div className='pdfviewer-filename'>{this.state.fileNameWithoutnum}</div>
           </div>
+
+          <div/>
 
         </div>
 
@@ -109,10 +148,10 @@ class PdfViewer extends Component {
                 
                 <img
                   className='pdfviewer-pdfImages'
-                  src={src}
+                  src={'/assets/pdf.png'}
+                  data-source={src}
                   ref={src}
                 />
-
               </div>
             )
           })}

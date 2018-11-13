@@ -53,6 +53,7 @@
   width: 100%;
   position: fixed;
   z-index: 9999;
+  justify-content: space-around;
 }
 
 .pdfviewer-filename {
@@ -84,4 +85,10 @@
 
 .pdfviewer-flex1 {
   flex: 1;
+}
+
+@media only screen and (max-width: 1500px) {
+  .pdfviewer-topheader {
+    justify-content: space-between;
+  }
 }

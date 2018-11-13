@@ -86,7 +86,16 @@ class About extends Component {
             })}
 
           </div>
-        </div> 
+        </div>
+
+        <div className='about-container' style={{marginBottom: '210px'}}>
+          <h1>Currently...</h1>
+          <p className='about-paragraph'>
+            My most recent job was working as a salesman for a construction company but my heart wasent in it and things didnt end up working out there.
+            
+          </p>
+        </div>
+
       </ContentWrapper>
     )
   }
