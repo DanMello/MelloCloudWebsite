@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom'
 
 import Scroll from '../scrollView/ScrollView'
 import ContentWrapper from '../contentwrapper/ContentWrapper'
+import { Technologies } from '../../data/Technologies'
 
 import './about.css'
 
-const pdfInfo = require('../../json/pdfInfo.json')
+const pdfInfo = require('../../data/pdfInfo.json')
 
 class About extends Component {
 
@@ -15,7 +16,22 @@ class About extends Component {
 
     super()
 
+    this.state = {
+      openModule: null
+    }
+
+    this.moreInfo = this.moreInfo.bind(this)
+
     this._scrollRef = React.createRef()
+  }
+
+  moreInfo(e) {
+
+    let name = e.currentTarget.dataset.name
+
+    this.setState(prevState => ({
+      openModule: name === prevState.openModule ? null : name
+    }))
   }
 
   render() {
@@ -28,14 +44,14 @@ class About extends Component {
           <h1>What is mello cloud?</h1>
           <p className='about-paragraph'>
             "mello cloud" is a website I made to put into practice some of the things that I've been 
-            learning for the past 3 years or so and to share projects I'm working on with potential employers or clients. 
+            learning for the past 3 years or so and to share projects I'm working on with potential employers or clients.
           </p>
         </div>
 
         <div className='about-container'>
           <h1>So who am I?</h1>
           <p className='about-paragraph'>
-            My name is Joao Daniel Santos De Mello, but most people just call me Dan. I was born in Brasil, I am 24 years old and I currently live
+            My name is Joao Daniel Santos De Mello, but most people just call me Dan. I was born in Brazil, I am 24 years old and I currently live
             in Rockland, MA. Here is some pictures of me and my girlfriend Michelle.
           </p>
         </div>
@@ -70,9 +86,10 @@ class About extends Component {
             {pdfInfo.map(file => {
 
               return (
-                <Link 
+                <Link
                   key={file.name}
                   to={`/pdfviewer?file=${file.name}`}
+                  id={file.name}
                   className='about-thumbnailContainer'
                 >
                   <div className='about-imageContainer'>
@@ -88,12 +105,56 @@ class About extends Component {
           </div>
         </div>
 
-        <div className='about-container' style={{marginBottom: '210px'}}>
+        <div className='about-container'>
           <h1>Currently...</h1>
           <p className='about-paragraph'>
-            My most recent job was working as a salesman for a construction company but my heart wasent in it and things didnt end up working out there.
-            
+            My most recent job was working as a salesman for a construction company, 
+            but my heart wasn't in it and it ended up not working out. 
+            Ever since I've been more focused and spending most of my time learning new technologies and working on this website.
+            If you are interested you can check out my github linked below to see all the code I wrote for this website and more.
           </p>
+        </div>
+
+        <div className='about-githublink-container'>
+          <a href='https://github.com/DanMello' className='about-githublink'>View my Github</a>
+        </div>
+
+        <div className='about-container'>
+          <h1>Technologies</h1>
+          <span className='about-paragraph-center'>I mentioned learning new technologies, so I figured I should talk a little more about how I implemented them on this website.</span>
+          
+          <div className='about-list-container'>
+          
+            {Technologies.map(category => {
+
+              return (
+                <div key={category.heading}>
+                  <h2 className='about-list-heading'>{category.heading}</h2>
+                  <ul className='about-ul'>
+
+                    {category.list.map(items => {
+
+                      return (
+                        <div className='about-li-container' key={items.title}>
+                          <div className='about-li-subcontainer'>
+                            <li className='about-li'>{items.title}</li>
+                            <span className='about-more-info' onClick={this.moreInfo} data-name={items.title}>
+                              {this.state.openModule === items.title ? 'Less info' : 'More info' }
+                            </span>
+                          </div>
+                          {this.state.openModule === items.title && 
+                            <p className='about-li-paragraph'>
+                              {items.paragraph}
+                            </p>
+                          }
+                        </div>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )
+            })}
+          </div>
         </div>
 
       </ContentWrapper>
@@ -105,4 +166,3 @@ export default hot(module)(About)
 
 // major key
 // left = (parentWidth - elementWidth) / 2 
-

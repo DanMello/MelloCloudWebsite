@@ -4,7 +4,7 @@ import { Route, withRouter } from 'react-router-dom'
 import classNames from 'classnames'
 
 import About from './components/about/About'
-import Home from './components/public/home'
+import Home from './components/home/Home'
 import Helio from './components/public/helio'
 import PdfViewer from './components/pdfViewer/PdfViewer'
 
@@ -40,7 +40,7 @@ class AppRoutes extends Component {
       <div>
         <PropsRoute path="/" exact strict component={Home} config={config} dispatch={dispatch} user={user} />
         <Route path='/helio' component={Helio}/>
-        <PropsRoute path="/about" exact component={About} config={config} dispatch={dispatch} user={user} />
+        <PropsRoute path="/about" component={About} config={config} dispatch={dispatch} user={user} />
         <PropsRoute path="/pdfviewer" exact strict component={PdfViewer} config={config} />
         <PropsRoute path="/account/login" exact strict component={Login} form={form} config={config} dispatch={dispatch} required={['email', 'password']} onSubmit={login} />
         <PropsRoute path="/account/signup" exact strict component={Signup} form={form} config={config} dispatch={dispatch} user={user} />

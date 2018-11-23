@@ -7,6 +7,10 @@
   box-shadow: 0px 2px 10px rgba(0,0,0,.2);
 }
 
+.header-min-width {
+  min-width: 980px;
+}
+
 .header-logoContainer {
   display: flex;
   align-items: center;

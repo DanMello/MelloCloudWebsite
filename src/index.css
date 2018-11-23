@@ -5,6 +5,10 @@
   font-family: sans-serif, verdana;
 }
 
+.desktop-min-width {
+  min-width: 980px;
+}
+
 .nav-open {
   overflow: hidden;
   position: fixed;

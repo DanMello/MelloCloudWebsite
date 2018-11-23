@@ -77,8 +77,7 @@ class Header extends Component {
     let Mobile = this.props.config.isMobile
 
     return (
-      
-      <div className={'header-headingContainer'}>
+      <div className={!Mobile ? 'header-headingContainer header-min-width' : 'header-headingContainer'}>
 
         {!!Mobile && 
           

@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import queryString from 'query-string'
 import { FaAngleLeft } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { HashLink as Link } from 'react-router-hash-link'
 
 import './pdfviewer.css'
 
-const pdfInfo = require('../../json/pdfInfo.json')
+const pdfInfo = require('../../data/pdfInfo.json')
 
 class PdfViewer extends Component {
 
@@ -129,7 +129,7 @@ class PdfViewer extends Component {
         <div className='pdfviewer-topheader'>
           
           <div className='pdfviewer-iconContainer'>
-            <Link to='/about'>
+            <Link to={`/about#${this.state.fileName}`}>
               <FaAngleLeft className='pdfviewer-backicon'/>
             </Link>
             <div className='pdfviewer-filename'>{this.state.fileNameWithoutnum}</div>

@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+  margin-bottom: 20px;
   background: white;
   border-radius: 5px;
   color: #444;
@@ -97,6 +98,96 @@
 .about-filename {
   color: white;
   font-size: 10px;
+}
+
+.about-githublink-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.about-githublink {
+  font-size: 25px;
+  color: rgb(0, 122, 255);
+  text-decoration: none;
+}
+
+.about-githublink:hover {
+  text-decoration: underline;
+}
+
+.about-list-container {
+  width: 100%;
+}
+
+.about-list-heading {
+  margin-top: 20px;
+  font-size: 23px;
+  color: #444;
+}
+
+.about-ul {
+  margin-top: 10px;
+  list-style-type: none;
+}
+
+.about-li {
+  font-size: 20px;
+  color: #666;
+  font-weight: bold;
+}
+
+.about-li-container {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.about-li-subcontainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-more-info {
+  color: rgb(0, 122, 255);
+  cursor: pointer;
+}
+
+.about-more-info:hover {
+  opacity: .5;
+}
+
+.about-paragraph-center {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.about-li-paragraph{
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.about-contact-button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background: rgb(58, 61, 80);
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 25px;
+  margin-left: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+}
+
+.about-contact-button:hover {
+  opacity: .5;
 }
 
 @media only screen and (max-width: 600px) {
