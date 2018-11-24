@@ -21,7 +21,7 @@ class Footer extends Component {
               </div>
               <div className='footer-contact-info'>Email: <a href="mailto:jdanmello@gmail.com" className='footer-contact-info-span'>jdanmello@gmail.com</a></div>
               <div className='footer-contact-info'>Cell: <a href="tel:3397880346" className='footer-contact-info-span'>(339) 788-0346</a></div>
-              <div className='footer-contact-info'>Github: <a href="tel:3397880346" className='footer-contact-info-span'>DanMello</a></div>
+              <div className='footer-contact-info'>Github: <a href="https://github.com/DanMello" className='footer-contact-info-span'>DanMello</a></div>
             </div>
           </div>
         </div>

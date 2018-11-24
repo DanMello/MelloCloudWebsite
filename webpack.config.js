@@ -1,4 +1,3 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -66,7 +65,6 @@ module.exports = (env) => {
       historyApiFallback: true,
     },
     plugins: [
-      new CleanWebpackPlugin(['dist']),
       new CopyWebpackPlugin([
         { from: 'public/assets', to: 'assets' }
       ]),

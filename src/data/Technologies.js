@@ -52,7 +52,7 @@ let Technologies = [
       },
       {
         title: 'Mysql',
-        paragraph:  "Mysql is the database I use in my server and so far I'm only storing user info. " +
+        paragraph:  "Mysql is the database I use in my server and so far I'm only storing basic user info. " +
                     "User passwords are encrypted using nodejs-bcrypt and I use knex with node js to update the database."
       }
     ]
@@ -77,7 +77,8 @@ let Technologies = [
       {
         title: 'Deployment',
         paragraph:  "I used to deploy my app using pm2 deploy production but now I wrote a bash script to do it all. " +                    
-                    "It's more convenient and I can transfer my images faster too."
+                    "I have more control over how files are transfered for example, I use rsync and I can choose to transfer only the files that changed. " + 
+                    "It's also easier to transfer my images, I'm not even sure how you do that with pm2."
       }
     ]
   }
