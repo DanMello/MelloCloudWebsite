@@ -35,6 +35,8 @@ const api = ({ dispatch, getState }) => next => action => {
 
     }).catch(err => {
 
+      console.log(err.message)
+
       if (axios.isCancel(err)) {
 
         console.log('canceled')

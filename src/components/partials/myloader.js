@@ -5,7 +5,9 @@ class Loader extends Component {
 
   render() {
     return (
-      <div style={{
+      <div
+        className={this.props.containerClass} 
+        style={{
         display: 'flex',
         alignItems: 'center'
       }}>
@@ -19,8 +21,8 @@ class Loader extends Component {
         boxShadow: '0px 2px 10px rgba(0,0,0,.2)'
       }}>
       </div>
-      <span style={{marginLeft: '10px', marginRight: '2px'}}>{this.props.text}</span>
-      <div className='loading' /> 
+      <span style={{marginLeft: '10px', marginRight: '2px'}} className={this.props.className}>{this.props.text}</span>
+      {!!this.props.text && <div className='loading' />}
       </div>
     )
   }

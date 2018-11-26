@@ -3,15 +3,17 @@ import { connect } from 'react-redux'
 import { Route, withRouter } from 'react-router-dom'
 import classNames from 'classnames'
 
-import About from './components/about/About'
 import Home from './components/home/Home'
-import Helio from './components/public/helio'
+import About from './components/about/About'
+import Contact from './components/contact/Contact'
 import PdfViewer from './components/pdfViewer/PdfViewer'
+
+import Helio from './components/public/helio'
 
 import Login from './components/authentication/Login'
 import Signup from './components/authentication/Signup'
 
-import { login, checkEmail } from './actions/formActions'
+import { login, checkEmail, contact } from './actions/formActions'
 
 const renderMergedProps = (component, ...rest) => {
   const finalProps = Object.assign({}, ...rest)
@@ -38,9 +40,10 @@ class AppRoutes extends Component {
     return (
 
       <div>
-        <PropsRoute path="/" exact strict component={Home} config={config} dispatch={dispatch} user={user} />
         <Route path='/helio' component={Helio}/>
+        <PropsRoute path="/" exact strict component={Home} config={config} dispatch={dispatch} user={user} />
         <PropsRoute path="/about" component={About} config={config} dispatch={dispatch} user={user} />
+        <PropsRoute path="/contact" component={Contact} config={config} dispatch={dispatch} user={user} form={form} dispatch={dispatch} onSubmit={contact} required={['name', 'email', 'message']} delayErrors={[{ input: 'email', time: 1400 }]} />
         <PropsRoute path="/pdfviewer" exact strict component={PdfViewer} config={config} />
         <PropsRoute path="/account/login" exact strict component={Login} form={form} config={config} dispatch={dispatch} required={['email', 'password']} onSubmit={login} />
         <PropsRoute path="/account/signup" exact strict component={Signup} form={form} config={config} dispatch={dispatch} user={user} />

@@ -104,3 +104,30 @@ export function signup (user) {
     success: userVerified
   }
 }
+
+function messageSent(response) {
+
+  return {
+    type: "FORM_MESSAGE_SENT",
+    payload: response
+  }
+}
+
+export function contact (info) {
+
+  return {
+    type: "FETCH",
+    payload: {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      data: info,
+      url: url + '/account/contact'
+    },
+    loader: loader,
+    error: error,
+    success: messageSent
+  }
+}

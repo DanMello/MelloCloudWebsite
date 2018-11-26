@@ -1,0 +1,173 @@
+.contact-mainContainter {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 2px 10px rgba(0,0,0,.2);
+  position: relative;
+}
+
+.contact-heading-container {
+  text-align: center;
+  padding: 10px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  background: rgb(58, 61, 80);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.contact-airplane {
+  color: rgb(0, 125, 255);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.contact-airplane:hover, .contact-backbutton:hover, .contact-logo-container:hover {
+  opacity: .5;
+}
+
+.contact-backbutton {
+  font-size: 40px;
+  cursor: pointer;
+  color: white;
+  padding: 5px;
+}
+
+.contact-backbutton-container {
+  flex: 1;
+  text-align: center;
+}
+
+.contact-heading {
+  color: white;
+  font-size: 1.5em;
+  flex: 2;
+}
+
+.contact-heading-small {
+  color: #666;
+  font-size: 20px;
+  margin-top: 18px;
+  text-align: center;
+}
+
+.contact-input-container {
+  width: 100%;
+}
+
+.contact-error-text {
+  color: red;
+  margin-left: 4px;
+}
+
+.contact-forminput-container {
+  padding-top: 6px;
+}
+
+.contact-forminput {
+  width: 100%;
+  font-size: 17px;
+  padding: 8px;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.contact-formText-area {
+  border: none;
+  width: 100%;
+  font-size: 17px;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  resize: none;
+  height: 60vh;
+}
+
+.contact-forminput-focused-input {
+  outline: none !important;
+  border-bottom: 1px solid rgb(0, 125, 255) !important;
+}
+
+.contact-forminput-focused {
+  outline: none !important;
+  border: none !important;
+}
+
+.contact-button {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 10px;
+  flex: 1;
+}
+
+.contact-button-disabled {
+  opacity: .5;
+  cursor: default;
+  font-size: 20px;
+}
+
+.contact-button-disabled > * {
+  color: white;
+}
+
+.contact-errorBorder-input {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid red;
+}
+
+.contact-errorBorder-textarea {
+  border: none;
+  outline: none;
+}
+
+.contact-logo-container {
+  display: flex;
+  justify-content: center;
+}
+
+.contact-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.contact-mellocloud {
+  color: #ccc;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.contact-cloudIcon {
+  color: #ccc;
+  font-size: 28px;
+  margin-right: 10px;
+}
+
+.contact-loader-container {
+  justify-content: center;
+}
+
+.contact-messagecontainer {
+  background: green;
+  color: white;
+  text-align: center;
+  padding: 2px;
+  font-size: 18px;
+}
+
+.contact-errorContainer {
+  background: red;
+  color: white;
+  text-align: center;
+  padding: 2px;
+  font-size: 18px;
+}

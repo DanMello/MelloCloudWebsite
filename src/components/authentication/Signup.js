@@ -3,6 +3,7 @@ import { hot } from 'react-hot-loader'
 import { Link } from 'react-router-dom'
 import { FaCloud } from 'react-icons/fa'
 import { checkEmail, signup } from '../../actions/formActions'
+import FormWrapper from '../contentwrapper/FormWrapper'
 import Name from './Name'
 import Email from './Email'
 import Password from './Password'
@@ -52,29 +53,25 @@ class SignupForm extends Component {
 
     return (
 
-      <div className='formWrapper' style={this.props.config.isMobile ? {justifyContent: 'flex-start'} : {justifyContent: 'center'}}>
+      <FormWrapper isMobile={this.props.config.isMobile}>
 
-        <div className='formSubwrapper' style={this.props.config.isMobile ? {width: '95%'} : {width: '450px'}}>
+        <form className={'formContainer'} style={{...this.props.config.isMobile && {height: '80vh'}}}>
 
-          <form className={'formContainer'} style={{...this.props.config.isMobile && {height: '80vh'}}}>
+          <Link to='/' className='titleContainer'>
+            
+            <FaCloud className='cloudIcon' />
 
-            <Link to='/' className='titleContainer'>
-              
-              <FaCloud className='cloudIcon' />
+            <h1 className='title'>mello cloud</h1>
 
-              <h1 className='title'>mello cloud</h1>
+          </Link>
 
-            </Link>
+          <div className='errorText'>{this.props.form.error}</div>
 
-            <div className='errorText'>{this.props.form.error}</div>
+          {steps[this.props.form.step]}
 
-            {steps[this.props.form.step]}
-
-          </form>
-
-        </div>
-
-      </div>
+        </form>
+          
+      </FormWrapper>
     )
   }
 }

@@ -361,7 +361,7 @@ export class SmartInput extends Component {
 
   render() {
 
-    let { property, method, className, focusedClassName, errorClassName, input, ...rest } = this.props
+    let { property, method, className, focusedClassName, errorClassName, input, textArea, ...rest } = this.props
 
     let error, focused, typing, value
 
@@ -381,7 +381,14 @@ export class SmartInput extends Component {
       }
     )
 
-    return (<input id={property} data-method={method} className={formInputs} value={value ? value : ''} {...rest} />)
+    let inputType
+
+    textArea ?
+      inputType = <textarea id={property} data-method={method} className={formInputs} value={value ? value : ''} {...rest}/>
+      :
+      inputType = <input id={property} data-method={method} className={formInputs} value={value ? value : ''} {...rest} />
+
+    return (inputType)
   }
 }
 

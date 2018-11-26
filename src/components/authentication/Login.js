@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import { Link } from 'react-router-dom'
+import FormWrapper from '../contentwrapper/FormWrapper'
 import { FaCloud, FaUser, FaAngleRight } from 'react-icons/fa'
 import { FormHOC, SmartResponse, SmartInput, SmartButton } from '../../HOC/melloForms2'
 import Loader from '../partials/myloader'
@@ -17,9 +18,7 @@ class Login extends Component {
 
     return (
 
-      <div className='formWrapper' style={this.props.config.isMobile ? {justifyContent: 'flex-start'} : {justifyContent: 'center'}}>
-
-        <div className='formSubwrapper' style={this.props.config.isMobile ? {width: '95%'} : {width: '450px'}}>
+      <FormWrapper isMobile={this.props.config.isMobile}>
 
         <form className={'formContainer'} style={{...this.props.config.isMobile && {height: '80vh'}}}>
 
@@ -128,9 +127,7 @@ class Login extends Component {
           </Link>
         </div>
 
-        </div>
-
-      </div>
+      </FormWrapper>
     )
   }
 }

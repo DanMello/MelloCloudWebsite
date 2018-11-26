@@ -43,7 +43,7 @@ class About extends Component {
         <div className='about-container'>
           <h1>What is mello cloud?</h1>
           <p className='about-paragraph'>
-            "mello cloud" is a website I made to put into practice some of the things that I've been 
+            "mello cloud" is a website I made to put into practice some of the things that I&apos;ve been  
             learning for the past 3 years or so and to share projects I'm working on with potential employers or clients.
           </p>
         </div>
@@ -67,9 +67,9 @@ class About extends Component {
         <div className='about-container'>
           <h1>April 22, 2016</h1>
           <p className='about-paragraph'>
-            That date is the start of it all. Since I was young, I've been good with computers. I never thought I would be able to code
+            That date is the start of it all. Since I was young, I&apos;ve been good with computers. I never thought I would be able to code
             because it seemed you needed to be a super genius until a previous employer of mine asked me if I could make websites. At the time I had
-            no clue but I said... yeah. Ever since then I've been hooked.
+            no clue but I said... yeah. Ever since then I&apos;ve been hooked.
           </p>
         </div>
 
@@ -109,8 +109,8 @@ class About extends Component {
           <h1>Currently...</h1>
           <p className='about-paragraph'>
             My most recent job was working as a salesman for a construction company, 
-            but my heart wasn't in it and it ended up not working out. 
-            Ever since I've been more focused and spending most of my time learning new technologies and working on this website.
+            but my heart wasn&apos;t in it and it ended up not working out. 
+            Ever since I&apos;ve been more focused and spending most of my time learning new technologies and working on this website.
             If you are interested you can check out my github linked below to see all the code I wrote for this website and more.
           </p>
         </div>
