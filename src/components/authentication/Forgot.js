@@ -7,7 +7,7 @@ import { FormHOC, SmartResponse, SmartInput, SmartButton } from '../../HOC/mello
 import Loader from '../partials/myloader'
 import './form.css'
 
-class Login extends Component {
+class Forgot extends Component {
 
   componentDidMount() {
 
@@ -15,8 +15,6 @@ class Login extends Component {
   }
 
   render() {
-
-    console.log(this.props)
 
     return (
 
@@ -34,16 +32,18 @@ class Login extends Component {
 
           <div className='errorText'>{this.props.form.error}</div>
 
-          <div className='successText'>{this.props.location.state && this.props.location.state.redirectMessage}</div>
-
           <div className='inputWrapper'>
+
+            <div className={'heading'}>Forgot account?</div>
 
             <div className={'inputContainers'}>
               
               <SmartResponse
-                className='errorText'
                 input={this.props.form.data.email}
+                className='errorText'
+                successClassName='successText'
                 emptyError='Email cannot be empty'
+                validationError='Please enter a valid email.'
               />
 
               <label className={'formLabels'}>Email: </label>
@@ -51,7 +51,7 @@ class Login extends Component {
               <SmartInput
                 className={'formInputs'}
                 property='email'
-                method={'["notEmpty"]'}
+                method={'["notEmpty","validEmail"]'}
                 focusedClassName={'focusedBorder'}
                 errorClassName={'errorBorder'}
                 input={this.props.form.data.email}
@@ -60,32 +60,6 @@ class Login extends Component {
                 onBlur={this.props.onBlur}
                 autoComplete={'off'}
                 type='email'
-              />
-
-            </div>
-
-            <div className={'inputContainers'}>
-
-              <SmartResponse
-                className='errorText'
-                emptyError='Password cannot be empty.'
-                input={this.props.form.data.password}
-              />
-      
-              <label className={'formLabels'}>Password: </label>
-
-              <SmartInput
-                className={'formInputs'}
-                property='password'
-                method={'["notEmpty"]'}
-                focusedClassName={'focusedBorder'}
-                errorClassName={'errorBorder'}
-                input={this.props.form.data.password}
-                onChange={this.props.onChange}
-                onFocus={this.props.onFocus}
-                onBlur={this.props.onBlur}
-                autoComplete={'off'}
-                type='password'
               />
 
             </div>
@@ -104,36 +78,25 @@ class Login extends Component {
                 width={'1.5em'}
                 height={'1.5em'}
                 color={'white'}
-                text='Logging in'
+                text='Sending link'
               />
               :
               <div className='buttonContainer'>
-                <span>Log in</span>
-                <FaUser size={'1.2em'} color={'white'} />
+                <span>Send me link</span>
+                <FaAngleRight size={'1.2em'} color={'white'} />
               </div>
             }
             </SmartButton>
 
-          </div>
+            <div className='form-instructions'>No problem, just type in your email and we'll send you a reset link.</div>
 
-          <div className='forgotAccountContainer'>
-            <Link className='forgotAccount' to='/account/forgot'>
-              Forgot account?
-            </Link>
           </div>
 
         </form>
-
-        <div className='signupContainer'>
-          <Link to='/account/signup' className='signupLink'>
-            <span>Create account</span>
-            <FaAngleRight size={'1.2em'} color={'rgb(0, 122, 255)'} />
-          </Link>
-        </div>
 
       </FormWrapper>
     )
   }
 }
 
-export default hot(module)(FormHOC(Login))
+export default hot(module)(FormHOC(Forgot))

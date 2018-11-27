@@ -1,10 +1,11 @@
 import axios from 'axios'
+import history from '../history.js'
 
 let source = undefined
 
 const api = ({ dispatch, getState }) => next => action => {
 
-  let { type, payload, success, error, loader } = action
+  let { type, payload, success, error, loader, redirect, redirectUrl } = action
 
   let property = null
 
@@ -30,6 +31,16 @@ const api = ({ dispatch, getState }) => next => action => {
       ...payload,
       ...{ cancelToken: source.token }
     }).then(response => {
+
+      if (redirect) {
+
+        return history.push({
+          pathname: redirectUrl,
+          state: {
+            redirectMessage: response.data
+          }
+        })
+      }
 
       dispatch(success(!!property ? {success: response.data, property} : response.data))
 

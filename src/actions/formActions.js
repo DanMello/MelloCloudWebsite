@@ -131,3 +131,45 @@ export function contact (info) {
     success: messageSent
   }
 }
+
+export function forgot (email) {
+
+  return {
+    type: "FETCH",
+    payload: {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      data: email,
+      url: url + '/account/forgot'
+    },
+    loader: loader,
+    error: error,
+    redirect: true,
+    redirectUrl: '/account/login'
+  }
+}
+
+export function resetPassword (data) {
+
+  console.log(data)
+
+  return {
+    type: "FETCH",
+    payload: {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      data: data,
+      url: url + '/account/reset'
+    },
+    loader: loader,
+    error: error,
+    redirect: true,
+    redirectUrl: '/account/login'
+  }
+}

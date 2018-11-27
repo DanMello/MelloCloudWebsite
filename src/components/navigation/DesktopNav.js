@@ -12,7 +12,7 @@ let navItems = [
 ]
 
 let loggedInNavItems = [
-  {name: 'Your account', key: 'Account', to: '/account'},
+  {name: 'Manage Account', key: 'Manage Account', to: '/settings'},
 ]
 
 class DesktopNav extends Component {

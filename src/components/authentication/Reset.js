@@ -2,21 +2,27 @@ import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import { Link } from 'react-router-dom'
 import FormWrapper from '../contentwrapper/FormWrapper'
-import { FaCloud, FaUser, FaAngleRight } from 'react-icons/fa'
+import { FaCloud, FaAngleRight, FaLock } from 'react-icons/fa'
 import { FormHOC, SmartResponse, SmartInput, SmartButton } from '../../HOC/melloForms2'
 import Loader from '../partials/myloader'
 import './form.css'
 
-class Login extends Component {
+class Reset extends Component {
 
   componentDidMount() {
 
     this.props.dispatch({type: 'FORM_RESET'})
+
+    if (this.props.match.params.token) {
+
+      this.props.dispatch({
+        type: 'FORM_ADD_TOKEN',
+        payload: this.props.match.params.token
+      })
+    }
   }
 
   render() {
-
-    console.log(this.props)
 
     return (
 
@@ -34,53 +40,56 @@ class Login extends Component {
 
           <div className='errorText'>{this.props.form.error}</div>
 
-          <div className='successText'>{this.props.location.state && this.props.location.state.redirectMessage}</div>
-
           <div className='inputWrapper'>
+
+            <div className={'heading'}>Create a new password.</div>
 
             <div className={'inputContainers'}>
               
               <SmartResponse
+                input={this.props.form.data.password}
                 className='errorText'
-                input={this.props.form.data.email}
-                emptyError='Email cannot be empty'
+                matchError={this.props.matchError}
+                emptyError='Password cannot be empty'
+                validationError='Password does not contain at least 8 characters and 1 number.'
               />
 
-              <label className={'formLabels'}>Email: </label>
+              <label className={'formLabels'}>New password: </label>
 
               <SmartInput
                 className={'formInputs'}
-                property='email'
-                method={'["notEmpty"]'}
+                property='password'
+                method={'["notEmpty","validPassword"]'}
                 focusedClassName={'focusedBorder'}
                 errorClassName={'errorBorder'}
-                input={this.props.form.data.email}
+                input={this.props.form.data.password}
                 onChange={this.props.onChange}
                 onFocus={this.props.onFocus}
                 onBlur={this.props.onBlur}
                 autoComplete={'off'}
-                type='email'
+                type='password'
               />
 
             </div>
 
             <div className={'inputContainers'}>
-
+              
               <SmartResponse
+                input={this.props.form.data.passwordConfirmation}
                 className='errorText'
-                emptyError='Password cannot be empty.'
-                input={this.props.form.data.password}
+                emptyError='Password confirmation cannot be empty'
+                validationError='Password confirmation does not contain at least 8 characters and 1 number.'
               />
-      
-              <label className={'formLabels'}>Password: </label>
+
+              <label className={'formLabels'}>Repeat New password: </label>
 
               <SmartInput
                 className={'formInputs'}
-                property='password'
-                method={'["notEmpty"]'}
+                property='passwordConfirmation'
+                method={'["notEmpty","validPassword"]'}
                 focusedClassName={'focusedBorder'}
                 errorClassName={'errorBorder'}
-                input={this.props.form.data.password}
+                input={this.props.form.data.passwordConfirmation}
                 onChange={this.props.onChange}
                 onFocus={this.props.onFocus}
                 onBlur={this.props.onBlur}
@@ -104,36 +113,25 @@ class Login extends Component {
                 width={'1.5em'}
                 height={'1.5em'}
                 color={'white'}
-                text='Logging in'
+                text='Changing password'
               />
               :
               <div className='buttonContainer'>
-                <span>Log in</span>
-                <FaUser size={'1.2em'} color={'white'} />
+                <span>Change password</span>
+                <FaLock size={'1.2em'} color={'white'} />
               </div>
             }
             </SmartButton>
 
-          </div>
+            <p className={'note'}>Password must contain at least 8 characters and 1 number.</p>
 
-          <div className='forgotAccountContainer'>
-            <Link className='forgotAccount' to='/account/forgot'>
-              Forgot account?
-            </Link>
           </div>
 
         </form>
-
-        <div className='signupContainer'>
-          <Link to='/account/signup' className='signupLink'>
-            <span>Create account</span>
-            <FaAngleRight size={'1.2em'} color={'rgb(0, 122, 255)'} />
-          </Link>
-        </div>
 
       </FormWrapper>
     )
   }
 }
 
-export default hot(module)(FormHOC(Login))
+export default hot(module)(FormHOC(Reset))

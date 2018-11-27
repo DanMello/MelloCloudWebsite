@@ -322,6 +322,11 @@ const EnableButton = function (WrappedComponent) {
 
       }, {})
 
+      if (this.props.form.token) {
+
+        data.token = this.props.form.token
+      }
+
       this.props.dispatch(this.props.onSubmit(data))
     }
 

@@ -12,27 +12,14 @@ import './contact.css'
 
 class Contact extends Component {
 
-  constructor () {
-
-    super()
-
-    this.goBack = this.goBack.bind(this)
-  }
-
   componentDidMount() {
 
     this.props.dispatch({type: 'FORM_RESET'})
   }
 
-  goBack() {
-
-    this.props.history.goBack()
-  }
-
   render() {
 
     let isMobile = this.props.config.isMobile
-    let disabledCondition = !isMobile && !this.props.disabled
 
     return (
 
@@ -41,12 +28,11 @@ class Contact extends Component {
           <form className='contact-mainContainter'>
             <div className='contact-input-container'>
               <div className='contact-heading-container'>
-                <div className='contact-backbutton-container'>
+                <Link to='/' className='contact-backbutton-container'>
                   <FaAngleLeft 
                     className='contact-backbutton'
-                    onClick={this.goBack}
                   />
-                </div>
+                </Link>
                 <h1 className='contact-heading'>Contact</h1>
                 <SmartButton
                   type='submit'

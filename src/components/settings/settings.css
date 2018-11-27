@@ -1,0 +1,81 @@
+.settings-container {
+  background: white;
+  margin-top: 20px;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 10px 10px 15px 10px;
+  margin-bottom: 20px;
+}
+
+.settings-heading {
+  color: #444;
+}
+
+.settings-loop-container{
+  margin-top: 20px;
+}
+
+.settings-change-setting-container{
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-top: 30px;
+}
+
+.settings-item-container {
+  display: flex;
+  align-items: center;
+}
+
+.settings-item-heading {
+  font-weight: bold;
+  font-size: 18px;
+  color: #444;
+}
+
+.settings-item-value {
+  margin-left: 10px;
+  font-size: 17px;
+}
+
+.settings-item-edit {
+  color: rgb(0, 125, 255);
+  margin-right: 5px;
+}
+
+.settings-item-edit-disabled {
+  color: #666;
+  cursor: default;
+  margin-right: 5px;
+}
+
+.settings-emailnotverified {
+  margin-top: 5px;
+  color: #444;
+  font-size: 15px;
+}
+
+.settings-email-link {
+  color: rgb(0, 125, 255);
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+
+.settings-item-edit-container {
+  display: flex;
+  align-self: flex-start;
+  align-items: center;
+  cursor: pointer;
+}
+
+.settings-item-edit-container:hover {
+  opacity: .5;
+}
+
+.settings-item-edit-arrow {
+  color: rgb(0, 125, 255);
+  font-size: 20px;
+}

@@ -28,7 +28,7 @@ let navItems = [
     key: 'Main Menu',
     items: [
       {key: 'About', name: 'About', type: 'link', to: '/about'},
-      {key: 'Contact', name: 'Contact', type: 'link', to: '/Contact'},
+      {key: 'Contact', name: 'Contact', type: 'link', to: '/contact'},
     ]
   },
   {

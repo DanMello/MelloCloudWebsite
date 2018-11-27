@@ -31,7 +31,6 @@
   display: flex;
   flex-direction: column;
   background: #eaeded;
-  min-height: 600px;
 }
 
 .dark {
@@ -70,6 +69,14 @@
 
 .closeMobileNav {
  transform: translateX(80vw);
+}
+
+.line {
+  border-bottom: 1px solid #ccc;
+}
+
+.margin-top {
+  margin-top: 10px;
 }
 
 @keyframes spin {
