@@ -4,45 +4,9 @@ import { NavLink, Link } from 'react-router-dom'
 import { FaBars, FaTimes, FaCloud, FaUserCircle, FaAngleRight } from 'react-icons/fa'
 import classNames from 'classnames'
 import { userLogout } from '../../actions/userActions'
+import { NavItems } from '../../data/MobileNav'
 
 import './navigation.css'
-
-let navItems = [
-  {
-    category: 'My Account',
-    key: 'My Account',
-    loginRequired: true,
-    items: [
-      {key: 'About Me', name: 'About Me', type: 'link', to: '/user/profile'},
-    ]
-  },
-  {
-    category: 'Products',
-    key: 'Products',
-    items: [
-      {key: 'voiceKeeping', name: 'voiceKeeping', type: 'link', to: '/products/voiceKeeping'},
-    ]
-  },
-  { 
-    category: 'Main Menu',
-    key: 'Main Menu',
-    items: [
-      {key: 'About', name: 'About', type: 'link', to: '/about'},
-      {key: 'Contact', name: 'Contact', type: 'link', to: '/contact'},
-    ]
-  },
-  {
-    category: 'Help & Settings',
-    key: 'Help & Settings',
-    items: [
-      {key: 'Create Account', name: 'Need an account?', type: 'link', to: '/account/signup', loginRequired: false},
-      {key: 'Manage Account', name: 'Manage Account', type: 'link', to: '/settings', loginRequired: true},
-      {key: 'Terms & Policies', name: 'Terms & Policies', type: 'link', to: '/account/terms'},
-      {key: 'Sign in', name: 'Sign in', type: 'link', to: '/account/login', loginRequired: false},
-      {key: 'Sign out', name: 'Sign out', type: 'button', method: 'logOut', loginRequired: true},
-    ]
-  }
-]
 
 class MobileNav extends Component {
 
@@ -71,7 +35,7 @@ class MobileNav extends Component {
 
     if (prevProps.navOpen !== this.props.navOpen) {
 
-      this.props.mobileNavRef.current.scrollTop = 0
+      this.props.mobileNavRef.current.scrollTop = 1
     }
   }
 
@@ -123,7 +87,7 @@ class MobileNav extends Component {
       
       <ul className={navClass} ref={this.props.mobileNavRef}>
 
-        {navItems.filter(array => {
+        {NavItems.filter(array => {
 
           return loggedIn ? (array.loginRequired !== false) : (array.loginRequired !== true)
 

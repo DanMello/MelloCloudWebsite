@@ -16,12 +16,16 @@
   margin-top: 20px;
 }
 
-.settings-change-setting-container{
+.settings-items-Maincontainer {
+  border-bottom: 1px solid #ccc;
+}
+
+.settings-change-setting-container {
   display: flex;
   justify-content: space-between;
   padding-bottom: 10px;
-  border-bottom: 1px solid #ccc;
-  margin-top: 30px;
+  margin-top: 15px;
+  padding: 10px;
 }
 
 .settings-item-container {
@@ -38,11 +42,17 @@
 .settings-item-value {
   margin-left: 10px;
   font-size: 17px;
+  color: #333;
 }
 
 .settings-item-edit {
-  color: rgb(0, 125, 255);
-  margin-right: 5px;
+  color: white;
+  padding: 10px;
+  width: 60px;
+  text-align: center;
+  text-decoration: none;
+  background: #999;
+  border-radius: 5px;
 }
 
 .settings-item-edit-disabled {

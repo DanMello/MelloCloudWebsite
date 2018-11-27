@@ -64,7 +64,7 @@ class Header extends Component {
   }
 
   closeWhenLinkClicked(e) {
-
+    
     document.body.classList.remove('nav-open')
 
     this.setState({

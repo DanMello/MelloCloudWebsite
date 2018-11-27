@@ -89,7 +89,7 @@ class Forgot extends Component {
             }
             </SmartButton>
 
-            <div className='form-instructions'>No problem, just type in your email and we'll send you a reset link.</div>
+            <div className='note'>No problem, just type in your email and we'll send you a reset link.</div>
 
           </div>
 

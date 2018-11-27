@@ -15,7 +15,7 @@ import Signup from './components/authentication/Signup'
 import Forgot from './components/authentication/Forgot'
 import Reset from './components/authentication/Reset'
 
-import Settings from './components/settings/Settings'
+import Settings from './components/settings/Settings2'
 
 import { login, checkEmail, contact, forgot, resetPassword } from './actions/formActions'
 

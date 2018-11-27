@@ -33,7 +33,7 @@ class Settings extends Component {
                 <div className='settings-item-value'>{user['last_name']}</div>
               </div>
               <div className='settings-item-edit-container'>
-                <div className='settings-item-edit'>Edit</div>
+                <Link to='/settings/firstname' className='settings-item-edit'>Edit</Link>
                 <FaAngleRight className='settings-item-edit-arrow'/>
               </div>
             </div>
@@ -51,7 +51,7 @@ class Settings extends Component {
                 }
               </div>
               <div className='settings-item-edit-container'>
-                <div className='settings-item-edit'>Edit</div>
+                <Link to='/settings/firstname' className='settings-item-edit'>Edit</Link>
                 <FaAngleRight className='settings-item-edit-arrow'/>
               </div>
             </div>
@@ -61,7 +61,7 @@ class Settings extends Component {
                 <div className='settings-item-value'>********</div>
               </div>
               <div className='settings-item-edit-container'>
-                <div className='settings-item-edit'>Edit</div>
+                <Link to='/settings/firstname' className='settings-item-edit'>Edit</Link>
                 <FaAngleRight className='settings-item-edit-arrow'/>
               </div>
             </div>
