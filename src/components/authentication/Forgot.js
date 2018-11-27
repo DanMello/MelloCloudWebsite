@@ -30,12 +30,13 @@ class Forgot extends Component {
 
           </Link>
 
-          <div className='errorText'>{this.props.form.error}</div>
 
           <div className='inputWrapper'>
 
             <div className={'heading'}>Forgot account?</div>
 
+            <div className='errorText'>{this.props.form.error}</div>
+            
             <div className={'inputContainers'}>
               
               <SmartResponse

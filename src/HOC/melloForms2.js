@@ -40,7 +40,8 @@ const SetInput = function (WrappedComponent) {
             value: value,
             method: method,
             error: validator(method, value),
-            step: this.props.form.step
+            step: this.props.form.step,
+            errorMessage: null
           }
         }
 
@@ -403,14 +404,15 @@ export class SmartResponse extends Component {
 
     let { validationError, emptyError, input, successClassName, className, matchError, ...rest } = this.props
 
-    let error, typing, success, queryError
+    let error, typing, success, queryError, errorMessage
 
     if (input) {
 
-      error      =  input.error
-      typing     =  input.typing
-      success    =  input.successMessage
-      queryError =  input.queryError
+      error        =  input.error
+      typing       =  input.typing
+      success      =  input.successMessage
+      queryError   =  input.queryError
+      errorMessage = input.errorMessage
     }
 
     let errors = {
@@ -425,7 +427,7 @@ export class SmartResponse extends Component {
       }
     )
 
-    return (<div className={formInputs} {...rest}>{!typing && errors[error] || queryError || success || matchError}</div>)
+    return (<div className={formInputs} {...rest}>{!typing && errors[error] || queryError || success || matchError || errorMessage}</div>)
   }
 }
 

@@ -90,6 +90,19 @@ export default function reducer(state={
         token: action.payload
       }
     }
+    case 'FORM_PROPERTY_ERROR': {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [action.payload.property] : {
+            ...state.data[action.payload.property],
+            errorMessage: action.payload.error
+          }
+        },
+        loading: false
+      }
+    }
     case 'FORM_INCREMENT_STEP': {
       return {...state, step: state.step + 1}
     }

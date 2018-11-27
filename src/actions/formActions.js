@@ -132,6 +132,17 @@ export function contact (info) {
   }
 }
 
+function propertyError(obj) {
+
+  return {
+    type: "FORM_PROPERTY_ERROR",
+    payload: {
+      property: obj.property,
+      error: obj.error
+    }
+  }
+}
+
 export function forgot (email) {
 
   return {
@@ -145,16 +156,17 @@ export function forgot (email) {
       data: email,
       url: url + '/account/forgot'
     },
+    meta: {
+      property: 'email'
+    },
     loader: loader,
-    error: error,
+    error: propertyError,
     redirect: true,
     redirectUrl: '/account/login'
   }
 }
 
 export function resetPassword (data) {
-
-  console.log(data)
 
   return {
     type: "FETCH",
@@ -167,8 +179,11 @@ export function resetPassword (data) {
       data: data,
       url: url + '/account/reset'
     },
+    meta: {
+      property: 'password'
+    },
     loader: loader,
-    error: error,
+    error: propertyError,
     redirect: true,
     redirectUrl: '/account/login'
   }
