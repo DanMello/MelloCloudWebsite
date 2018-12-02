@@ -188,3 +188,26 @@ export function resetPassword (data) {
     redirectUrl: '/account/login'
   }
 }
+
+export function update (property) {
+
+  return {
+    type: "FETCH",
+    payload: {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      data: property,
+      url: url + '/account/update'
+    },
+    meta: {
+      property: property
+    },
+    loader: loader,
+    error: propertyError,
+    redirect: true,
+    redirectUrl: '/settings'
+  }
+}

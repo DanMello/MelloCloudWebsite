@@ -1,7 +1,0 @@
-My most recent job was working as a salesman for a construction company, but my heart wasn't in it and it ended up not working out. I also felt it was taking up too much of my time and getting in the way of me learning more about programming and actually building something. 
-technologies
-
-I mentioned learning new technologies, so I figured I should talk a little more how I implemented them on this website.
-
-
-React is the first Javascript framework I started learning and I'm loving it. It makes it a lot easier to create more complicated user interfaces and keeps my code more organized. There is a strong community around it and you can usually find a solution to issues you run into pretty easily.

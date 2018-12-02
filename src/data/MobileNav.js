@@ -1,19 +1,19 @@
 const NavItems = [
-  {
-    category: 'My Account',
-    key: 'My Account',
-    loginRequired: true,
-    items: [
-      {key: 'About Me', name: 'About Me', type: 'link', to: '/user/profile'},
-    ]
-  },
-  {
-    category: 'Products',
-    key: 'Products',
-    items: [
-      {key: 'mello cloud IOS', name: 'mello cloud IOS', type: 'link', to: '/products/mellocloudios'},
-    ]
-  },
+  // {
+  //   category: 'My Account',
+  //   key: 'My Account',
+  //   loginRequired: true,
+  //   items: [
+  //     {key: 'About Me', name: 'About Me', type: 'link', to: '/user/profile'},
+  //   ]
+  // },
+  // {
+  //   category: 'Products',
+  //   key: 'Products',
+  //   items: [
+  //     {key: 'mello cloud IOS', name: 'mello cloud IOS', type: 'link', to: '/products/mellocloudios'},
+  //   ]
+  // },
   { 
     category: 'Main Menu',
     key: 'Main Menu',

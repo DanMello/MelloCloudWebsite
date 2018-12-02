@@ -16,8 +16,6 @@ class Login extends Component {
 
   render() {
 
-    console.log(this.props)
-
     return (
 
       <FormWrapper isMobile={this.props.config.isMobile}>

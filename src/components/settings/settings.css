@@ -1,3 +1,27 @@
+.settings-mainContainer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background: white;
+  box-shadow: 0px 2px 10px rgba(0,0,0,.2);
+  border-radius: 5px;
+}
+
+.settings-heading-container {
+  text-align: center;
+  padding: 15px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  background: rgb(58, 61, 80);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.settings-heading {
+  color: white;
+  font-size: 1.5em;
+}
+
 .settings-container {
   background: white;
   margin-top: 20px;
@@ -8,11 +32,7 @@
   margin-bottom: 20px;
 }
 
-.settings-heading {
-  color: #444;
-}
-
-.settings-loop-container{
+.settings-loop-container {
   margin-top: 20px;
 }
 
@@ -51,8 +71,14 @@
   width: 60px;
   text-align: center;
   text-decoration: none;
-  background: #999;
+  background: #878f99;
   border-radius: 5px;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.settings-item-edit:hover {
+  opacity: .5;
 }
 
 .settings-item-edit-disabled {
@@ -88,4 +114,25 @@
 .settings-item-edit-arrow {
   color: rgb(0, 125, 255);
   font-size: 20px;
+}
+
+.settings-button-container {
+  padding: 10px;
+}
+
+.settings-button-container:hover {
+  opacity: .5;
+}
+
+.settings-button {
+  width: 100%;
+  background: rgb(58, 61, 80);
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  display: block;
+  margin-top: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
 }

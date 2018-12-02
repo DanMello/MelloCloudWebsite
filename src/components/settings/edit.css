@@ -1,0 +1,96 @@
+.edit-mainContainer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  background: white;
+  box-shadow: 0px 2px 10px rgba(0,0,0,.2);
+  border-radius: 5px;
+}
+
+.edit-top-container {
+  text-align: center;
+  padding: 10px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  background: rgb(58, 61, 80);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.edit-heading-container {
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.edit-heading {
+  color: #444;
+}
+
+.edit-note {
+  color: #444;
+  padding: 10px;
+}
+
+.edit-input-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 10px;
+}
+
+.edit-input {
+  border: none;
+  border-radius: 0px;
+  margin-top: 10px;
+  padding: 4px;
+  color: black;
+  font-size: 17px;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+}
+
+.edit-label {
+  color: #444;
+  font-size: 20px;
+}
+
+.edit-focus-border {
+  outline: none !important;
+  border-bottom: 1px solid rgb(0, 122, 255) !important;
+}
+
+.edit-error-border {
+  outline: solid 1px red !important;
+  border: none !important;
+}
+
+.edit-button-container {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 10px;
+}
+
+.edit-button {
+  font-size: 20px;
+  color: white;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 10px;
+  border: none;
+  width: 100%;
+  border-radius: 5px;
+  background-color: rgb(58, 61, 80);
+  margin-top: 20px;
+  cursor: pointer;
+  height: 50px;
+}
+
+.edit-backbutton {
+  font-size: 40px;
+  cursor: pointer;
+  color: white;
+  padding: 5px;
+}

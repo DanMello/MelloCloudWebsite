@@ -6,7 +6,7 @@ export default function reducer(state={
   loading: false,
   error: false,
   response: null,
-  token: null
+  tokenObj: {}
 }, action) {
 
   switch (action.type) {
@@ -39,7 +39,7 @@ export default function reducer(state={
       }
     }
     case 'FORM_RESET': {
-      return { step: 0, data: {}, loading: false, error: false, typingDelays: {}, queryInputs: {}, response: null, token: null}
+      return { step: 0, data: {}, loading: false, error: false, typingDelays: {}, queryInputs: {}, response: null, tokenObj: {}}
     }
     case 'FORM_SUBMIT_ERROR': {
       return {...state, error: action.payload, loading: false}
@@ -87,7 +87,7 @@ export default function reducer(state={
     case 'FORM_ADD_TOKEN': {
       return {
         ...state,
-        token: action.payload
+        tokenObj: action.payload
       }
     }
     case 'FORM_PROPERTY_ERROR': {

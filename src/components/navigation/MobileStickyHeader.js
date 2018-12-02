@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import classNames from 'classnames'
+import { truncate } from '../../api/strings'
 
 class MobileStickyHeader extends Component {
 
@@ -21,7 +22,7 @@ class MobileStickyHeader extends Component {
      
       <div className={navClass} ref={this.props.mobileStickyHeaderRef}>
 
-        <div className='nav-mobile-logoHeading'>{loggedIn ? <div>Welcome, {Name}</div> : <div>Welcome</div> }</div>
+        <div className='nav-mobile-logoHeading'>{loggedIn ? <div>Welcome, {truncate(Name)}</div> : <div>Welcome</div> }</div>
 
       </div>
     )

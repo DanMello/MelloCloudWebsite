@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import { Link } from 'react-router-dom'
 import FormWrapper from '../contentwrapper/FormWrapper'
-import { FaCloud, FaUser, FaAngleRight } from 'react-icons/fa'
+import { FaCloud, FaUser, FaAngleRight, FaPaperPlane } from 'react-icons/fa'
 import { FormHOC, SmartResponse, SmartInput, SmartButton } from '../../HOC/melloForms2'
 import Loader from '../partials/myloader'
 import './form.css'
@@ -84,7 +84,7 @@ class Forgot extends Component {
               :
               <div className='buttonContainer'>
                 <span>Send me link</span>
-                <FaAngleRight size={'1.2em'} color={'white'} />
+                <FaPaperPlane className='forgot-airplane'/>
               </div>
             }
             </SmartButton>

@@ -21,12 +21,15 @@ const SetInput = function (WrappedComponent) {
 
       let property  =   e.target.id,
       value         =   e.target.value,
-      method        =   e.target.dataset.method
+      method        =   e.target.dataset.method,
+      required      =   this.props.required || !!this.props.location && !!this.props.location.state && this.props.location.state.required,
+      delayErrors   =   this.props.delayErrors || !!this.props.location && !!this.props.location.state && this.props.location.state.delayErrors,
+      queryInputs   =   this.props.queryInputs || !!this.props.location && !!this.props.location.state && this.props.location.state.queryInputs
 
       !!this.props.form.typingDelays[property] && clearTimeout(this.props.form.typingDelays[property].delay)
       !!this.props.form.queryInputs[property] && clearTimeout(this.props.form.queryInputs[property].query)
 
-      if (value === '' && !this.props.required.includes(property)) {
+      if (value === '' && !required.includes(property)) {
 
         this.props.dispatch({
           type: 'FORM_RESET_FIELDS',
@@ -45,9 +48,9 @@ const SetInput = function (WrappedComponent) {
           }
         }
 
-        if (this.props.delayErrors) {
+        if (delayErrors) {
 
-          this.props.delayErrors
+          delayErrors
           .filter(x => x.input === property)
           .map(delay => {
 
@@ -76,9 +79,9 @@ const SetInput = function (WrappedComponent) {
           })
         }
 
-        if (this.props.queryInputs) {
+        if (queryInputs) {
 
-          this.props.queryInputs
+          queryInputs
           .filter(x => x.input === property)
           .map(query => {
 
@@ -91,11 +94,13 @@ const SetInput = function (WrappedComponent) {
 
             if (state.data.error === false) {
 
+              let method = query.method || this.props.queryMethod
+
               state.queryInputs = {
                 [query.input]: {
                   query: setTimeout(() => {
 
-                    this.props.dispatch(query.method(value, {
+                    this.props.dispatch(method(value, {
                       cancelable: true 
                     }))
 
@@ -168,11 +173,14 @@ const ValidateInput = function (WrappedComponent) {
 
     render() {
 
+      console.log(this.props.location)
+
       let allValid
+      let required = this.props.required || !!this.props.location && !!this.props.location.state && this.props.location.state.required
 
-      if (Array.isArray(this.props.required)) {
+      if (Array.isArray(required)) {
 
-        let required = this.props.required.every(input => {
+        let requiredInputs = required.every(input => {
 
           if (this.props.data[input]) {
 
@@ -183,18 +191,18 @@ const ValidateInput = function (WrappedComponent) {
 
         let notRequired = Object.keys(this.props.data).every(input => {
 
-          if (!this.props.required.includes(input)) {
+          if (!required.includes(input)) {
 
             return this.props.data[input].error === false
           }
           return true
         })
 
-        allValid = [required, notRequired].every(item => item === true)
+        allValid = [requiredInputs, notRequired].every(item => item === true)
       }
 
       return (
-        <WrappedComponent {...this.props} allValidated={allValid} />
+        <WrappedComponent {...this.props} allValidated={allValid} required={required}/>
       )
     }
   }
@@ -206,11 +214,12 @@ const QueryInputs = function (WrappedComponent) {
 
     render() {
 
-      let allQueried 
+      let allQueried
+      let queryInputs = this.props.queryInputs || !!this.props.location && !!this.props.location.state && this.props.location.state.queryInputs
 
-      if (Array.isArray(this.props.queryInputs)) {
+      if (Array.isArray(queryInputs)) {
 
-        allQueried = this.props.queryInputs.every(property => {
+        allQueried = queryInputs.every(property => {
 
           if (this.props.data[property.input]) {
 
@@ -221,7 +230,7 @@ const QueryInputs = function (WrappedComponent) {
       }
 
       return (
-        <WrappedComponent {...this.props} allQueried={allQueried} />
+        <WrappedComponent {...this.props} allQueried={allQueried} queryInputs={queryInputs} />
       )
     }
   }
@@ -233,15 +242,16 @@ const MatchInputs = function (WrappedComponent) {
 
     render() {
 
+      let matchRequired = this.props.matchRequired || !!this.props.location && !!this.props.location.state && this.props.location.state.matchRequired
       let doInputsMatch
       let allMatchRequiredValidated
       let matchError
 
-      if (this.props.matchRequired) {
+      if (matchRequired) {
 
-        if (Array.isArray(this.props.matchRequired.inputs)) {
+        if (Array.isArray(matchRequired.inputs)) {
 
-          doInputsMatch = this.props.matchRequired.inputs.every((input, i, arr) => {
+          doInputsMatch = matchRequired.inputs.every((input, i, arr) => {
 
             if (this.props.data[input]) {
 
@@ -250,7 +260,7 @@ const MatchInputs = function (WrappedComponent) {
             return false
           })
 
-          allMatchRequiredValidated = this.props.matchRequired.inputs.every(input => {
+          allMatchRequiredValidated = matchRequired.inputs.every(input => {
 
             if (this.props.data[input]) {
 
@@ -261,13 +271,13 @@ const MatchInputs = function (WrappedComponent) {
 
           if (!!allMatchRequiredValidated && !doInputsMatch) {
 
-            matchError = this.props.matchRequired.error
+            matchError = matchRequired.error
           }
         }
       }
 
       return (
-        <WrappedComponent {...this.props} doInputsMatch={doInputsMatch} matchError={matchError} />
+        <WrappedComponent {...this.props} doInputsMatch={doInputsMatch} matchError={matchError} matchRequired={matchRequired}/>
       )
     }
   }
@@ -323,9 +333,11 @@ const EnableButton = function (WrappedComponent) {
 
       }, {})
 
-      if (this.props.form.token) {
+      if (this.props.form.tokenObj) {
 
-        data.token = this.props.form.token
+        data.token = this.props.form.tokenObj.token
+        data.property = this.props.form.tokenObj.property
+        data.heading = this.props.form.tokenObj.heading
       }
 
       this.props.dispatch(this.props.onSubmit(data))
@@ -402,7 +414,7 @@ export class SmartResponse extends Component {
 
   render() {
 
-    let { validationError, emptyError, input, successClassName, className, matchError, ...rest } = this.props
+    let { validationError, emptyError, input, successClassName, className, matchError, maxCharatersError, ...rest } = this.props
 
     let error, typing, success, queryError, errorMessage
 
@@ -412,12 +424,13 @@ export class SmartResponse extends Component {
       typing       =  input.typing
       success      =  input.successMessage
       queryError   =  input.queryError
-      errorMessage = input.errorMessage
+      errorMessage =  input.errorMessage
     }
 
     let errors = {
       validationError: validationError,
-      emptyError: emptyError
+      emptyError: emptyError,
+      maxCharatersError: maxCharatersError
     }
 
     let formInputs = classNames(

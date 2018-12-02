@@ -17,7 +17,9 @@ class Reset extends Component {
 
       this.props.dispatch({
         type: 'FORM_ADD_TOKEN',
-        payload: this.props.match.params.token
+        payload: {
+          token: this.props.match.params.token
+        }
       })
     }
   }

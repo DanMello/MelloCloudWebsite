@@ -15,6 +15,12 @@ export function validator (method, input) {
 
       return /^[a-zA-Z\s]*$/.test(input)
     },
+    maxCharaters: function (input) {
+
+      error = 'maxCharatersError'
+
+      return /^[a-zA-Z\s]{0,35}$/.test(input)
+    },
     validEmail: function (input) {
 
       error = 'validationError'

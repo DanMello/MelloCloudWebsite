@@ -19,6 +19,7 @@ class Name extends Component {
           <SmartResponse
             className='errorText'
             input={this.props.form.data.firstName}
+            maxCharatersError={'First name cannot longer than 35 characters.'}
             emptyError='First name cannot be empty'
             validationError='First name can only contain letters.'
           />
@@ -28,7 +29,7 @@ class Name extends Component {
           <SmartInput
             className={'formInputs'}
             property='firstName'
-            method={'["notEmpty","onlyLetters"]'}
+            method={'["notEmpty","onlyLetters","maxCharaters"]'}
             focusedClassName={'focusedBorder'}
             errorClassName={'errorBorder'}
             input={this.props.form.data.firstName}
@@ -46,6 +47,7 @@ class Name extends Component {
           <SmartResponse
             className='errorText'
             input={this.props.form.data.lastName}
+            maxCharatersError='First name cannot longer than 35 characters.'
             emptyError='Last name cannot be empty'
             validationError='Last name can only contain letters.'
           />
@@ -55,7 +57,7 @@ class Name extends Component {
           <SmartInput
             className={'formInputs'}
             property='lastName'
-            method={'["notEmpty","onlyLetters"]'}
+            method={'["notEmpty","onlyLetters","maxCharaters"]'}
             focusedClassName={'focusedBorder'}
             errorClassName={'errorBorder'}
             input={this.props.form.data.lastName}
