@@ -73,10 +73,12 @@ class AppRoutes extends Component {
         <PropsRoute path="/contact" component={Contact} config={config} dispatch={dispatch} user={user} form={form} dispatch={dispatch} onSubmit={contact} required={['name', 'email', 'message']} delayErrors={[{ input: 'email', time: 1400 }]} />
         <PropsRoute path="/pdfviewer" exact strict component={PdfViewer} config={config} />
 
+        <ProtectedPropsRoute path="/settings" exact strict component={Settings} config={config} user={user} dispatch={dispatch} />
+        <ProtectedPropsRoute path="/settings/edit" exact strict component={Edit} config={config} dispatch={dispatch} form={form} user={user} onSubmit={update} queryMethod={checkEmail}/>
+
         <NotloggedInRoute path="/account/forgot" exact strict component={Forgot} form={form} config={config} dispatch={dispatch} required={['email']} onSubmit={forgot} delayErrors={[{ input: 'email', time: 1400 }]} user={user}/>
         <NotloggedInRoute path="/account/login" exact strict component={Login} form={form} config={config} dispatch={dispatch} required={['email', 'password']} onSubmit={login} user={user}/>
         <NotloggedInRoute path="/account/signup" exact strict component={Signup} form={form} config={config} dispatch={dispatch} user={user} />
-
         <NotloggedInRoute path="/account/reset/:token" exact strict component={Reset} form={form} config={config} dispatch={dispatch} user={user} required={['password', 'passwordConfirmation']} onSubmit={resetPassword}
           delayErrors={[
             { input: 'password', time: 1400 },
@@ -87,9 +89,7 @@ class AppRoutes extends Component {
             inputs: ['password', 'passwordConfirmation']
           }}
         />
-        <ProtectedPropsRoute path="/settings" exact strict component={Settings} config={config} user={user} dispatch={dispatch} />
-        <ProtectedPropsRoute path="/settings/edit" exact strict component={Edit} config={config} dispatch={dispatch} form={form} user={user} onSubmit={update} queryMethod={checkEmail}/>
-        
+
       </Switch>
     )
   }

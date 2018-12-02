@@ -21,7 +21,7 @@ class ContentWrapper extends Component {
           
         </div>
 
-        <Footer config={this.props.config}/>
+        <Footer config={this.props.config} user={this.props.user} dispatch={this.props.dispatch} />
 
       </div>
     )

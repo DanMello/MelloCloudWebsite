@@ -137,7 +137,7 @@ function propertyError(obj) {
   return {
     type: "FORM_PROPERTY_ERROR",
     payload: {
-      property: obj.property,
+      property: obj.property.property,
       error: obj.error
     }
   }

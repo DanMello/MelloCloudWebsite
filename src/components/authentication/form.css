@@ -124,8 +124,12 @@
   color: #444;
   display: inline-block;
   align-self: center;
-  text-decoration: underline;
+  text-decoration: none;
   font-size: 17px;
+}
+
+.forgotAccount:hover {
+  opacity: .5;
 }
 
 .signupContainer {
@@ -140,6 +144,10 @@
   text-decoration: none;
   font-size: 19px;
   display: flex;
+}
+
+.signupLink:hover {
+  opacity: .5;
 }
 
 .previousButtonContainer {

@@ -42,7 +42,7 @@ function loader() {
 }
 
 export function error(error) {
-
+  
   return {
     type: "USER_ERROR",
     payload: error

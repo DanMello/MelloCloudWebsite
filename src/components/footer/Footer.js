@@ -1,10 +1,23 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import { Link } from 'react-router-dom'
+import { userLogout } from '../../actions/userActions'
 
 import './footer.css'
 
 class Footer extends Component {
+
+  constructor() {
+
+    super()
+
+    this.logOut = this.logOut.bind(this)
+  }
+
+  logOut() {
+
+    this.props.dispatch(userLogout())
+  }
 
   render() {
 
@@ -29,14 +42,24 @@ class Footer extends Component {
         {!!this.props.config.isMobile && <div className='footer-line'/>}
 
         <div className={!this.props.config.isMobile ? 'footer-links-container' : 'footer-links-container-mobile'}>
-          <div className='footer-flex-break'>
-            <Link to='/home' className='footer-link'>Home</Link>
-            <Link to='/about' className='footer-link'>About</Link>
-            <Link to='/contact' className='footer-link'>Contact</Link>
-            <Link to='/account/signup' className='footer-link'>Sign&nbsp;up</Link>
-            <Link to='/account/login' className='footer-link'>Log&nbsp;in</Link>
-            <Link to='/account/forgot' className='footer-link'>Forgot&nbsp;Account</Link>
-          </div>
+          {!this.props.user.loggedIn ?
+            <div className='footer-flex-break'>
+              <Link to='/' className='footer-link'>Home</Link>
+              <Link to='/about' className='footer-link'>About</Link>
+              <Link to='/contact' className='footer-link'>Contact</Link>
+              <Link to='/account/signup' className='footer-link'>Sign&nbsp;up</Link>
+              <Link to='/account/login' className='footer-link'>Log&nbsp;in</Link>
+              <Link to='/account/forgot' className='footer-link'>Forgot&nbsp;Account</Link>
+            </div>
+            :
+            <div className='footer-flex-break'>
+              <Link to='/' className='footer-link'>Home</Link>
+              <Link to='/about' className='footer-link'>About</Link>
+              <Link to='/contact' className='footer-link'>Contact</Link>
+              <Link to='/settings' className='footer-link'>Manage&nbsp;account</Link>
+              <div onClick={this.logOut} className='footer-link-button'>Sign&nbsp;out</div>
+            </div>
+          }
           <div className={!this.props.config.isMobile ? 'footer-copyright-container' : 'footer-copyright-container-mobile'}>
             <span>&copy; 2018 Dan Mello</span>
             <Link to='/terms' className='footer-link-2'>Terms & Polices</Link>
