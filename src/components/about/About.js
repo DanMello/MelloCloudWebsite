@@ -44,7 +44,7 @@ class About extends Component {
           <h1>What is mello cloud?</h1>
           <p className='about-paragraph'>
             "mello cloud" is a website I made to put into practice some of the things that I&apos;ve been  
-            learning for the past 3 years or so and to share projects I'm working on with potential employers or clients.
+            learning for the past 3 years or so and to share projects I&apos;m working on with potential employers or clients.
           </p>
         </div>
 
