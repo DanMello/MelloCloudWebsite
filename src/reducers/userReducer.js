@@ -2,7 +2,8 @@ export default function reducer(state={
   profile: {},
   loggedIn: false,
   loading: false,
-  error: false
+  error: false,
+  message: null
 }, action) {
 
   switch (action.type) {
@@ -20,6 +21,9 @@ export default function reducer(state={
     }
     case "USER_ERROR": {
       return {...state, loading: false, error: action.payload}
+    }
+    case "USER_EMAIL_RESENT": {
+      return {...state, message: action.payload, loading: false}
     }
     default :
       return state

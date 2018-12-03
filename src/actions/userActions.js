@@ -67,3 +67,30 @@ export function userUpdate (token) {
     success: updateSuccess
   }
 }
+
+function emailresentsuccess (response) {
+
+  return {
+    type: "USER_EMAIL_RESENT",
+    payload: response
+  }
+}
+
+export function resendVerificationEmail (token) {
+
+  return {
+    type: "FETCH",
+    payload: {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      data: token,
+      url: url + '/account/resendemailtoken'
+    },
+    loader: loader,
+    error: error,
+    success: emailresentsuccess
+  }
+}

@@ -3,18 +3,30 @@ import { hot } from 'react-hot-loader'
 import FormWrapper from '../contentwrapper/FormWrapper'
 import { FaAngleRight, FaCloud } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import { userUpdate } from '../../actions/userActions'
+import { userUpdate, resendVerificationEmail } from '../../actions/userActions'
 import { propertyList } from '../../data/Edit'
 import Loader from '../partials/myloader'
-import { truncate } from '../../api/strings'
+import { truncate } from '../../helpers/strings'
 
 import './settings.css'
 
 class Settings extends Component {
 
+  constructor() {
+    
+    super()
+
+    this.resendEmail = this.resendEmail.bind(this)
+  }
+
   componentDidMount() {
 
     this.props.dispatch(userUpdate({token: this.props.user.profile.token}))
+  }
+
+  resendEmail() {
+
+    this.props.dispatch(resendVerificationEmail({token: this.props.user.profile.token}))
   }
 
   render() {
@@ -35,8 +47,8 @@ class Settings extends Component {
             </div>
           </div>
           
-          {!!this.props.location.state && this.props.location.state.redirectMessage && !this.props.user.error && <div className='contact-messagecontainer'>{this.props.location.state.redirectMessage}</div>}
-
+          {!!this.props.location.state && this.props.location.state.redirectMessage && !this.props.user.error && !this.props.user.message && <div className='contact-messagecontainer'>{this.props.location.state.redirectMessage}</div>}
+          {!this.props.user.error && !!this.props.user.message && <div className='contact-messagecontainer'>{this.props.user.message}</div>}
           {!!this.props.user.error && <div className='contact-errorContainer'>{this.props.user.error}</div>}
 
           <div className='settings-items-Maincontainer'>
@@ -83,7 +95,7 @@ class Settings extends Component {
                 {!user.isVerified &&
                   <div>
                     <div className='settings-emailnotverified'>Your email is not verified, we sent you a verification email with further instructions.</div>
-                    <div className='settings-email-link'>Need another link</div>
+                    <div className='settings-email-link' onClick={this.resendEmail}>Need another link</div>
                   </div>
                 }
               </div>

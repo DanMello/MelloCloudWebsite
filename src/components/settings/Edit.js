@@ -28,8 +28,6 @@ class Edit extends Component {
 
   render() {
 
-    console.log(this.props)
-
     const isMobile = this.props.config.isMobile
     const { inputs, heading } = this.props.location.state
 

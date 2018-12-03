@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux'
 import auth from './middleware/auth'
 import api from './middleware/api'
 import { createLogger } from 'redux-logger'
-import { checkHostName } from './api/config'
+import { checkHostName } from './helpers/config'
 
 import reducer from './reducers'
 

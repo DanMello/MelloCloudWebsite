@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import classNames from 'classnames'
-import { truncate } from '../../api/strings'
+import { truncate } from '../../helpers/strings'
 
 class MobileStickyHeader extends Component {
 

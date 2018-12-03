@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import { compose } from 'redux'
-import { validator } from '../api/validators'
+import { validator } from '../helpers/validators'
 import classNames from 'classnames'
 
 const SetInput = function (WrappedComponent) {
