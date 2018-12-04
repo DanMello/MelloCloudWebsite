@@ -86,8 +86,8 @@ class Name extends Component {
 
         <div className='terms'>
           <p>By clicking next you agree to the mello cloud's <br />
-            <Link to='/terms' className='link'> Terms of service </Link> & 
-            <Link to='/terms' className='link'> Privacy Policy </Link> 
+            <Link to='/terms' className='link'> Terms of Use </Link> & 
+            <Link to='/privacy' className='link'> Privacy Policy </Link> 
           </p>
         </div>
 

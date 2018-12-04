@@ -29,7 +29,8 @@ const NavItems = [
     items: [
       {key: 'Create Account', name: 'Need an account?', type: 'link', to: '/account/signup', loginRequired: false},
       {key: 'Manage Account', name: 'Manage Account', type: 'link', to: '/settings', loginRequired: true},
-      {key: 'Terms & Policies', name: 'Terms & Policies', type: 'link', to: '/account/terms'},
+      {key: 'Terms', name: 'Terms of Use', type: 'link', to: '/terms'},
+      {key: 'Privacy', name: 'Privacy Policy', type: 'link', to: '/privacy'},
       {key: 'Sign in', name: 'Sign in', type: 'link', to: '/account/login', loginRequired: false},
       {key: 'Sign out', name: 'Sign out', type: 'button', method: 'logOut', loginRequired: true},
     ]

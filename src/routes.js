@@ -5,6 +5,8 @@ import classNames from 'classnames'
 
 import Home from './components/home/Home'
 import About from './components/about/About'
+import Terms from './components/terms/Terms'
+import Privacy from './components/terms/Privacy'
 import Contact from './components/contact/Contact'
 import PdfViewer from './components/pdfViewer/PdfViewer'
 
@@ -70,6 +72,8 @@ class AppRoutes extends Component {
         
         <PropsRoute path="/" exact strict component={Home} config={config} dispatch={dispatch} user={user} />
         <PropsRoute path="/about" component={About} config={config} dispatch={dispatch} user={user} />
+        <PropsRoute path="/terms" component={Terms} config={config} dispatch={dispatch} user={user} />
+        <PropsRoute path="/privacy" component={Privacy} config={config} dispatch={dispatch} user={user} />
         <PropsRoute path="/contact" component={Contact} config={config} dispatch={dispatch} user={user} form={form} dispatch={dispatch} onSubmit={contact} required={['name', 'email', 'message']} delayErrors={[{ input: 'email', time: 1400 }]} />
         <PropsRoute path="/pdfviewer" exact strict component={PdfViewer} config={config} />
 

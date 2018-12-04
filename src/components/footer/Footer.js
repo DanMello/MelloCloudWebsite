@@ -50,6 +50,8 @@ class Footer extends Component {
               <Link to='/account/signup' className='footer-link'>Sign&nbsp;up</Link>
               <Link to='/account/login' className='footer-link'>Log&nbsp;in</Link>
               <Link to='/account/forgot' className='footer-link'>Forgot&nbsp;Account</Link>
+              <Link to='/terms' className='footer-link'>Terms&nbsp;of&nbsp;Use</Link>
+              <Link to='/privacy' className='footer-link'>Privacy&nbsp;Policy</Link>
             </div>
             :
             <div className='footer-flex-break'>
@@ -57,12 +59,13 @@ class Footer extends Component {
               <Link to='/about' className='footer-link'>About</Link>
               <Link to='/contact' className='footer-link'>Contact</Link>
               <Link to='/settings' className='footer-link'>Manage&nbsp;account</Link>
+              <Link to='/terms' className='footer-link'>Terms&nbsp;of&nbsp;Use</Link>
+              <Link to='/privacy' className='footer-link'>Privacy&nbsp;Policy</Link>
               <div onClick={this.logOut} className='footer-link-button'>Sign&nbsp;out</div>
             </div>
           }
           <div className={!this.props.config.isMobile ? 'footer-copyright-container' : 'footer-copyright-container-mobile'}>
             <span>&copy; 2018 Dan Mello</span>
-            <Link to='/terms' className='footer-link-2'>Terms & Polices</Link>
           </div>
         </div>
       </div>
