@@ -85,7 +85,7 @@ class Name extends Component {
         </SmartButton>
 
         <div className='terms'>
-          <p>By clicking next you agree to the mello cloud's <br />
+          <p>By clicking next you agree to the website's <br />
             <Link to='/terms' className='link'> Terms of Use </Link> & 
             <Link to='/privacy' className='link'> Privacy Policy </Link> 
           </p>
