@@ -39,12 +39,26 @@ class Home extends Component {
   render() {
 
     return (
-      <ContentWrapper config={this.props.config} dispatch={this.props.dispatch} user={this.props.user}>
+      <ContentWrapper config={this.props.config} dispatch={this.props.dispatch} user={this.props.user} desktopwidth={'100%'}>
 
         {!!this.state.message && <div className='home-successtext'>{this.state.message}</div>}
         {!!this.state.error && <div className='home-errortext'>{this.state.error}</div>}
 
-        <h1>hi</h1>
+        <div className='home-main-container'>
+          
+          <h1 className='home-main-heading'>mello cloud IOS</h1>
+
+          <h2 className='home-sub-heading'>Coming 2019</h2>
+
+          <p className='home-paragraph'>Automate your small business with your voice.</p>
+
+          <div className='home-image-container'>
+            <div className='home-image-box'>
+              <img src='/assets/app.png' className='home-app-image'/>
+            </div>
+          </div>
+
+        </div>
         
       </ContentWrapper>
     )
@@ -52,3 +66,7 @@ class Home extends Component {
 }
 
 export default hot(module)(Home)
+
+// "mello cloud IOS" is just a temporary name for a IOS product I'm working on.
+// 
+// Automate your small business with your voice

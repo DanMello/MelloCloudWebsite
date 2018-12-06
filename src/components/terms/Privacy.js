@@ -56,7 +56,7 @@ class Privacy extends Component {
           <p className='terms-paragraph'>
             We take precautions to protect your information. 
             When you submit sensitive information via the website, your information is protected both online and offline.
-            Wherever we collect sensitive information (such as password), that information is encrypted and transmitted to us in a secure way. 
+            Wherever we collect sensitive information (such as a password), that information is encrypted and transmitted to us in a secure way. 
             You can verify this by looking for a lock icon in the address bar and looking for "https" at the beginning of the address of the Web page.
             We also maintain the physical computers/servers that store personal information our selfs and store them in a secure environment.
           </p>
@@ -81,7 +81,18 @@ class Privacy extends Component {
 
         </div>
 
-        
+        <div className='terms-container'>
+
+          <h1 className='terms-heading-section'>Changes to Privacy Policy</h1>
+
+          <p className='terms-paragraph'>
+            This site may revise this Privacy Policy at any time without notice. 
+            It is your responsibility to check the Privacy Policy periodically for changes. 
+            Your continued use of the site following the posting of changes will mean that you accept and agree to the changes.
+          </p>
+
+        </div>
+
       </ContentWrapper>
     )
   }

@@ -41,7 +41,7 @@ class Terms extends Component {
 
           <p className='terms-paragraph'>
             Our website contains links to websites owned and operated by third parties. 
-            If you use these links, you leave our Website. 
+            If you use these links, you leave our website. 
             These links are provided for your information and convenience only and are not an endorsement by our website of the content of such linked websites or third parties.
             We have no control over the contents of any linked website and we are not responsible for these websites or their content or availability.
           </p>

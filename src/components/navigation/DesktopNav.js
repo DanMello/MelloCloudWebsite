@@ -7,7 +7,6 @@ import './navigation.css'
 let navItems = [
   {name: 'Home', key: 'Home', to: '/'},
   {name: 'About', key: 'About', to: '/about'},
-  {name: 'Terms', key: 'Terms', to: '/terms'},
   {name: 'Contact', key: 'Contact', to: '/contact'}
 ]
 

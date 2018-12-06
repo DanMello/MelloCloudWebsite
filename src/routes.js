@@ -3,15 +3,14 @@ import { connect } from 'react-redux'
 import { Route, withRouter, Redirect, Switch} from 'react-router-dom'
 import classNames from 'classnames'
 
+import Image from './components/image/Image'
+
 import Home from './components/home/Home'
 import About from './components/about/About'
 import Terms from './components/terms/Terms'
 import Privacy from './components/terms/Privacy'
 import Contact from './components/contact/Contact'
 import PdfViewer from './components/pdfViewer/PdfViewer'
-
-import Helio from './components/public/helio'
-
 import Login from './components/authentication/Login'
 import Signup from './components/authentication/Signup'
 import Forgot from './components/authentication/Forgot'
@@ -67,9 +66,7 @@ class AppRoutes extends Component {
     return (
 
       <Switch>
-
-        <Route path='/helio' component={Helio}/>
-        
+        <Route component={Image} path='/image' />
         <PropsRoute path="/" exact strict component={Home} config={config} dispatch={dispatch} user={user} />
         <PropsRoute path="/about" component={About} config={config} dispatch={dispatch} user={user} />
         <PropsRoute path="/terms" component={Terms} config={config} dispatch={dispatch} user={user} />
