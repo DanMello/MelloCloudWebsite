@@ -119,6 +119,7 @@ class Contact extends Component {
                   onChange={this.props.onChange}
                   onFocus={this.props.onFocus}
                   onBlur={this.props.onBlur}
+                  scrolluponblur={'true'}
                   autoComplete={'off'}
                   textArea={true}
                   type='text'

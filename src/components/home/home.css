@@ -49,7 +49,7 @@
 }
 
 .home-image-box {
-  width: 500px;
+  max-width: 500px;
 }
 
 .home-app-image {

@@ -136,6 +136,11 @@ const SetInput = function (WrappedComponent) {
 
     onBlur(e) {
 
+      if (e.target.dataset.scrollup === 'true') {
+        
+        window.scroll(0,0)
+      }
+
       this.props.dispatch({
         type: 'FORM_INPUT_CHANGE',
         payload: {
@@ -379,7 +384,7 @@ export class SmartInput extends Component {
 
   render() {
 
-    let { property, method, className, focusedClassName, errorClassName, input, textArea, ...rest } = this.props
+    let { property, method, className, focusedClassName, errorClassName, input, textArea, scrolluponblur, ...rest } = this.props
 
     let error, focused, typing, value
 
@@ -402,7 +407,7 @@ export class SmartInput extends Component {
     let inputType
 
     textArea ?
-      inputType = <textarea id={property} data-method={method} className={formInputs} value={value ? value : ''} {...rest}/>
+      inputType = <textarea id={property} data-method={method} data-scrollup={scrolluponblur} className={formInputs} value={value ? value : ''} {...rest}/>
       :
       inputType = <input id={property} data-method={method} className={formInputs} value={value ? value : ''} {...rest} />
 

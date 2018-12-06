@@ -34,7 +34,7 @@
 }
 
 .about-scroll-container {
-  margin-top: 20px;
+  margin-top: 5px;
   min-height: 310px;
 }
 
@@ -101,7 +101,6 @@
 }
 
 .about-githublink-container {
-  margin-top: 20px;
   display: flex;
   justify-content: center;
 }

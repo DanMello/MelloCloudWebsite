@@ -66,7 +66,3 @@ class Home extends Component {
 }
 
 export default hot(module)(Home)
-
-// "mello cloud IOS" is just a temporary name for a IOS product I'm working on.
-// 
-// Automate your small business with your voice

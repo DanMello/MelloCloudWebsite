@@ -15,7 +15,10 @@ class ContentWrapper extends Component {
 
         <div className={!this.props.config.isMobile ? 'routeWrapper' : 'routeWrapper-mobile'}>
 
-          <div className={!this.props.config.isMobile ? 'main-content-wrapper' : null} style={this.props.desktopwidth && {width: '100%'}}>
+          <div
+            className={!this.props.config.isMobile ? 'main-content-wrapper' : null}
+            style={this.props.desktopwidth ? {width: '100%', maxWidth: 'initial' } : null}
+          >
             {this.props.children}
           </div>
           
