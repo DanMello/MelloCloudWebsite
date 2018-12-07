@@ -65,6 +65,16 @@ class Privacy extends Component {
 
         <div className='terms-container'>
 
+          <h1 className='terms-heading-section'>Cookies</h1>
+
+          <p className='terms-paragraph'>
+            This website uses only essential cookies to be able to keep you the user logged in.
+          </p>
+
+        </div>
+
+        <div className='terms-container'>
+
           <h1 className='terms-heading-section'>Your Access to and Control Over Information</h1>
 
           <p className='terms-paragraph'>
