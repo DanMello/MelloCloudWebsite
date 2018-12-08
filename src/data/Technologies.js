@@ -41,7 +41,8 @@ let Technologies = [
       {
         title: 'Nginx',
         paragraph:  "Nginx is used to sniff the clients browser and find out if its mobile or desktop, then rewrite the url appropriately. " +
-                    "It also serves all my static assets and redirects the api sub domain to my node js app."
+                    "It also serves all my static assets and redirects the api sub domain to my node js app. " + 
+                    "Lastly, it is responsible for redirecting all http traffic to https."
       },
       {
         title: 'Node js',

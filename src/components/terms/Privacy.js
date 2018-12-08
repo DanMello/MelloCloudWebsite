@@ -13,7 +13,7 @@ class Privacy extends Component {
 
           <h1 className='terms-heading'>Website Privacy Policy</h1>
 
-          <div className='terms-modified'>Last Modified: December 4, 2018</div>
+          <div className='terms-modified'>Last Modified: December 8, 2018</div>
 
           <p className='terms-paragraph'>
             This Privacy Policy discloses how this website collects and uses personal information. This Privacy Policy applies solely to 
@@ -68,7 +68,7 @@ class Privacy extends Component {
           <h1 className='terms-heading-section'>Cookies</h1>
 
           <p className='terms-paragraph'>
-            This website uses only essential cookies to be able to keep you the user logged in.
+            This website uses only essential cookies to be able to keep you, the user logged in.
           </p>
 
         </div>
