@@ -9,6 +9,16 @@ export function resetUser() {
   }
 }
 
+export function resetUserWithMessage(message) {
+
+  return {
+    type: "USER_LOGOUT_MESSAGE",
+    payload: message,
+    success: resetUser,
+    redirect: '/'
+  }
+}
+
 export function userVerified(user) {
 
   return {
@@ -92,5 +102,24 @@ export function resendVerificationEmail (token) {
     loader: loader,
     error: error,
     success: emailresentsuccess
+  }
+}
+
+export function deleteAccount (token) {
+
+  return {
+    type: "FETCH",
+    payload: {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      data: token,
+      url: url + '/account/deleteaccount'
+    },
+    loader: loader,
+    error: error,
+    success: resetUserWithMessage
   }
 }

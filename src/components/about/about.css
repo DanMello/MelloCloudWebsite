@@ -196,4 +196,7 @@
   .about-thumbnailContainer {
     width: 50%;
   }
+  .about-li {
+    font-size: 18px;
+  }
 }

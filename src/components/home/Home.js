@@ -43,6 +43,7 @@ class Home extends Component {
 
         {!!this.state.message && <div className='home-successtext'>{this.state.message}</div>}
         {!!this.state.error && <div className='home-errortext'>{this.state.error}</div>}
+        {this.props.location.state && this.props.location.state.redirectMessage && <div className='home-successtext'>{this.props.location.state.redirectMessage}</div>}
 
         <div className='home-main-container'>
           

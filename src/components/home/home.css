@@ -16,12 +16,10 @@
 
 .home-main-container {
   background: white;
-  margin: 5px;
   text-align: center;
-  border-radius: 5px;
-  box-shadow: 0px 2px 10px rgba(0,0,0,.2);
   padding-top: 20px;
   padding-bottom: 20px;
+  border-bottom: 1px solid #ccc;
 }
 
 .home-main-heading {

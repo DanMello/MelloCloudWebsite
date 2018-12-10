@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import FormWrapper from '../contentwrapper/FormWrapper'
-import { FaAngleRight, FaCloud } from 'react-icons/fa'
+import { FaAngleRight, FaCloud, FaAngleLeft } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import { userUpdate, resendVerificationEmail } from '../../actions/userActions'
+import { userUpdate, resendVerificationEmail, deleteAccount } from '../../actions/userActions'
 import { propertyList } from '../../data/Edit'
 import Loader from '../partials/myloader'
 import { truncate } from '../../helpers/strings'
@@ -16,6 +16,7 @@ class Settings extends Component {
     
     super()
 
+    this.deleteAccount = this.deleteAccount.bind(this)
     this.resendEmail = this.resendEmail.bind(this)
   }
 
@@ -29,6 +30,11 @@ class Settings extends Component {
     this.props.dispatch(resendVerificationEmail({token: this.props.user.profile.token}))
   }
 
+  deleteAccount() {
+
+    this.props.dispatch(deleteAccount({token: this.props.user.profile.token}))
+  }
+
   render() {
 
     const user = this.props.user.profile
@@ -36,9 +42,15 @@ class Settings extends Component {
 
     return (
       <FormWrapper isMobile={isMobile}>
+
         <div className='settings-mainContainer'>
+
           <div className='contact-heading-container'>
-            <div className='contact-backbutton-container'/>
+            <Link to='/' className='contact-backbutton-container'>
+              <FaAngleLeft 
+                className='contact-backbutton'
+              />
+            </Link>
             <h1 className='contact-heading'>Account</h1>
             <div className='contact-button'>
               {!!this.props.user.loading &&
@@ -68,6 +80,7 @@ class Settings extends Component {
               </Link>
             </div>
           </div>
+
           <div className='settings-items-Maincontainer'>
             <div className='settings-change-setting-container'>
               <div className='settings-item-container'>
@@ -85,6 +98,7 @@ class Settings extends Component {
               </Link>
             </div>
           </div>
+
           <div className='settings-items-Maincontainer'>
             <div className='settings-change-setting-container'>
               <div>
@@ -110,6 +124,7 @@ class Settings extends Component {
               </Link>
             </div>
           </div>
+
           <div className='settings-items-Maincontainer'>
             <div className='settings-change-setting-container'>
               <div className='settings-item-container'>
@@ -127,18 +142,24 @@ class Settings extends Component {
               </Link>
             </div>
           </div>
+
           <div className='settings-button-container'>
-            <Link to='/' className='settings-button'>
-              Done
-            </Link>
+            <div className='settings-button' onClick={this.deleteAccount}>
+              Delete Account
+            </div>
           </div>
+
+          <div className='settings-note'>This will delete all information associated with your account.</div>
+
         </div>
+
         <div className='contact-logo-container'>
           <Link to='/' className='contact-logo'>
             <FaCloud className='contact-cloudIcon' />
             <div className='contact-mellocloud'>mello cloud</div>
           </Link>
         </div>
+
       </FormWrapper>
     )
   }
