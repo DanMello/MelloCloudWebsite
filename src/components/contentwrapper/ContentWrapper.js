@@ -13,11 +13,11 @@ class ContentWrapper extends Component {
         
         <Header config={this.props.config} dispatch={this.props.dispatch} user={this.props.user} />
 
-        <div className={!this.props.config.isMobile ? 'routeWrapper' : 'routeWrapper-mobile'}>
+        <div className={!this.props.config.isMobile ? 'routeWrapper' : 'routeWrapper-mobile'} style={this.props.background ? {background: this.props.background} : null}> 
 
           <div
             className={!this.props.config.isMobile ? 'main-content-wrapper' : null}
-            style={this.props.desktopwidth ? {width: '100%', maxWidth: 'initial' } : null}
+            style={this.props.desktopwidth ? {width: '100%', maxWidth: 'initial', borderBottom: '1px solid #ccc' } : null}
           >
             {this.props.children}
           </div>

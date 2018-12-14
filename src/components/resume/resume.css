@@ -1,0 +1,157 @@
+.resume-main-container {
+  display: flex;
+}
+
+.resume-padding-container {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.resume-left-container {
+  background: #004074;
+  color: white;
+  flex: 1;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  height: 100%;
+}
+
+.resume-name {
+  font-size: 35px;
+}
+
+.resume-title {
+  font-size: 20px;
+  margin-top: 10px;
+  font-weight: normal;
+}
+
+.resume-category-container {
+  margin-top: 10px;
+  background: #003259;
+  padding: 10px 10px 10px 20px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.resume-item-heading{
+  font-weight: bold;
+  margin-bottom: 8px;
+  margin-top: 10px;
+}
+
+.resume-item-container {
+  margin-top: 10px;
+}
+
+.resume-item {
+  padding: 2px;
+}
+
+.resume-right-container {
+  flex: 2.5;
+  padding: 30px 10px 10px 10px;
+}
+
+.resume-paragraph {
+  color: #444;
+}
+
+.resume-line {
+  border-bottom: 1px solid #ccc;
+}
+
+.resume-big-title {
+  color: #003259;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-top: 20px;
+}
+
+.resume-item-right-container {
+  display: flex;
+  margin-top: 20px;
+}
+
+.resume-item-right-subcontainer {
+  flex: 3;
+}
+
+.resume-item-right-when {
+  color: #444;
+  flex: 1;
+}
+
+.resume-item-right-heading {
+  font-size: 20px;
+  font-weight: bold;
+  color: #444;
+}
+
+.resume-item-right-subheading {
+  margin-top: 10px;
+  font-style: italic;
+  color: #444;
+}
+
+.resume-ul {
+  padding-left: 17px;
+  margin-top: 10px;
+}
+
+.resume-ul li {
+  color: #444;
+  padding: 2px;
+}
+
+.resume-image-maincontainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: rgba(0,0,0,.5);
+}
+
+.resume-bar-container {
+  width: 100%;
+  height: 65px;
+  background: rgba(0,0,0,.5);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.resume-close-container {
+  padding: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.resume-close {
+  color: white;
+  font-size: 25px;
+}
+
+.resume-image-container {
+  max-width: 1000px;
+  margin: 20px auto 0px auto;
+  padding: 2px;
+}
+
+.resume-name {
+  color: white;
+  font-size: 20px;
+}
+
+.image-print {
+  width: 100%;
+  height: 100%;
+}
+
+@media print {
+    .resume-main-container {
+      height: 100vh;
+      padding: 0;
+      margin: 0;
+   }
+}

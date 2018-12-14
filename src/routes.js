@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { Route, withRouter, Redirect, Switch} from 'react-router-dom'
 import classNames from 'classnames'
 
-import Image from './components/image/Image'
+//import Image from './components/image/Image'
+//import Resume from './components/resume/Resume'
 
 import Home from './components/home/Home'
 import About from './components/about/About'
@@ -15,11 +16,13 @@ import Login from './components/authentication/Login'
 import Signup from './components/authentication/Signup'
 import Forgot from './components/authentication/Forgot'
 import Reset from './components/authentication/Reset'
+import NoMatch from './components/nomatch/NoMatch'
 
 import Settings from './components/settings/Settings'
 import Edit from './components/settings/Edit'
 
 import { login, checkEmail, contact, forgot, resetPassword, update } from './actions/formActions'
+import { required, delayErrors, matchRequired } from './data/ResetToken'
 
 const renderMergedProps = (component, ...rest) => {
   const finalProps = Object.assign({}, ...rest)
@@ -66,7 +69,7 @@ class AppRoutes extends Component {
     return (
 
       <Switch>
-        <Route component={Image} path='/image' />
+
         <PropsRoute path="/" exact strict component={Home} config={config} dispatch={dispatch} user={user} />
         <PropsRoute path="/about" component={About} config={config} dispatch={dispatch} user={user} />
         <PropsRoute path="/terms" component={Terms} config={config} dispatch={dispatch} user={user} />
@@ -80,16 +83,10 @@ class AppRoutes extends Component {
         <NotloggedInRoute path="/account/forgot" exact strict component={Forgot} form={form} config={config} dispatch={dispatch} required={['email']} onSubmit={forgot} delayErrors={[{ input: 'email', time: 1400 }]} user={user}/>
         <NotloggedInRoute path="/account/login" exact strict component={Login} form={form} config={config} dispatch={dispatch} required={['email', 'password']} onSubmit={login} user={user}/>
         <NotloggedInRoute path="/account/signup" exact strict component={Signup} form={form} config={config} dispatch={dispatch} user={user} />
-        <NotloggedInRoute path="/account/reset/:token" exact strict component={Reset} form={form} config={config} dispatch={dispatch} user={user} required={['password', 'passwordConfirmation']} onSubmit={resetPassword}
-          delayErrors={[
-            { input: 'password', time: 1400 },
-            { input: 'passwordConfirmation', time: 1400 }
-          ]}
-          matchRequired={{ 
-            error: 'Passwords do not match.',
-            inputs: ['password', 'passwordConfirmation']
-          }}
-        />
+        
+        <NotloggedInRoute path="/account/reset/:token" exact strict component={Reset} form={form} config={config} dispatch={dispatch} user={user} required={required} onSubmit={resetPassword} delayErrors={delayErrors} matchRequired={matchRequired}/>
+
+        <PropsRoute component={NoMatch} config={config} dispatch={dispatch} user={user} />
 
       </Switch>
     )
@@ -104,3 +101,7 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(connect(mapStateToProps)(AppRoutes))
+
+
+//<Route component={Resume} path='/resume' />
+//<Route component={Image} path='/image' />
