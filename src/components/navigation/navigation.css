@@ -5,13 +5,18 @@
   top: 100%;
   left: 50%;
   margin-left: -175px;
-  width: 350px;
+  min-width: 350px;
   padding: 20px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   box-shadow: 0px 2px 10px rgba(0,0,0,.2);
   list-style-type: none;
   cursor: default;
+}
+
+.nav-listMainHeading {
+  color: #444;
+  font-size: 17px;
 }
 
 .nav-triangle {
@@ -27,10 +32,11 @@
 
 .nav-separator {
   display: flex;
+  flex-direction: column;
 }
 
 .nav-listContainer {
-  flex: 1;
+  min-width: 200px;
 }
 
 .nav-vl {
@@ -40,17 +46,17 @@
 }
 
 .nav-liItems {
-  color: black;
+  color: #444;
   cursor: pointer;
-  margin-top: 3px;
-  margin-bottom: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   display: inline-block;
 }
 
 .nav-NavLinks {
   color: #444;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 14px;
 }
 
 .nav-mobile-navlinks {
@@ -71,6 +77,13 @@
 
 .nav-line {
   margin-top: 20px;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+}
+
+.nav-line-desktop {
+  margin-top: 10px;
+  margin-bottom: 10px;
   border-bottom: 1px solid #ccc;
   width: 100%;
 }

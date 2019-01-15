@@ -1,0 +1,32 @@
+.progress-bar-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.progress-bar {
+  width: 95%;
+  background: orangered;
+  height: 5px;
+  position: relative;
+}
+
+.progress-button-container {
+  position: absolute;
+  padding: 10px;
+  height: 15px;
+  width: 15px;
+  margin-top: -7.5px;
+  display: block;
+  background: orangered;
+  border-radius: 50%;
+}
+
+.progress-button-padding {
+  display: block;
+  padding: 30px; 
+  left: 50%;
+  margin-left: -30px;
+  top: 50%;
+  margin-top: -30px;
+}

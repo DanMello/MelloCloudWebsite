@@ -1,108 +1,95 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import { NavLink, Link } from 'react-router-dom'
+import { NavItems } from '../../data/Navigation'
+import { userLogout } from '../../actions/userActions'
 
 import './navigation.css'
 
-let navItems = [
-  {name: 'Home', key: 'Home', to: '/'},
-  {name: 'About', key: 'About', to: '/about'},
-  {name: 'Contact', key: 'Contact', to: '/contact'}
-]
-
-let loggedInNavItems = [
-  {name: 'Manage Account', key: 'Manage Account', to: '/settings'},
-]
-
 class DesktopNav extends Component {
+
+  constructor() {
+    super()
+
+    this.logOut = this.logOut.bind(this)
+  }
+
+  logOut() {
+
+    this.props.dispatch(userLogout())
+  }
 
   render() {
 
     let loggedIn = this.props.LoggedIn
 
     return (
-
       <ul className={'nav-navUl'}>
-        
+
         <div className={'nav-triangle'} />
 
-        <div className='nav-separator'>
+        {NavItems.filter(array => {
 
-          <div className={'nav-listContainer'}>
-            
-            <h3>Menu</h3>
+          return loggedIn ? (array.loginRequired !== false) : (array.loginRequired !== true)
 
-            {navItems.map(item => {
+        }).map((list, i, arr) => {
 
-              return (
-                <div key={item.key}>
-                  <li className={'nav-liItems'}>
-                    <NavLink
-                      exact
-                      to={item.to}
-                      className={'nav-NavLinks'}
-                      activeClassName={'nav-activeLink'}
-                      onClick={this.props.toggleNav}
-                      > 
-                      {item.name}
-                    </NavLink>
-                  </li>
-                </div>
-              )
-            })}
+          return (
+            <div className='nav-separator' key={list.key}>
 
-          </div>
+              <div className={'nav-listContainer'}>
 
-          {loggedIn && <div className="nav-vl" />}
-          
-          {loggedIn &&
+                <h3 className='nav-listMainHeading'>{list.category}</h3>
 
-            <div className={'nav-listContainer'}>
+                {list.items.filter(array => {
 
-              <h3>Account</h3>
+                  return loggedIn ? (array.loginRequired !== false) : (array.loginRequired !== true)
 
-               {loggedInNavItems.map(item => {
+                }).map(item => {
 
-                return (
-                  <div key={item.key}>
-                    <li className={'nav-liItems'}>
-                      <NavLink
-                        exact
-                        to={item.to}
-                        className={'nav-NavLinks'}
-                        activeClassName={'nav-activeLink'}
+                  let component = {
+                    link: (listItem) => {
+
+                      return (
+                        <NavLink
+                          exact
+                          to={listItem.to}
+                          className={'nav-NavLinks'}
+                          activeClassName={'nav-activeLink'}
+                        >
+                          {listItem.name}
+                        </NavLink>
+                      )
+                    },
+                    button: (listItem) => {
+
+                      return (
+                        <div onClick={this[listItem.method]} className={'nav-NavLinks'}>
+                          {listItem.name}
+                        </div>
+                      )
+                    }
+                  }
+
+                  return (
+                    <div key={item.key}>
+                      <li
+                        className={'nav-liItems'}
                         onClick={this.props.toggleNav}
-                        > 
-                        {item.name}
-                      </NavLink>
-                    </li>
-                  </div>
-                )
-              })}
+                        >
+                        {component[item.type](item)}
+                      </li>
+                    </div>
+                  )
+                  })}
 
+                {arr.length - 1 !== i && <div className='nav-line-desktop' />}
+
+              </div>
             </div>
-        }
-        </div>
+          )
+        })}
 
-        <div className={'nav-line'}/>
-
-        {loggedIn ? 
-
-          <div className={'nav-button hoverButton'} onClick={this.props.logOut}>
-            <span>Log out</span>
-          </div>
-          :
-          <div>
-            <Link className={'nav-button hoverButton '} to='/account/login' onClick={this.props.toggleNav}>
-              <div className='nav-buttonText'>Log in</div>
-            </Link>
-            <div className='nav-signuplink-container'>
-              <Link to={'/account/signup'}className='link nav-signuplink' onClick={this.props.toggleNav}>
-                Don't have an account?
-              </Link>
-            </div>
-          </div>
-        }
       </ul>
     )
   }

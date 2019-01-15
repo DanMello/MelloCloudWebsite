@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import queryString from 'query-string'
 import ContentWrapper from '../contentwrapper/ContentWrapper'
-
+import { userUpdate } from '../../actions/userActions'
 import './home.css'
 
 class Home extends Component {
@@ -22,6 +22,8 @@ class Home extends Component {
     const values = queryString.parse(this.props.location.search)
 
     if (values.emailVerified === 'true') {
+
+      this.props.dispatch(userUpdate({token: this.props.user.profile.token}))
 
       this.setState({
         message: 'Thank you for verifying your email.'

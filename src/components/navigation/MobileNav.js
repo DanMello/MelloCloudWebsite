@@ -4,7 +4,7 @@ import { NavLink, Link } from 'react-router-dom'
 import { FaBars, FaTimes, FaCloud, FaUserCircle, FaAngleRight } from 'react-icons/fa'
 import classNames from 'classnames'
 import { userLogout } from '../../actions/userActions'
-import { NavItems } from '../../data/MobileNav'
+import { NavItems } from '../../data/Navigation'
 
 import './navigation.css'
 

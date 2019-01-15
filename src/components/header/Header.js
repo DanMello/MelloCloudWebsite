@@ -3,7 +3,7 @@ import { hot } from 'react-hot-loader'
 import { FaBars, FaTimes, FaCloud } from 'react-icons/fa'
 import classNames from 'classnames'
 import Portal from '../../portal/Portal'
-
+import { Link } from 'react-router-dom'
 import { userLogout } from '../../actions/userActions'
 
 import MobileNavandHeader from '../navigation/MobileNavandHeader'
@@ -23,7 +23,6 @@ class Header extends Component {
     }
 
     this.toggleNav = this.toggleNav.bind(this)
-    this.logOut = this.logOut.bind(this)
     this.closeMobileNavWhenClickedAway = this.closeMobileNavWhenClickedAway.bind(this)
     this.closeWhenLinkClicked = this.closeWhenLinkClicked.bind(this)
 
@@ -31,18 +30,8 @@ class Header extends Component {
     this._mobileStickyHeaderRef = React.createRef()
   }
 
-  logOut() {
-
-    this.props.dispatch(userLogout())
-  }
-
   toggleNav(e) {
 
-    if (this.props.config.isMobile) {
-
-      document.body.classList.toggle('nav-open')
-    }
-    
     this.setState(prevState => ({
       navOpen: !prevState.navOpen
     }))
@@ -103,13 +92,13 @@ class Header extends Component {
           </div>
         }
 
-        <div className={!!Mobile ? 'header-mobile-logoContainer flexTextContainer' : 'header-logoContainer flexTextContainer'}>
+        <Link to='/' className={!!Mobile ? 'header-mobile-logoContainer flexTextContainer' : 'header-logoContainer flexTextContainer'}>
 
           <FaCloud className='header-logoIcon' />
 
           <h1 className={!!Mobile ? 'header-logoHeading-mobile' : 'header-logoHeading'}>mello cloud</h1>
 
-        </div>
+        </Link>
 
         {!!Mobile && <div className='header-filler'/>}
 
@@ -130,8 +119,8 @@ class Header extends Component {
             {!!this.state.navOpen &&
               <DesktopNav 
                 toggleNav={this.toggleNav}
-                logOut={this.logOut}
                 LoggedIn={this.props.user.loggedIn}
+                dispatch={this.props.dispatch}
               />
             }
           </div>

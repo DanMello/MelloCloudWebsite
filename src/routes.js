@@ -17,6 +17,9 @@ import Signup from './components/authentication/Signup'
 import Forgot from './components/authentication/Forgot'
 import Reset from './components/authentication/Reset'
 import NoMatch from './components/nomatch/NoMatch'
+import VerifyUser from './components/videoeditor/VerifyUser'
+import VideoProject from './components/videoeditor/VideoProject'
+import VideoPreview from './components/videoeditor/VideoPreview'
 
 import Settings from './components/settings/Settings'
 import Edit from './components/settings/Edit'
@@ -63,7 +66,7 @@ class AppRoutes extends Component {
 
   render() {
 
-    let { config, user, form }  =   this.props.state, 
+    let { config, user, form, video }  =   this.props.state, 
     dispatch                    =   this.props.dispatch
     
     return (
@@ -85,6 +88,10 @@ class AppRoutes extends Component {
         <NotloggedInRoute path="/account/signup" exact strict component={Signup} form={form} config={config} dispatch={dispatch} user={user} />
         
         <NotloggedInRoute path="/account/reset/:token" exact strict component={Reset} form={form} config={config} dispatch={dispatch} user={user} required={required} onSubmit={resetPassword} delayErrors={delayErrors} matchRequired={matchRequired}/>
+
+        <PropsRoute path="/videoeditor" exact strict component={VerifyUser} config={config} dispatch={dispatch} user={user} video={video}/>
+        <PropsRoute path="/videoeditor/:projectname" exact strict component={VideoProject} config={config} dispatch={dispatch} user={user} video={video}/>
+        <PropsRoute path="/videoeditor/:projectname/video" exact strict component={VideoPreview} config={config} dispatch={dispatch} user={user} video={video}/>
 
         <PropsRoute component={NoMatch} config={config} dispatch={dispatch} user={user} />
 

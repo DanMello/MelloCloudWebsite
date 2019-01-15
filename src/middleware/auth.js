@@ -53,6 +53,18 @@ const auth = ({ dispatch, getState }) => next => action => {
     history.push(action.redirect)
   }
 
+  if (action.type === 'USER_UPDATE') {
+
+    try {
+
+      localStorage.setItem('user', JSON.stringify(action.payload))
+
+    } catch(e) {
+
+      console.log(e)
+    }
+  }
+
   return next(action)
 }
 

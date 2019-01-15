@@ -17,6 +17,7 @@
   cursor: pointer;
   justify-content: center;
   flex: 1;
+  text-decoration: none;
 }
 
 .header-mobile-logoContainer {
@@ -25,6 +26,7 @@
   cursor: pointer;
   justify-content: center;
   flex: 2;
+  text-decoration: none;
 }
 
 .header-logoIcon {

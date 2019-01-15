@@ -29,6 +29,7 @@ export function userVerified(user) {
 }
 
 export function userLogout() {
+
   return {
     type: "USER_LOGOUT",
     success: resetUser,
