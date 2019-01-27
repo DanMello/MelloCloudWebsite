@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { hot } from 'react-hot-loader'
 import ToggleVideo from './ToggleVideo'
 import VideoSeekbar from './VideoSeekbar'
+import classNames from 'classnames'
 
 class Video extends Component {
 
@@ -16,7 +17,8 @@ class Video extends Component {
       clicked: false,
       loading: false,
       playing: false,
-      seeking: false
+      seeking: false,
+      seekDelay: null
     }
 
     this._button = React.createRef()
@@ -27,7 +29,8 @@ class Video extends Component {
     this.timeupdate = this.timeupdate.bind(this)
     this.manageControllerMobile = this.manageControllerMobile.bind(this)
     this.manageControllerDesktop = this.manageControllerDesktop.bind(this)
-    this.toggleSeeking = this.toggleSeeking.bind(this)
+    this.startSeeking = this.startSeeking.bind(this)
+    this.endSeeking = this.endSeeking.bind(this)
   }
 
   componentDidMount() {
@@ -39,13 +42,18 @@ class Video extends Component {
 
   componentWillUnmount() {
 
+    if (this.state.delay) {
+
+      clearTimeout(this.state.delay)
+    }
+
     this.props.videoRef.current.removeEventListener('timeupdate', this.timeupdate)
     this.props.videoRef.current.removeEventListener('playing', this.videoplaying)
     this.props.videoRef.current.removeEventListener('pause', this.videopaused)
   }
 
   timeupdate() {
-      
+
     const buttonNode = ReactDOM.findDOMNode(this._button.current)
 
     if (!this.state.seeking) {
@@ -59,73 +67,77 @@ class Video extends Component {
   }
 
   videoplaying() {
+    
+    if (!this.state.seeking) {
+      this.setState({
+        clicked: true,
+        playing: true,
+        delay: setTimeout(() => {
 
-    this.setState({
-      clicked: true,
-      playing: true,
-      delay: setTimeout(() => {
-
-        this.setState({
-          hide: true,
-          clicked: false
-        })
-      }, 1500)
-    })
+          this.setState({
+            hide: true,
+            clicked: false
+          })
+        }, 1500)
+      })
+    }
   }
 
   videopaused() {
 
     this.setState({
       hide: false,
-      delay: null,
       clicked: true,
       playing: false
     })
   }
 
-  manageControllerMobile() {
+  manageControllerMobile(e) {
 
     if (this.state.delay) clearTimeout(this.state.delay)
 
-    if (!this.state.hide) {
+    if (e.target.className === 'video-play-button-container') {
 
-      if (!this.state.clicked) {
+      if (!this.state.hide) {
 
-        this.setState({
-          clicked: true,
-          delay: setTimeout(() => {
+        if (!this.state.clicked) {
 
-            this.setState({
-              hide: true,
-              clicked: false
-            })
-          }, 1500)
-        })
+          this.setState({
+            clicked: true,
+            delay: setTimeout(() => {
+
+              this.setState({
+                hide: true,
+                clicked: false
+              })
+            }, 1500)
+          })
+
+        } else {
+
+          this.setState({
+            hide: true
+          })
+        } 
 
       } else {
 
         this.setState({
-          hide: true
+          hide: false,
+          clicked: true
+        }, () => {
+
+          this.setState({
+            delay: setTimeout(() => {
+
+              this.setState({
+                hide: true,
+                clicked: false
+              })
+            }, 2500)
+          })
         })
-      } 
-
-    } else {
-
-      this.setState({
-        hide: false,
-        clicked: true
-      }, () => {
-
-        this.setState({
-          delay: setTimeout(() => {
-
-            this.setState({
-              hide: true,
-              clicked: false
-            })
-          }, 2500)
-        })
-      })
+      }
     }
   }
 
@@ -162,11 +174,25 @@ class Video extends Component {
     }
   }
 
-  toggleSeeking() {
+  startSeeking() {
 
-    this.setState(prevState => ({
-      seeking: !prevState.seeking
-    }))
+    this.setState({
+      seeking: true,
+      playing: true
+    })
+  }
+
+  endSeeking() {
+
+    this.setState({
+      seeking: false,
+      seekDelay: setTimeout(() => {
+
+        this.setState({
+          hide: true
+        })
+      }, 2500)
+    })
   }
 
   render() {
@@ -179,23 +205,37 @@ class Video extends Component {
           ref={this.props.videoRef}
           poster={this.props.videoObj.video_thumbnail}
           playsInline
+          muted
           >
           
           <source type="video/mp4" src={this.props.videoObj.videopath} />
 
         </video>
 
-        <ToggleVideo videoref={this.props.videoRef} hide={this.state.hide} delay={this.state.delay} loading={this.state.loading} playing={this.state.playing} />
-
-        <VideoSeekbar 
+        <ToggleVideo 
           videoref={this.props.videoRef} 
           hide={this.state.hide} 
           delay={this.state.delay} 
-          isMobile={this.props.isMobile} 
-          button={this._button}
-          progressbar={this._progressBar}
-          toggleSeeking={this.toggleSeeking}
+          loading={this.state.loading} 
+          playing={this.state.playing}
+          seeking={this.state.seeking}
+        />
+
+        <div className={!this.state.hide ? 'video-play-controller-container video-show' : 'video-play-controller-container video-hide'}>
+
+          <VideoSeekbar
+            videoref={this.props.videoRef}
+            hide={this.state.hide} 
+            delay={this.state.delay} 
+            isMobile={this.props.isMobile} 
+            button={this._button}
+            progressbar={this._progressBar}
+            startSeeking={this.startSeeking}
+            endSeeking={this.endSeeking}
+            playing={this.state.playing}
           />
+
+        </div>
 
       </div>
     )

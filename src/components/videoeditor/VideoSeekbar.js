@@ -22,14 +22,13 @@ class VideoSeekbar extends Component {
 
   startEvent(e) {
 
-    e.preventDefault()
-    e.stopPropagation()
+    this.props.startSeeking()
 
-    this.props.toggleSeeking()
+    if (this.props.delay) clearTimeout(this.props.delay)
+
+    if (!this.props.playing) this.props.videoref.current.play()
 
     let offset
-
-    this.props.videoref.current.play()
 
     if (e.type === 'touchstart') {
 
@@ -52,9 +51,6 @@ class VideoSeekbar extends Component {
   }
 
   moveEvent(e) {
-
-    e.preventDefault()
-    e.stopPropagation()
 
     const buttonWidth = this.props.button.current.offsetWidth
     const progressbarwidth = this.props.progressbar.current.offsetWidth
@@ -92,10 +88,7 @@ class VideoSeekbar extends Component {
 
   endEvent(e) {
 
-    e.preventDefault()
-    e.stopPropagation()
-
-    this.props.toggleSeeking()
+    this.props.endSeeking()
 
     if (e.type === 'touchend') {
 
@@ -113,28 +106,20 @@ class VideoSeekbar extends Component {
 
     return (
 
-      <div className='video-play-controller-container'>
-
-        <div className='progress-bar-container'>
-
-          <div className='progress-bar' ref={this.props.progressbar}>
-            
-              <div
-                className='progress-button-container'
-                onMouseDown={!this.props.isMobile ? this.startEvent : null}
-                onTouchStart={this.props.isMobile ? this.startEvent : null}
-                ref={this.props.button}
-                style={{
-                  left: this.state.x + 'px'
-                }}
-              >
-                <span className='progress-button-padding'/>
-              </div>
-
+      <div className='progress-bar' ref={this.props.progressbar}>
+        
+          <div
+            className='progress-button-container'
+            onMouseDown={!this.props.isMobile ? this.startEvent : null}
+            onTouchStart={this.props.isMobile ? this.startEvent : null}
+            ref={this.props.button}
+            style={{
+              left: this.state.x + 'px'
+            }}
+          >
+            <span className='progress-button-padding'/>
 
           </div>
-
-        </div>
 
       </div>
     )

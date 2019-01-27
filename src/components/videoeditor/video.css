@@ -169,9 +169,16 @@
 
 .video-play-controller-container {
   position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 30px;
+  bottom: 15px;
+  width: 95%;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.5);
+  border-radius: 5px;
+  left: 50%;
+  margin-left: -47.5%;
 }
 
 .video-play-button {
@@ -188,7 +195,11 @@
 }
 
 .video-hide {
-  display: none;
+  opacity: 0;
+}
+
+.video-show {
+  opacity: 1;
 }
 
 .video-bold-text {

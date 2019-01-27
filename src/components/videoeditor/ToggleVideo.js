@@ -12,11 +12,7 @@ class ToggleVideo extends Component {
   }
 
   toggleVideo(e) {
-
-    e.stopPropagation()
-
-    if (this.props.delay) clearTimeout(this.props.delay)
-
+    
     if (this.props.videoref.current.currentTime > 0 && !this.props.videoref.current.paused && !this.props.videoref.current.ended && this.props.videoref.current.readyState > 2) {
 
       this.props.videoref.current.pause()
@@ -32,20 +28,25 @@ class ToggleVideo extends Component {
 
     return (
 
-      <div className='video-play-button-container'>
+      !this.props.seeking ?
 
-        {this.props.loading ?
+        <div className='video-play-button-container'>
 
-          <h1 style={{color: 'white'}}>Loading</h1>
-          :
-          <div className={this.props.hide ? 'video-hide' : 'video-play-button'} onClick={this.toggleVideo}>
-            
-            {!this.props.playing ? <FaPlay /> : <FaPause />}
+          {this.props.loading ?
 
-          </div>
-        }
+            <h1 style={{color: 'white'}}>Loading</h1>
+            :
+            <div className={this.props.hide ? 'video-hide' : 'video-play-button'} onClick={this.toggleVideo}>
+              
+              {!this.props.playing ? <FaPlay /> : <FaPause />}
 
-      </div>
+            </div>
+          }
+
+        </div>
+        :
+        null
+
     )
   }
 }
