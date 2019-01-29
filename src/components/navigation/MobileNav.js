@@ -74,6 +74,7 @@ class MobileNav extends Component {
   render() {
 
     let loggedIn = this.props.user.loggedIn
+    let developer = this.props.user.profile.developer
 
     let navClass = classNames(
       'nav-mobile-nav-container',
@@ -83,6 +84,8 @@ class MobileNav extends Component {
       }
     )
 
+    console.log(this.props.user)
+
     return (
       
       <ul className={navClass} ref={this.props.mobileNavRef}>
@@ -90,6 +93,10 @@ class MobileNav extends Component {
         {NavItems.filter(array => {
 
           return loggedIn ? (array.loginRequired !== false) : (array.loginRequired !== true)
+
+        }).filter(array => {
+
+          return developer ? (array.development !== false) : (array.development !== true)
 
         }).map((list, i, arr) => {
 
@@ -102,6 +109,10 @@ class MobileNav extends Component {
               {list.items.filter(array => {
 
                 return loggedIn ? (array.loginRequired !== false) : (array.loginRequired !== true)
+
+              }).filter(array => {
+
+                return developer ? (array.development !== false) : (array.development !== true)
 
               }).map(item => {
 

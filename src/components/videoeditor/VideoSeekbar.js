@@ -22,13 +22,9 @@ class VideoSeekbar extends Component {
 
   startEvent(e) {
 
-    this.props.startSeeking()
-
-    if (this.props.delay) clearTimeout(this.props.delay)
-
-    if (!this.props.playing) this.props.videoref.current.play()
-
     let offset
+
+    this.props.seeking()
 
     if (e.type === 'touchstart') {
 
@@ -88,7 +84,7 @@ class VideoSeekbar extends Component {
 
   endEvent(e) {
 
-    this.props.endSeeking()
+    this.props.seeked()
 
     if (e.type === 'touchend') {
 

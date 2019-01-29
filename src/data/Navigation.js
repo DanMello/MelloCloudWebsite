@@ -26,8 +26,9 @@ const NavItems = [
   {
     category: 'Projects',
     key: 'Projects',
+    development: true,
     items: [
-      {key: 'video', name: 'Video Editor', type: 'link', to: '/videoeditor'},
+      {key: 'video', name: 'Video Editor', type: 'link', to: '/videoeditor', development: true},
     ]
   },
   {

@@ -66,7 +66,7 @@ class Footer extends Component {
             </div>
           }
           <div className={!this.props.config.isMobile ? 'footer-copyright-container' : 'footer-copyright-container-mobile'}>
-            <span>&copy; 2018 Dan Mello</span>
+            <span>&copy; 2019 Dan Mello</span>
           </div>
         </div>
       </div>

@@ -117,7 +117,8 @@ class Header extends Component {
             />
 
             {!!this.state.navOpen &&
-              <DesktopNav 
+              <DesktopNav
+                user={this.props.user}
                 toggleNav={this.toggleNav}
                 LoggedIn={this.props.user.loggedIn}
                 dispatch={this.props.dispatch}

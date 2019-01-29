@@ -22,6 +22,7 @@ class DesktopNav extends Component {
   render() {
 
     let loggedIn = this.props.LoggedIn
+    let developer = this.props.user.profile.developer
 
     return (
       <ul className={'nav-navUl'}>
@@ -31,6 +32,10 @@ class DesktopNav extends Component {
         {NavItems.filter(array => {
 
           return loggedIn ? (array.loginRequired !== false) : (array.loginRequired !== true)
+
+        }).filter(array => {
+
+          return developer ? (array.development !== false) : (array.development !== true)
 
         }).map((list, i, arr) => {
 
@@ -44,6 +49,10 @@ class DesktopNav extends Component {
                 {list.items.filter(array => {
 
                   return loggedIn ? (array.loginRequired !== false) : (array.loginRequired !== true)
+
+                }).filter(array => {
+
+                  return developer ? (array.development !== false) : (array.development !== true)
 
                 }).map(item => {
 

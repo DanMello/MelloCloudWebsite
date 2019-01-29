@@ -52,6 +52,17 @@ const ProtectedPropsRoute = ({ component, ...rest }) => {
     <Redirect to='/account/login' />
 }
 
+const DeveloperRoute = ({ component, ...rest }) => {
+
+  return rest.user.profile.developer ?
+    <Route {...rest} render={routeProps => {
+      return renderMergedProps(component, routeProps, rest)
+    }}/>
+    :
+    <Redirect to='/' />
+}
+
+
 const NotloggedInRoute = ({ component, ...rest }) => {
 
   return !rest.user.loggedIn ?
@@ -89,9 +100,9 @@ class AppRoutes extends Component {
         
         <NotloggedInRoute path="/account/reset/:token" exact strict component={Reset} form={form} config={config} dispatch={dispatch} user={user} required={required} onSubmit={resetPassword} delayErrors={delayErrors} matchRequired={matchRequired}/>
 
-        <PropsRoute path="/videoeditor" exact strict component={VerifyUser} config={config} dispatch={dispatch} user={user} video={video}/>
-        <PropsRoute path="/videoeditor/:projectname" exact strict component={VideoProject} config={config} dispatch={dispatch} user={user} video={video}/>
-        <PropsRoute path="/videoeditor/:projectname/video" exact strict component={VideoPreview} config={config} dispatch={dispatch} user={user} video={video}/>
+        <DeveloperRoute path="/videoeditor" exact strict component={VerifyUser} config={config} dispatch={dispatch} user={user} video={video}/>
+        <DeveloperRoute path="/videoeditor/:projectname" exact strict component={VideoProject} config={config} dispatch={dispatch} user={user} video={video}/>
+        <DeveloperRoute path="/videoeditor/:projectname/video" exact strict component={VideoPreview} config={config} dispatch={dispatch} user={user} video={video}/>
 
         <PropsRoute component={NoMatch} config={config} dispatch={dispatch} user={user} />
 
