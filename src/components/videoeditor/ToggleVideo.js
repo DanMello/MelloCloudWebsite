@@ -12,6 +12,8 @@ class ToggleVideo extends Component {
   }
 
   toggleVideo(e) {
+
+    if (this.props.hide) return
     
     if (this.props.videoref.current.currentTime > 0 && !this.props.videoref.current.paused && !this.props.videoref.current.ended && this.props.videoref.current.readyState > 2) {
 
@@ -46,7 +48,6 @@ class ToggleVideo extends Component {
         </div>
         :
         null
-
     )
   }
 }

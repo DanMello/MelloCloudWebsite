@@ -17,8 +17,11 @@ class Video extends Component {
       clicked: false,
       loading: false,
       playing: false,
+      pausedBeforeSeek: false,
       seeking: false,
-      seekDelay: null
+      seekDelay: null,
+      loadedPercentage: 0,
+      positionLeft: 0,
     }
 
     this._button = React.createRef()
@@ -27,16 +30,14 @@ class Video extends Component {
     this.manageControllerMobile = this.manageControllerMobile.bind(this)
     this.manageControllerDesktop = this.manageControllerDesktop.bind(this)
 
-    this.videopaused = this.videopaused.bind(this)
     this.play = this.play.bind(this)
+    this.pause = this.pause.bind(this)
     this.timeupdate = this.timeupdate.bind(this)
     this.loading = this.loading.bind(this)
     this.loaded = this.loaded.bind(this)
     this.seeking = this.seeking.bind(this)
     this.seeked = this.seeked.bind(this)
-    this.waiting = this.waiting.bind(this)
-    this.playing = this.playing.bind(this)
-    this.seekedEvent = this.seekedEvent.bind(this)
+    this.progress = this.progress.bind(this)
   }
 
   componentDidMount() {
@@ -44,39 +45,34 @@ class Video extends Component {
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
 
       this.props.videoRef.current.autoplay = true
-
-      this.setState({
-        loading: true
-      })
     }
 
-    this.props.videoRef.current.addEventListener('timeupdate', this.timeupdate)
     this.props.videoRef.current.addEventListener('play', this.play)
-    this.props.videoRef.current.addEventListener('pause', this.videopaused)
+    this.props.videoRef.current.addEventListener('pause', this.pause)
+    this.props.videoRef.current.addEventListener('timeupdate', this.timeupdate)
     this.props.videoRef.current.addEventListener('loadstart', this.loading)
     this.props.videoRef.current.addEventListener('loadeddata', this.loaded)
-    this.props.videoRef.current.addEventListener('seeked', this.seekedEvent)
-    this.props.videoRef.current.addEventListener('waiting', this.waiting)
-    this.props.videoRef.current.addEventListener('playing', this.playing)
+    this.props.videoRef.current.addEventListener('progress', this.progress)
   }
 
   componentWillUnmount() {
 
-    if (this.state.delay) {
+    if (this.state.delay) clearTimeout(this.state.delay)
+    if (this.state.seekDelay) clearTimeout(this.state.seekDelay)
 
-      clearTimeout(this.state.delay)
-    }
-
-    this.props.videoRef.current.removeEventListener('timeupdate', this.timeupdate)
     this.props.videoRef.current.removeEventListener('play', this.play)
-    this.props.videoRef.current.removeEventListener('pause', this.videopaused)
+    this.props.videoRef.current.removeEventListener('pause', this.pause)
+    this.props.videoRef.current.removeEventListener('timeupdate', this.timeupdate)
+    this.props.videoRef.current.removeEventListener('loadstart', this.loading)
+    this.props.videoRef.current.removeEventListener('loadeddata', this.loaded)
+    this.props.videoRef.current.removeEventListener('progress', this.progress)
   }
 
   manageControllerMobile(e) {
 
     if (this.state.delay) clearTimeout(this.state.delay)
 
-    if (e.target.className === 'video-play-button-container') {
+    if (e.target.className === 'video-play-button-container' || this.state.hide) {
 
       if (!this.state.hide) {
 
@@ -154,82 +150,6 @@ class Video extends Component {
     }
   }
 
-  loading() {
-
-    this.setState({
-      loading: true
-    })
-  }
-
-  loaded() {
-    
-    this.setState({
-      loading: false
-    })
-  }
-
-  waiting() {
-
-    // this.setState({
-    //   loading: true
-    // })
-  }
-
-  playing() {
-
-    this.setState({
-      loading: false
-    })
-  }
-
-  seekedEvent() {
-
-    // this.setState({
-    //   loading: false
-    // })
-  }
-
-  seeking() {
-
-    if (this.state.delay) clearTimeout(this.state.delay)
-    if (this.state.seekDelay) clearTimeout(this.state.seekDelay)
-
-    this.props.videoRef.current.pause()
-
-    this.setState({
-      seeking: true
-    })
-  }
-
-  seeked() {
-    
-    this.props.videoRef.current.play()
-
-    this.setState({
-      seekDelay: setTimeout(() => {
-
-        this.setState({
-          hide: true,
-          seeking: false,
-        })
-      }, 1500)
-    })
-  }
-
-  timeupdate() {
-
-    const buttonNode = ReactDOM.findDOMNode(this._button.current)
-
-    if (!this.state.seeking) {
-
-      let offset = (this._progressBar.current.offsetWidth - this._button.current.offsetWidth)
-
-      let percentage = ( this.props.videoRef.current.currentTime / this.props.videoRef.current.duration ) * offset
-
-      buttonNode.style.left = `${percentage}px`
-    }
-  }
-
   play() {
 
     this.setState({
@@ -245,12 +165,106 @@ class Video extends Component {
     })
   }
 
-  videopaused() {
+  pause() {
 
     this.setState({
       hide: false,
       clicked: true,
       playing: false
+    })
+  }
+
+  timeupdate() {
+
+    if (!this.state.seeking) {
+
+      let offset = (this._progressBar.current.offsetWidth - this._button.current.offsetWidth)
+
+      let percentage = ( this.props.videoRef.current.currentTime / this.props.videoRef.current.duration ) * offset
+
+      this.setState({
+        positionLeft: percentage
+      })
+    }
+  }
+
+  loading() {
+
+    this.setState({
+      loading: true
+    })
+  }
+
+  loaded() {
+
+    this.setState({
+      loading: false
+    })
+  }
+
+  progress() {
+
+    const video = this.props.videoRef.current
+    
+    const buffered = video.buffered
+    const duration = video.duration
+    const time  = video.currentTime
+    
+    let range = 0
+
+    if (this.props.videoRef.current.readyState > 2) {
+
+      while(!(buffered.start(range) <= time && time <= buffered.end(range))) {
+          range += 1
+      }
+
+      const loadEndPercentage = buffered.end(range) / duration
+      const loadedPercentage = 100 * loadEndPercentage
+
+      this.setState({
+        loadedPercentage: loadedPercentage
+      })
+    }
+  }
+
+  seeking() {
+
+    let stateObj = {
+      seeking: true
+    }
+
+    if (this.state.delay) clearTimeout(this.state.delay)
+    if (this.state.seekDelay) clearTimeout(this.state.seekDelay)
+
+    if (!this.props.videoRef.current.paused) {
+
+      this.props.videoRef.current.pause()
+
+      stateObj.pausedBeforeSeek = false
+
+    } else {
+
+      stateObj.pausedBeforeSeek = true
+    }
+
+    this.setState(stateObj)
+  }
+
+  async seeked() {
+    
+    if (!this.state.pausedBeforeSeek) {
+
+      await this.props.videoRef.current.play()
+    }
+
+    this.setState({
+      seeking: false,
+      seekDelay: setTimeout(() => {
+
+        this.setState({
+          hide: true
+        })
+      }, 2500)
     })
   }
 
@@ -271,7 +285,7 @@ class Video extends Component {
 
         </video>
 
-        <ToggleVideo 
+        <ToggleVideo
           videoref={this.props.videoRef} 
           hide={this.state.hide} 
           delay={this.state.delay} 
@@ -283,15 +297,16 @@ class Video extends Component {
         <div className={!this.state.hide ? 'video-play-controller-container video-show' : 'video-play-controller-container video-hide'}>
 
           <VideoSeekbar
+            loading={this.state.loading}
+            hide={this.state.hide}
             videoref={this.props.videoRef}
-            hide={this.state.hide} 
-            delay={this.state.delay} 
             isMobile={this.props.isMobile} 
             button={this._button}
             progressbar={this._progressBar}
             seeking={this.seeking}
             seeked={this.seeked}
-            playing={this.state.playing}
+            loadedPercentage={this.state.loadedPercentage}
+            positionLeft={this.state.positionLeft}
           />
 
         </div>

@@ -12,7 +12,8 @@ class VideoSeekbar extends Component {
 
     this.state = {
       x: 0,
-      offset: 0
+      offset: 0,
+      loadedPercentage: 0
     }
 
     this.startEvent = this.startEvent.bind(this)
@@ -20,7 +21,28 @@ class VideoSeekbar extends Component {
     this.endEvent = this.endEvent.bind(this)
   }
 
+  componentDidUpdate(prevProps) {
+
+    if (prevProps.loadedPercentage !== this.props.loadedPercentage) {
+
+      this.setState({
+        loadedPercentage: this.props.loadedPercentage
+      })
+    }
+
+    if (prevProps.positionLeft !== this.props.positionLeft) {
+
+      this.setState({
+        x: this.props.positionLeft
+      })
+    }
+  }
+
   startEvent(e) {
+
+    if (this.props.hide || this.props.loading) return
+
+    e.preventDefault()
 
     let offset
 
@@ -47,6 +69,8 @@ class VideoSeekbar extends Component {
   }
 
   moveEvent(e) {
+
+    e.preventDefault()
 
     const buttonWidth = this.props.button.current.offsetWidth
     const progressbarwidth = this.props.progressbar.current.offsetWidth
@@ -84,6 +108,8 @@ class VideoSeekbar extends Component {
 
   endEvent(e) {
 
+    e.preventDefault()
+
     this.props.seeked()
 
     if (e.type === 'touchend') {
@@ -103,6 +129,29 @@ class VideoSeekbar extends Component {
     return (
 
       <div className='progress-bar' ref={this.props.progressbar}>
+
+          <div 
+            style={{
+              background: 'red',
+              width: this.state.loadedPercentage + '%',
+              height: '4px',
+              position: 'absolute',
+              left: 0
+            }}
+          >
+          </div>
+
+          <div 
+            style={{
+              background: 'green',
+              width: this.state.x + 'px',
+              height: '4px',
+              position: 'absolute',
+              left: 0
+            }}
+          >
+          </div>
+
         
           <div
             className='progress-button-container'
@@ -123,3 +172,15 @@ class VideoSeekbar extends Component {
 }
 
 export default hot(module)(VideoSeekbar)
+
+
+          // <div 
+          //   style={{
+          //     background: 'green',
+          //     width: this.state.x + 'px',
+          //     height: '4px',
+          //     position: 'absolute',
+          //     left: 0
+          //   }}
+          // >
+          // </div>

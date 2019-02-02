@@ -33,8 +33,6 @@ class VideoPreview extends Component {
         
         <Video isMobile={this.props.config.isMobile} videoRef={this._video} videoObj={this.state.videoObj} />
 
-        <h1 className='video-bold-text'>Clips</h1>
-
       </MainContainer>
     )
   }
