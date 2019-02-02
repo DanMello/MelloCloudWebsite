@@ -71,6 +71,7 @@ class Video extends Component {
   manageControllerMobile(e) {
 
     if (this.state.delay) clearTimeout(this.state.delay)
+    if (this.state.seekDelay) clearTimeout(this.state.seekDelay)
 
     if (e.target.className === 'video-play-button-container' || this.state.hide) {
 
@@ -120,6 +121,7 @@ class Video extends Component {
   manageControllerDesktop() {
 
     if (this.state.delay) clearTimeout(this.state.delay)
+    if (this.state.seekDelay) clearTimeout(this.state.seekDelay)
 
     if (this.props.videoRef.current.currentTime > 0 && !this.props.videoRef.current.paused && !this.props.videoRef.current.ended && this.props.videoRef.current.readyState > 2 && !this.state.hide) {
 

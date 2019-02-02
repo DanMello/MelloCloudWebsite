@@ -14,18 +14,28 @@ class Loader extends Component {
       <div style={{
         width: this.props.width,
         height: this.props.height,
-        backgroundColor: 'rgb(58, 61, 80)',
+        borderStyle: 'solid',
+        borderLeftColor: 'transparent',
+        borderRightColor: this.props.color,
+        borderBottomColor: this.props.color,
+        borderTopColor: this.props.color,
         borderRadius: '50%',
-        borderTop: '3px solid ' + this.props.color ,
-        animation: 'spin 2s linear infinite',
-        boxShadow: '0px 2px 10px rgba(0,0,0,.2)'
+        animation: 'spin 1s ease-in-out 0s infinite normal none running',
       }}>
       </div>
       <span style={{marginLeft: '10px', marginRight: '2px'}} className={this.props.className}>{this.props.text}</span>
-      {!!this.props.text && <div className='loading' />}
       </div>
     )
   }
 }
 
 export default hot(module)(Loader)
+
+  // {!!this.props.text && <div className='loading' />}
+
+  // border: 16px solid #f3f3f3; /* Light grey */
+  // border-top: 16px solid #3498db; /* Blue */
+  // border-radius: 50%;
+  // width: 120px;
+  // height: 120px;
+  // animation: spin 2s linear infinite;

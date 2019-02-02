@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import { FaPlay, FaPause } from 'react-icons/fa'
+import Loader from '../partials/myloader'
 
 class ToggleVideo extends Component {
 
@@ -36,7 +37,7 @@ class ToggleVideo extends Component {
 
           {this.props.loading ?
 
-            <h1 style={{color: 'white'}}>Loading</h1>
+            <Loader width={'30px'} height={'30px'}color={'white'} />
             :
             <div className={this.props.hide ? 'video-hide' : 'video-play-button'} onClick={this.toggleVideo}>
               

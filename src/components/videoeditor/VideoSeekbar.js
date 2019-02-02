@@ -130,24 +130,18 @@ class VideoSeekbar extends Component {
 
       <div className='progress-bar' ref={this.props.progressbar}>
 
-          <div 
+          <div
+            className='progress-bar-loadedData'
             style={{
-              background: 'red',
-              width: this.state.loadedPercentage + '%',
-              height: '4px',
-              position: 'absolute',
-              left: 0
+              width: this.state.loadedPercentage + '%'
             }}
           >
           </div>
 
-          <div 
+          <div
+            className='progress-bar-played-data'
             style={{
-              background: 'green',
-              width: this.state.x + 'px',
-              height: '4px',
-              position: 'absolute',
-              left: 0
+              width: this.state.x + 'px'
             }}
           >
           </div>

@@ -1,6 +1,6 @@
 .progress-bar {
   width: 95%;
-  background: rgb(0, 125, 255);
+  background: rgb(58, 61, 80);
   height: 4px;
   position: relative;
   border-radius: 5px;
@@ -25,4 +25,18 @@
   top: 50%;
   margin-top: -30px;
   position: absolute;
+}
+
+.progress-bar-loadedData {
+  background: #ccc;
+  height: 4px;
+  position: absolute;
+  left: 0;
+}
+
+.progress-bar-played-data {
+  background: rgb(0, 125, 255);
+  height: 4px;
+  position: absolute;
+  left: 0;
 }
