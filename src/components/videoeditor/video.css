@@ -195,12 +195,32 @@
 
 .video-hide {
   opacity: 0;
+  animation: fade-out 0.5s ease;
 }
 
 .video-show {
   opacity: 1;
+  animation: fade 0.5s ease;
 }
 
 .video-bold-text {
   color: #444;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

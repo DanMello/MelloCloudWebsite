@@ -21,7 +21,8 @@ class Video extends Component {
       seeking: false,
       seekDelay: null,
       loadedPercentage: 0,
-      positionLeft: 0
+      positionLeft: 0,
+      error: false
     }
 
     this._button = React.createRef()
@@ -38,6 +39,7 @@ class Video extends Component {
     this.seeking = this.seeking.bind(this)
     this.seeked = this.seeked.bind(this)
     this.progress = this.progress.bind(this)
+    this.error = this.error.bind(this)
   }
 
   componentDidMount() {
@@ -53,6 +55,7 @@ class Video extends Component {
     this.props.videoRef.current.addEventListener('loadstart', this.loading)
     this.props.videoRef.current.addEventListener('loadeddata', this.loaded)
     this.props.videoRef.current.addEventListener('progress', this.progress)
+    this.props.videoRef.current.addEventListener('error', this.error)
   }
 
   componentWillUnmount() {
@@ -68,7 +71,7 @@ class Video extends Component {
   }
 
   manageControllerMobile(e) {
-    
+
     if (this.state.delay) clearTimeout(this.state.delay)
 
     if (e.target.className === 'video-play-button-container' || this.state.hide) {
@@ -154,6 +157,7 @@ class Video extends Component {
     this.setState({
       clicked: true,
       playing: true,
+      loading: false,
       delay: setTimeout(() => {
 
         this.setState({
@@ -170,6 +174,13 @@ class Video extends Component {
       hide: false,
       clicked: true,
       playing: false
+    })
+  }
+
+  error() {
+
+    this.setState({
+      error: true
     })
   }
 
@@ -229,7 +240,8 @@ class Video extends Component {
   seeking() {
 
     let stateObj = {
-      seeking: true
+      seeking: true,
+      loading: true
     }
 
     if (this.state.delay) clearTimeout(this.state.delay)
@@ -250,21 +262,24 @@ class Video extends Component {
 
   async seeked() {
 
+    let stateObj = {
+      seeking: false
+    }
+
     if (!this.state.pausedBeforeSeek) {
 
       await this.props.videoRef.current.play()
-    }
 
-    this.setState({
-      seeking: false,
-      delay: setTimeout(() => {
+      stateObj.delay = setTimeout(() => {
 
         this.setState({
           hide: true,
           clicked: false
         })
       }, 1500)
-    })
+    }
+
+    this.setState(stateObj)
   }
 
   render() {
@@ -272,45 +287,50 @@ class Video extends Component {
     return (
       <div className='video-player-outer-container' onMouseMove={!this.props.isMobile ? this.manageControllerDesktop : null} onClick={this.props.isMobile ? this.manageControllerMobile : null}>
         
-        <video
-          className='video-player-container'
-          ref={this.props.videoRef}
-          poster={this.props.videoObj.video_thumbnail}
-          playsInline
-          muted
-          >
-          
-          <source type="video/mp4" src={this.props.videoObj.videopath} />
+        {this.state.error ?
 
-        </video>
+          <h1>Error</h1>
+          :
+          <div>
+            <video
+              className='video-player-container'
+              ref={this.props.videoRef}
+              poster={this.props.videoObj.video_thumbnail}
+              playsInline
+              muted
+              >
+              
+              <source type="video/mp4" src={this.props.videoObj.videopath} />
 
-        <ToggleVideo
-          videoref={this.props.videoRef} 
-          hide={this.state.hide} 
-          delay={this.state.delay} 
-          loading={this.state.loading} 
-          playing={this.state.playing}
-          seeking={this.state.seeking}
-        />
+            </video>
 
-        <div className={!this.state.hide ? 'video-play-controller-container video-show' : 'video-play-controller-container video-hide'}>
+            <ToggleVideo
+              videoref={this.props.videoRef} 
+              hide={this.state.hide} 
+              delay={this.state.delay} 
+              loading={this.state.loading} 
+              playing={this.state.playing}
+              seeking={this.state.seeking}
+            />
 
-          <VideoSeekbar
-            loading={this.state.loading}
-            hide={this.state.hide}
-            videoref={this.props.videoRef}
-            isMobile={this.props.isMobile} 
-            button={this._button}
-            progressbar={this._progressBar}
-            seeking={this.seeking}
-            seeked={this.seeked}
-            loadedPercentage={this.state.loadedPercentage}
-            positionLeft={this.state.positionLeft}
-          />
+            <div className={!this.state.hide ? 'video-play-controller-container video-show' : 'video-play-controller-container video-hide'}>
 
-        </div>
+              <VideoSeekbar
+                loading={this.state.loading}
+                hide={this.state.hide}
+                videoref={this.props.videoRef}
+                isMobile={this.props.isMobile} 
+                button={this._button}
+                progressbar={this._progressBar}
+                seeking={this.seeking}
+                seeked={this.seeked}
+                loadedPercentage={this.state.loadedPercentage}
+                positionLeft={this.state.positionLeft}
+              />
 
-        <div>{this.state.playing ? 'playing' : 'paused'} </div>
+            </div>
+          </div>
+        }
 
       </div>
     )

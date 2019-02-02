@@ -26,29 +26,24 @@ class ToggleVideo extends Component {
     }
   }
 
-
   render() {
 
     return (
 
-      !this.props.seeking ?
+      <div className='video-play-button-container'>
 
-        <div className='video-play-button-container'>
+        {this.props.loading ?
 
-          {this.props.loading ?
+          <Loader width={'30px'} height={'30px'}color={'white'} />
+          :
+          <div className={this.props.hide || this.props.seeking ? 'video-play-button video-hide' : 'video-play-button video-show'} onClick={this.toggleVideo}>
+            
+            {!this.props.playing ? <FaPlay /> : <FaPause />}
 
-            <Loader width={'30px'} height={'30px'}color={'white'} />
-            :
-            <div className={this.props.hide ? 'video-hide' : 'video-play-button'} onClick={this.toggleVideo}>
-              
-              {!this.props.playing ? <FaPlay /> : <FaPause />}
+          </div>
+        }
 
-            </div>
-          }
-
-        </div>
-        :
-        null
+      </div>
     )
   }
 }
