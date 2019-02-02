@@ -21,7 +21,7 @@ class Video extends Component {
       seeking: false,
       seekDelay: null,
       loadedPercentage: 0,
-      positionLeft: 0,
+      positionLeft: 0
     }
 
     this._button = React.createRef()
@@ -30,7 +30,7 @@ class Video extends Component {
     this.manageControllerMobile = this.manageControllerMobile.bind(this)
     this.manageControllerDesktop = this.manageControllerDesktop.bind(this)
 
-    this.play = this.play.bind(this)
+    this.playing = this.playing.bind(this)
     this.pause = this.pause.bind(this)
     this.timeupdate = this.timeupdate.bind(this)
     this.loading = this.loading.bind(this)
@@ -47,7 +47,7 @@ class Video extends Component {
       this.props.videoRef.current.autoplay = true
     }
 
-    this.props.videoRef.current.addEventListener('play', this.play)
+    this.props.videoRef.current.addEventListener('playing', this.playing)
     this.props.videoRef.current.addEventListener('pause', this.pause)
     this.props.videoRef.current.addEventListener('timeupdate', this.timeupdate)
     this.props.videoRef.current.addEventListener('loadstart', this.loading)
@@ -58,9 +58,8 @@ class Video extends Component {
   componentWillUnmount() {
 
     if (this.state.delay) clearTimeout(this.state.delay)
-    if (this.state.seekDelay) clearTimeout(this.state.seekDelay)
 
-    this.props.videoRef.current.removeEventListener('play', this.play)
+    this.props.videoRef.current.removeEventListener('playing', this.playing)
     this.props.videoRef.current.removeEventListener('pause', this.pause)
     this.props.videoRef.current.removeEventListener('timeupdate', this.timeupdate)
     this.props.videoRef.current.removeEventListener('loadstart', this.loading)
@@ -69,9 +68,8 @@ class Video extends Component {
   }
 
   manageControllerMobile(e) {
-
+    
     if (this.state.delay) clearTimeout(this.state.delay)
-    if (this.state.seekDelay) clearTimeout(this.state.seekDelay)
 
     if (e.target.className === 'video-play-button-container' || this.state.hide) {
 
@@ -121,7 +119,6 @@ class Video extends Component {
   manageControllerDesktop() {
 
     if (this.state.delay) clearTimeout(this.state.delay)
-    if (this.state.seekDelay) clearTimeout(this.state.seekDelay)
 
     if (this.props.videoRef.current.currentTime > 0 && !this.props.videoRef.current.paused && !this.props.videoRef.current.ended && this.props.videoRef.current.readyState > 2 && !this.state.hide) {
 
@@ -152,7 +149,7 @@ class Video extends Component {
     }
   }
 
-  play() {
+  playing() {
 
     this.setState({
       clicked: true,
@@ -236,7 +233,6 @@ class Video extends Component {
     }
 
     if (this.state.delay) clearTimeout(this.state.delay)
-    if (this.state.seekDelay) clearTimeout(this.state.seekDelay)
 
     if (!this.props.videoRef.current.paused) {
 
@@ -253,7 +249,7 @@ class Video extends Component {
   }
 
   async seeked() {
-    
+
     if (!this.state.pausedBeforeSeek) {
 
       await this.props.videoRef.current.play()
@@ -261,12 +257,13 @@ class Video extends Component {
 
     this.setState({
       seeking: false,
-      seekDelay: setTimeout(() => {
+      delay: setTimeout(() => {
 
         this.setState({
-          hide: true
+          hide: true,
+          clicked: false
         })
-      }, 2500)
+      }, 1500)
     })
   }
 
@@ -312,6 +309,8 @@ class Video extends Component {
           />
 
         </div>
+
+        <div>{this.state.playing ? 'playing' : 'paused'} </div>
 
       </div>
     )
