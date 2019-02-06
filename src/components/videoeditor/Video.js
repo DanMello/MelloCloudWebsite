@@ -4,6 +4,7 @@ import { hot } from 'react-hot-loader'
 import ToggleVideo from './ToggleVideo'
 import VideoSeekbar from './VideoSeekbar'
 import classNames from 'classnames'
+import Loader from '../partials/myloader'
 
 class Video extends Component {
 
@@ -30,6 +31,7 @@ class Video extends Component {
     this.manageControllerMobile = this.manageControllerMobile.bind(this)
     this.manageControllerDesktop = this.manageControllerDesktop.bind(this)
 
+    this.play = this.play.bind(this)
     this.playing = this.playing.bind(this)
     this.pause = this.pause.bind(this)
     this.timeupdate = this.timeupdate.bind(this)
@@ -39,6 +41,8 @@ class Video extends Component {
     this.seeked = this.seeked.bind(this)
     this.progress = this.progress.bind(this)
     this.error = this.error.bind(this)
+    this.back15 = this.back15.bind(this)
+    this.ahead15 = this.ahead15.bind(this)
   }
 
   componentDidMount() {
@@ -48,6 +52,7 @@ class Video extends Component {
       this.props.videoRef.current.autoplay = true
     }
 
+    this.props.videoRef.current.addEventListener('play', this.play)
     this.props.videoRef.current.addEventListener('playing', this.playing)
     this.props.videoRef.current.addEventListener('pause', this.pause)
     this.props.videoRef.current.addEventListener('timeupdate', this.timeupdate)
@@ -74,7 +79,9 @@ class Video extends Component {
 
     if (this.state.delay) clearTimeout(this.state.delay)
 
-    if (e.target.className === 'video-play-button-container' || this.state.hide) {
+    console.log('rann')
+
+    if (e.target.className === 'video-play-button-container video-show' || this.state.hide) {
 
       if (!this.state.hide) {
 
@@ -152,12 +159,10 @@ class Video extends Component {
     }
   }
 
-  playing() {
-
+  play() {
+    
     this.setState({
       clicked: true,
-      playing: true,
-      loading: false,
       delay: setTimeout(() => {
 
         this.setState({
@@ -165,6 +170,14 @@ class Video extends Component {
           clicked: false
         })
       }, 1500)
+    }) 
+  }
+
+  playing() {
+
+    this.setState({
+      playing: true,
+      loading: false,
     })
   }
 
@@ -283,6 +296,58 @@ class Video extends Component {
     this.setState(stateObj)
   }
 
+  back15() {
+
+    let stateObj = {
+      clicked: true
+    }
+
+    let time = this.props.videoRef.current.currentTime - 15
+
+    if (time < 0) time = 0
+
+    this.props.videoRef.current.currentTime = time
+
+    if (!this.props.videoRef.current.paused) {
+
+      stateObj.delay = setTimeout(() => {
+
+        this.setState({
+          hide: true,
+          clicked: false
+        })
+      }, 1500)
+    }
+
+    this.setState(stateObj)
+  }
+
+  ahead15() {
+
+    let stateObj = {
+      clicked: true
+    }
+
+    let time = this.props.videoRef.current.currentTime + 15
+
+    if (time > this.props.videoRef.current.duration) time = 0
+
+    this.props.videoRef.current.currentTime = time
+
+    if (!this.props.videoRef.current.paused) {
+
+      stateObj.delay = setTimeout(() => {
+
+        this.setState({
+          hide: true,
+          clicked: false
+        })
+      }, 1500)
+    }
+
+    this.setState(stateObj)
+  }
+
   render() {
 
     return (
@@ -293,25 +358,41 @@ class Video extends Component {
           <h1>Error</h1>
           :
           <div className='video-player-outer-container' onMouseMove={!this.props.isMobile ? this.manageControllerDesktop : null} onClick={this.props.isMobile ? this.manageControllerMobile : null}>
+            
+            {this.state.loading &&
+
+              <Loader width={'30px'} height={'30px'} color={'white'} containerClass={'video-loader'} />
+            }
+
             <video
               className='video-player-container'
               ref={this.props.videoRef}
               poster={this.props.videoObj.video_thumbnail}
               playsInline
+              muted
               >
               
               <source type="video/mp4" src={this.props.videoObj.videopath} />
 
             </video>
 
-            <ToggleVideo
-              videoref={this.props.videoRef} 
-              hide={this.state.hide} 
-              delay={this.state.delay} 
-              loading={this.state.loading} 
-              playing={this.state.playing}
-              seeking={this.state.seeking}
-            />
+            <div className={this.state.hide || this.state.seeking || this.state.loading ? 'video-play-button-container video-hide' : 'video-play-button-container video-show'}>
+
+              <div className='video-skip-container video-skip-left' onClick={this.back15}>
+                <img src='assets/back15.png' className='video-skip-image'/>
+              </div>
+
+              <ToggleVideo
+                videoref={this.props.videoRef} 
+                hide={this.state.hide}
+                playing={this.state.playing}
+              />
+
+              <div className='video-skip-container video-skip-right' onClick={this.ahead15}>
+                <img src='assets/ahead15.png' className='video-skip-image'/>
+              </div>
+
+            </div>
 
             <div className={!this.state.hide ? 'video-play-controller-container video-show' : 'video-play-controller-container video-hide'}>
 

@@ -1,9 +1,10 @@
 .progress-bar {
-  width: 95%;
+  width: 90%;
   background: rgb(58, 61, 80);
   height: 4px;
   position: relative;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .progress-button-container {
