@@ -23,6 +23,7 @@
   min-width: 500px;
   min-height: 80vh;
   margin-bottom: 10px;
+  position: relative;
 }
 
 .video-loggedOut-container-mobile {
@@ -33,6 +34,7 @@
   width: 95%;
   min-height: 80vh;
   margin-bottom: 10px;
+  position: relative;
 }
 
 .video-heading-container {

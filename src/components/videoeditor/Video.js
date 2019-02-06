@@ -19,7 +19,6 @@ class Video extends Component {
       playing: false,
       pausedBeforeSeek: false,
       seeking: false,
-      seekDelay: null,
       loadedPercentage: 0,
       positionLeft: 0,
       error: false
@@ -68,6 +67,7 @@ class Video extends Component {
     this.props.videoRef.current.removeEventListener('loadstart', this.loading)
     this.props.videoRef.current.removeEventListener('loadeddata', this.loaded)
     this.props.videoRef.current.removeEventListener('progress', this.progress)
+    this.props.videoRef.current.removeEventListener('error', this.error)
   }
 
   manageControllerMobile(e) {
@@ -188,7 +188,7 @@ class Video extends Component {
 
     if (!this.state.seeking) {
 
-      let offset = (this._progressBar.current.offsetWidth - this._button.current.offsetWidth)
+      let offset = this._progressBar.current.offsetWidth
 
       let percentage = ( this.props.videoRef.current.currentTime / this.props.videoRef.current.duration ) * offset
 
@@ -225,7 +225,8 @@ class Video extends Component {
     if (this.props.videoRef.current.readyState > 2) {
 
       while(!(buffered.start(range) <= time && time <= buffered.end(range))) {
-          range += 1
+
+        range += 1
       }
 
       const loadEndPercentage = buffered.end(range) / duration
@@ -240,8 +241,7 @@ class Video extends Component {
   seeking() {
 
     let stateObj = {
-      seeking: true,
-      loading: true
+      seeking: true
     }
 
     if (this.state.delay) clearTimeout(this.state.delay)
@@ -251,6 +251,7 @@ class Video extends Component {
       this.props.videoRef.current.pause()
 
       stateObj.pausedBeforeSeek = false
+      stateObj.loading = true
 
     } else {
 
@@ -285,19 +286,18 @@ class Video extends Component {
   render() {
 
     return (
-      <div className='video-player-outer-container' onMouseMove={!this.props.isMobile ? this.manageControllerDesktop : null} onClick={this.props.isMobile ? this.manageControllerMobile : null}>
+      <div style={{position: 'relative'}}>
         
         {this.state.error ?
 
           <h1>Error</h1>
           :
-          <div>
+          <div className='video-player-outer-container' onMouseMove={!this.props.isMobile ? this.manageControllerDesktop : null} onClick={this.props.isMobile ? this.manageControllerMobile : null}>
             <video
               className='video-player-container'
               ref={this.props.videoRef}
               poster={this.props.videoObj.video_thumbnail}
               playsInline
-              muted
               >
               
               <source type="video/mp4" src={this.props.videoObj.videopath} />

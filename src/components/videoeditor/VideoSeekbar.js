@@ -19,9 +19,27 @@ class VideoSeekbar extends Component {
     this.startEvent = this.startEvent.bind(this)
     this.moveEvent = this.moveEvent.bind(this)
     this.endEvent = this.endEvent.bind(this)
+    this.seekToPosition = this.seekToPosition.bind(this)
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
+
+    let seekbarParent = ReactDOM.findDOMNode(this)
+    let offset = 0
+
+    //the container for the video player must have position relative
+    while (seekbarParent.tagName !== 'BODY') {
+
+      offset += seekbarParent.offsetLeft
+      seekbarParent = seekbarParent.parentElement
+    }
+
+    if (offset !== this.state.offset) {
+
+      this.setState({
+        offset: offset
+      })
+    }
 
     if (prevProps.loadedPercentage !== this.props.loadedPercentage) {
 
@@ -39,42 +57,30 @@ class VideoSeekbar extends Component {
   }
 
   startEvent(e) {
-
+    
     if (this.props.hide || this.props.loading) return
 
     e.preventDefault()
 
-    let offset
-
     this.props.seeking()
 
     if (e.type === 'touchstart') {
-
-      offset = e.touches[0].pageX - this.state.x
 
       document.ontouchmove = this.moveEvent
       document.ontouchend = this.endEvent
 
     } else {
 
-      offset = e.pageX - this.state.x
-
       document.onmousemove = this.moveEvent
       document.onmouseup = this.endEvent
     }
-
-    this.setState({
-      offset: offset
-    })
   }
 
   moveEvent(e) {
 
     e.preventDefault()
 
-    const buttonWidth = this.props.button.current.offsetWidth
     const progressbarwidth = this.props.progressbar.current.offsetWidth
-    const maxoffset = (progressbarwidth - buttonWidth)
 
     let position
 
@@ -91,12 +97,12 @@ class VideoSeekbar extends Component {
 
       position = 0
 
-    } else if (position > maxoffset) {
+    } else if (position > progressbarwidth) {
 
-      position = maxoffset
+      position = progressbarwidth
     }
 
-    const percentage = (position / maxoffset)
+    const percentage = (position / progressbarwidth)
     const videoTime = this.props.videoref.current.duration * percentage
 
     this.props.videoref.current.currentTime = videoTime
@@ -124,11 +130,36 @@ class VideoSeekbar extends Component {
     }
   }
 
+  seekToPosition(e) {
+
+    const progressbarwidth = this.props.progressbar.current.offsetWidth
+
+    let position = e.pageX - this.state.offset
+
+    if (position < 0) {
+
+      position = 0
+
+    } else if (position > progressbarwidth) {
+
+      position = progressbarwidth
+    }
+
+    const percentage = (position / progressbarwidth)
+    const videoTime = this.props.videoref.current.duration * percentage
+
+    this.props.videoref.current.currentTime = videoTime
+
+    this.setState({
+      x: position
+    })
+  }
+
   render() {
 
     return (
 
-      <div className='progress-bar' ref={this.props.progressbar}>
+      <div className='progress-bar' ref={this.props.progressbar} onClick={!this.props.isMobile ? this.seekToPosition : null}>
 
           <div
             className='progress-bar-loadedData'
@@ -166,15 +197,3 @@ class VideoSeekbar extends Component {
 }
 
 export default hot(module)(VideoSeekbar)
-
-
-          // <div 
-          //   style={{
-          //     background: 'green',
-          //     width: this.state.x + 'px',
-          //     height: '4px',
-          //     position: 'absolute',
-          //     left: 0
-          //   }}
-          // >
-          // </div>
