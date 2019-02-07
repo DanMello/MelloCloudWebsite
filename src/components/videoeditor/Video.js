@@ -5,6 +5,7 @@ import ToggleVideo from './ToggleVideo'
 import VideoSeekbar from './VideoSeekbar'
 import classNames from 'classnames'
 import Loader from '../partials/myloader'
+import { timeConvert } from '../../helpers/numbers'
 
 class Video extends Component {
 
@@ -22,7 +23,10 @@ class Video extends Component {
       seeking: false,
       loadedPercentage: 0,
       positionLeft: 0,
-      error: false
+      error: false,
+      initialLoad: false,
+      currentVideoTime: null,
+      videoDuration: null
     }
 
     this._button = React.createRef()
@@ -42,7 +46,7 @@ class Video extends Component {
     this.error = this.error.bind(this)
     this.back15 = this.back15.bind(this)
     this.ahead15 = this.ahead15.bind(this)
-    this.clearDelay = this.clearDelay.bind(this)
+    this.manageClickDesktop = this.manageClickDesktop.bind(this)
   }
 
   componentDidMount() {
@@ -52,14 +56,7 @@ class Video extends Component {
       this.props.videoRef.current.autoplay = true
 
       this.setState({
-        clicked: true,
-        delay: setTimeout(() => {
-
-          this.setState({
-            hide: true,
-            clicked: false
-          })
-        }, 2500)
+        initialLoad: true
       })
     }
 
@@ -93,18 +90,14 @@ class Video extends Component {
 
       this.setState({
         hide: false,
-        clicked: true
-      }, () => {
+        clicked: true,
+        delay: setTimeout(() => {
 
-        this.setState({
-          delay: setTimeout(() => {
-
-            this.setState({
-              hide: true,
-              clicked: false
-            })
-          }, 2500)
-        })
+          this.setState({
+            hide: true,
+            clicked: false
+          })
+        }, 2500)
       })
 
     } else {
@@ -118,9 +111,9 @@ class Video extends Component {
 
   manageControllerDesktop() {
 
-    if (this.state.delay) clearTimeout(this.state.delay)
-
     if (this.props.videoRef.current.currentTime > 0 && !this.props.videoRef.current.paused && !this.props.videoRef.current.ended && this.props.videoRef.current.readyState > 2 && !this.state.hide) {
+
+      if (this.state.delay) clearTimeout(this.state.delay)
 
       this.setState({
         delay: setTimeout(() => {
@@ -128,28 +121,26 @@ class Video extends Component {
           this.setState({
             hide: true
           })
-        }, 1000)
+        }, 2500)
       })
 
     } else if (this.state.hide) {
 
+      if (this.state.delay) clearTimeout(this.state.delay)
+
       this.setState({
-        hide: false
-      }, () => {
+        hide: false,
+        delay: setTimeout(() => {
 
-        this.setState({
-          delay: setTimeout(() => {
-
-            this.setState({
-              hide: true
-            })
-          }, 2500)
-        })
+          this.setState({
+            hide: true
+          })
+        }, 2500)
       })
     }
   }
 
-  clearDelay(e) {
+  manageClickDesktop(e) {
 
     if (this.state.delay) clearTimeout(this.state.delay)
 
@@ -162,19 +153,7 @@ class Video extends Component {
       } else {
 
         this.props.videoRef.current.play()
-
-        this.setState({
-          delay: setTimeout(() => {
-
-            this.setState({
-              hide: true,
-              clicked: false
-            })
-          }, 2500)
-        })
       }
-
-      return 
     }
 
     let stateObj = {
@@ -197,10 +176,26 @@ class Video extends Component {
 
   playing() {
 
-    this.setState({
+    let stateObj = {
       playing: true,
-      loading: false,
-    })
+      loading: false
+    }
+
+    if (this.state.initialLoad) {
+
+      stateObj.hide = false
+      stateObj.clicked = true,
+      stateObj.initialLoad = false,
+      stateObj.delay = setTimeout(() => {
+
+        this.setState({
+          hide: true,
+          clicked: false
+        })
+      }, 2500)
+    }
+
+    this.setState(stateObj)
   }
 
   pause() {
@@ -220,14 +215,15 @@ class Video extends Component {
 
   timeupdate() {
 
-    if (!this.state.seeking) {
+    if (!this.state.seeking && !this.state.loading) {
 
       let offset = this._progressBar.current.offsetWidth
 
       let percentage = ( this.props.videoRef.current.currentTime / this.props.videoRef.current.duration ) * offset
 
       this.setState({
-        positionLeft: percentage
+        positionLeft: percentage,
+        currentVideoTime: timeConvert(this.props.videoRef.current.currentTime)
       })
     }
   }
@@ -242,7 +238,8 @@ class Video extends Component {
   loaded() {
 
     this.setState({
-      loading: false
+      loading: false,
+      videoDuration: timeConvert(this.props.videoRef.current.duration)
     })
   }
 
@@ -311,7 +308,7 @@ class Video extends Component {
           hide: true,
           clicked: false
         })
-      }, 1500)
+      }, 2500)
     }
 
     this.setState(stateObj)
@@ -355,7 +352,7 @@ class Video extends Component {
           <div
             className='video-player-outer-container'
             onMouseMove={!this.props.isMobile ? this.manageControllerDesktop : null}
-            onClick={this.props.isMobile ? this.manageControllerMobile : this.clearDelay}
+            onClick={this.props.isMobile ? this.manageControllerMobile : this.manageClickDesktop}
             >
             
             {this.state.loading &&
@@ -395,6 +392,8 @@ class Video extends Component {
 
             <div className={!this.state.hide ? 'video-play-controller-container video-show' : 'video-play-controller-container video-hide'}>
 
+              <div className={'video-time'}>{this.state.currentVideoTime !== null ? this.state.currentVideoTime : '--:--'}</div>
+
               <VideoSeekbar
                 loading={this.state.loading}
                 hide={this.state.hide}
@@ -408,6 +407,8 @@ class Video extends Component {
                 positionLeft={this.state.positionLeft}
               />
 
+              <div className={'video-time'}>{this.state.videoDuration !== null ? this.state.videoDuration : '--:--'}</div>
+
             </div>
           </div>
         }
@@ -418,45 +419,3 @@ class Video extends Component {
 }
 
 export default hot(module)(Video)
-
-
-      // if (!this.state.hide) {
-
-      //   if (!this.state.clicked) {
-
-      //     this.setState({
-      //       clicked: true,
-      //       delay: setTimeout(() => {
-
-      //         this.setState({
-      //           hide: true,
-      //           clicked: false
-      //         })
-      //       }, 1500)
-      //     })
-
-      //   } else {
-
-      //     this.setState({
-      //       hide: true
-      //     })
-      //   } 
-
-      // } else {
-
-      //   this.setState({
-      //     hide: false,
-      //     clicked: true
-      //   }, () => {
-
-      //     this.setState({
-      //       delay: setTimeout(() => {
-
-      //         this.setState({
-      //           hide: true,
-      //           clicked: false
-      //         })
-      //       }, 2500)
-      //     })
-      //   })
-      // }
