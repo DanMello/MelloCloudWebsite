@@ -31,7 +31,6 @@ class Video extends Component {
     this.manageControllerMobile = this.manageControllerMobile.bind(this)
     this.manageControllerDesktop = this.manageControllerDesktop.bind(this)
 
-    this.play = this.play.bind(this)
     this.playing = this.playing.bind(this)
     this.pause = this.pause.bind(this)
     this.timeupdate = this.timeupdate.bind(this)
@@ -43,6 +42,7 @@ class Video extends Component {
     this.error = this.error.bind(this)
     this.back15 = this.back15.bind(this)
     this.ahead15 = this.ahead15.bind(this)
+    this.clearDelay = this.clearDelay.bind(this)
   }
 
   componentDidMount() {
@@ -50,9 +50,19 @@ class Video extends Component {
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
 
       this.props.videoRef.current.autoplay = true
+
+      this.setState({
+        clicked: true,
+        delay: setTimeout(() => {
+
+          this.setState({
+            hide: true,
+            clicked: false
+          })
+        }, 2500)
+      })
     }
 
-    this.props.videoRef.current.addEventListener('play', this.play)
     this.props.videoRef.current.addEventListener('playing', this.playing)
     this.props.videoRef.current.addEventListener('pause', this.pause)
     this.props.videoRef.current.addEventListener('timeupdate', this.timeupdate)
@@ -79,50 +89,30 @@ class Video extends Component {
 
     if (this.state.delay) clearTimeout(this.state.delay)
 
-    console.log('rann')
+    if (!this.state.clicked || !e.target.classList.contains('video-play-button-container')) {
 
-    if (e.target.className === 'video-play-button-container video-show' || this.state.hide) {
-
-      if (!this.state.hide) {
-
-        if (!this.state.clicked) {
-
-          this.setState({
-            clicked: true,
-            delay: setTimeout(() => {
-
-              this.setState({
-                hide: true,
-                clicked: false
-              })
-            }, 1500)
-          })
-
-        } else {
-
-          this.setState({
-            hide: true
-          })
-        } 
-
-      } else {
+      this.setState({
+        hide: false,
+        clicked: true
+      }, () => {
 
         this.setState({
-          hide: false,
-          clicked: true
-        }, () => {
+          delay: setTimeout(() => {
 
-          this.setState({
-            delay: setTimeout(() => {
-
-              this.setState({
-                hide: true,
-                clicked: false
-              })
-            }, 2500)
-          })
+            this.setState({
+              hide: true,
+              clicked: false
+            })
+          }, 2500)
         })
-      }
+      })
+
+    } else {
+
+      this.setState({
+        hide: true,
+        clicked: false
+      })
     }
   }
 
@@ -159,18 +149,50 @@ class Video extends Component {
     }
   }
 
-  play() {
-    
-    this.setState({
-      clicked: true,
-      delay: setTimeout(() => {
+  clearDelay(e) {
+
+    if (this.state.delay) clearTimeout(this.state.delay)
+
+    if (e.target.classList.contains('video-play-button-container')) {
+
+      if (this.props.videoRef.current.currentTime > 0 && !this.props.videoRef.current.paused && !this.props.videoRef.current.ended && this.props.videoRef.current.readyState > 2) {
+
+        this.props.videoRef.current.pause()
+
+      } else {
+
+        this.props.videoRef.current.play()
+
+        this.setState({
+          delay: setTimeout(() => {
+
+            this.setState({
+              hide: true,
+              clicked: false
+            })
+          }, 2500)
+        })
+      }
+
+      return 
+    }
+
+    let stateObj = {
+      clicked: true
+    }
+
+    if (!this.props.videoRef.current.paused) {
+
+      stateObj.delay = setTimeout(() => {
 
         this.setState({
           hide: true,
           clicked: false
         })
-      }, 1500)
-    }) 
+      }, 2500)
+    }
+
+    this.setState(stateObj)
   }
 
   playing() {
@@ -184,9 +206,8 @@ class Video extends Component {
   pause() {
 
     this.setState({
-      hide: false,
-      clicked: true,
-      playing: false
+      playing: false,
+      hide: false
     })
   }
 
@@ -296,56 +317,30 @@ class Video extends Component {
     this.setState(stateObj)
   }
 
-  back15() {
+  back15(e) {
 
-    let stateObj = {
-      clicked: true
-    }
+    e.preventDefault()
+
+    if (this.state.hide) return
 
     let time = this.props.videoRef.current.currentTime - 15
 
     if (time < 0) time = 0
 
     this.props.videoRef.current.currentTime = time
-
-    if (!this.props.videoRef.current.paused) {
-
-      stateObj.delay = setTimeout(() => {
-
-        this.setState({
-          hide: true,
-          clicked: false
-        })
-      }, 1500)
-    }
-
-    this.setState(stateObj)
   }
 
-  ahead15() {
+  ahead15(e) {
 
-    let stateObj = {
-      clicked: true
-    }
+    e.preventDefault()
+
+    if (this.state.hide) return
 
     let time = this.props.videoRef.current.currentTime + 15
 
     if (time > this.props.videoRef.current.duration) time = 0
 
     this.props.videoRef.current.currentTime = time
-
-    if (!this.props.videoRef.current.paused) {
-
-      stateObj.delay = setTimeout(() => {
-
-        this.setState({
-          hide: true,
-          clicked: false
-        })
-      }, 1500)
-    }
-
-    this.setState(stateObj)
   }
 
   render() {
@@ -357,7 +352,11 @@ class Video extends Component {
 
           <h1>Error</h1>
           :
-          <div className='video-player-outer-container' onMouseMove={!this.props.isMobile ? this.manageControllerDesktop : null} onClick={this.props.isMobile ? this.manageControllerMobile : null}>
+          <div
+            className='video-player-outer-container'
+            onMouseMove={!this.props.isMobile ? this.manageControllerDesktop : null}
+            onClick={this.props.isMobile ? this.manageControllerMobile : this.clearDelay}
+            >
             
             {this.state.loading &&
 
@@ -419,3 +418,45 @@ class Video extends Component {
 }
 
 export default hot(module)(Video)
+
+
+      // if (!this.state.hide) {
+
+      //   if (!this.state.clicked) {
+
+      //     this.setState({
+      //       clicked: true,
+      //       delay: setTimeout(() => {
+
+      //         this.setState({
+      //           hide: true,
+      //           clicked: false
+      //         })
+      //       }, 1500)
+      //     })
+
+      //   } else {
+
+      //     this.setState({
+      //       hide: true
+      //     })
+      //   } 
+
+      // } else {
+
+      //   this.setState({
+      //     hide: false,
+      //     clicked: true
+      //   }, () => {
+
+      //     this.setState({
+      //       delay: setTimeout(() => {
+
+      //         this.setState({
+      //           hide: true,
+      //           clicked: false
+      //         })
+      //       }, 2500)
+      //     })
+      //   })
+      // }

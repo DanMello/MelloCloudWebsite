@@ -150,6 +150,8 @@ class VideoSeekbar extends Component {
 
     this.props.videoref.current.currentTime = videoTime
 
+    this.props.seeked()
+
     this.setState({
       x: position
     })
@@ -177,7 +179,6 @@ class VideoSeekbar extends Component {
           >
           </div>
 
-        
           <div
             className='progress-button-container'
             onMouseDown={!this.props.isMobile ? this.startEvent : null}

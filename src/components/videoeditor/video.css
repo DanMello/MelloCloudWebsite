@@ -223,6 +223,7 @@
   height: 40px;
   width: 40px;
   padding: 5px;
+  cursor: pointer;
 }
 
 .video-skip-left {
