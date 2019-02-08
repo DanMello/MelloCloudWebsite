@@ -109,14 +109,16 @@ class Video extends Component {
     }
   }
 
-  manageControllerDesktop() {
+  manageControllerDesktop(e) {
 
-    if (this.props.videoRef.current.currentTime > 0 && !this.props.videoRef.current.paused && !this.props.videoRef.current.ended && this.props.videoRef.current.readyState > 2 && !this.state.hide) {
+    if (this.state.delay) clearTimeout(this.state.delay)
 
-      if (this.state.delay) clearTimeout(this.state.delay)
+    if (!this.props.videoRef.current.paused && !this.state.hide) {
 
       this.setState({
         delay: setTimeout(() => {
+
+          console.log('move delay play')
 
           this.setState({
             hide: true
@@ -126,11 +128,11 @@ class Video extends Component {
 
     } else if (this.state.hide) {
 
-      if (this.state.delay) clearTimeout(this.state.delay)
-
       this.setState({
         hide: false,
         delay: setTimeout(() => {
+
+          console.log('move delay hide')
 
           this.setState({
             hide: true
@@ -163,6 +165,8 @@ class Video extends Component {
     if (!this.props.videoRef.current.paused) {
 
       stateObj.delay = setTimeout(() => {
+
+        console.log('click delay')
 
         this.setState({
           hide: true,
@@ -275,7 +279,7 @@ class Video extends Component {
       seeking: true
     }
 
-    if (this.state.delay) clearTimeout(this.state.delay)
+    if (this.state.delay && this.props.isMobile) clearTimeout(this.state.delay)
 
     if (!this.props.videoRef.current.paused) {
 
@@ -302,13 +306,16 @@ class Video extends Component {
 
       await this.props.videoRef.current.play()
 
-      stateObj.delay = setTimeout(() => {
+      if (this.props.isMobile) {
 
-        this.setState({
-          hide: true,
-          clicked: false
-        })
-      }, 2500)
+        stateObj.delay = setTimeout(() => {
+
+          this.setState({
+            hide: true,
+            clicked: false
+          })
+        }, 2500)
+      }
     }
 
     this.setState(stateObj)

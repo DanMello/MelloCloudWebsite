@@ -60,8 +60,6 @@ class VideoSeekbar extends Component {
     
     if (this.props.hide || this.props.loading) return
 
-    e.preventDefault()
-
     this.props.seeking()
 
     if (e.type === 'touchstart') {
