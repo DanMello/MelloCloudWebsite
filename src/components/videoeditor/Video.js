@@ -34,7 +34,7 @@ class Video extends Component {
 
     this.manageControllerMobile = this.manageControllerMobile.bind(this)
     this.manageControllerDesktop = this.manageControllerDesktop.bind(this)
-
+    this.manageClickDesktop = this.manageClickDesktop.bind(this)
     this.playing = this.playing.bind(this)
     this.pause = this.pause.bind(this)
     this.timeupdate = this.timeupdate.bind(this)
@@ -44,7 +44,6 @@ class Video extends Component {
     this.error = this.error.bind(this)
     this.back15 = this.back15.bind(this)
     this.ahead15 = this.ahead15.bind(this)
-    this.manageClickDesktop = this.manageClickDesktop.bind(this)
     this.waiting = this.waiting.bind(this)
     this.canplay = this.canplay.bind(this)
     this.seeking = this.seeking.bind(this)
@@ -245,7 +244,7 @@ class Video extends Component {
 
       this.setState({
         positionLeft: percentage,
-        currentVideoTime: timeConvert(this.props.videoRef.current.currentTime)
+        currentVideoTime: timeConvert(this.props.videoRef.current.currentTime, this.props.videoRef.current.duration)
       })
     }
   }
@@ -387,7 +386,7 @@ class Video extends Component {
 
             </video>
 
-            <div className={this.state.hide || this.state.loading || this.state.seekInteraction || this.state.seeking ? 'video-play-button-container video-hide' : 'video-play-button-container video-show'}>
+            <div className={this.state.hide || this.state.loading || this.state.seekInteraction ? 'video-play-button-container video-hide' : 'video-play-button-container video-show'}>
 
               <div className='video-skip-container video-skip-left' onClick={this.back15}>
                 <img src='assets/back15.png' className='video-skip-image'/>

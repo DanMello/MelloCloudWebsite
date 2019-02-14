@@ -11,9 +11,7 @@ class ToggleVideo extends Component {
     this.toggleVideo = this.toggleVideo.bind(this)
   }
 
-  toggleVideo(e) {
-
-    e.preventDefault()
+  toggleVideo() {
 
     if (this.props.hide) return
     
@@ -31,7 +29,7 @@ class ToggleVideo extends Component {
 
     return (
 
-      <div className={'video-play-button'} onClick={this.toggleVideo}>
+      <div className={'video-play-button'} onClick={this.toggleVideo} >
         
         {!this.props.playing ? <FaPlay /> : <FaPause />}
 
