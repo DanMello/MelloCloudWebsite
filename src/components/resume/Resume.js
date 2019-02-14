@@ -73,7 +73,7 @@ class Resume extends Component {
         </div>
 
         <div className='resume-right-container'>
-          <p className='resume-paragraph'>Self taught computer programmer with 3 years of experience specializing in web development. Focused in creating user friendly interfaces and automating in every way.</p>
+          <p className='resume-paragraph'>Self taught computer programmer with 3 years of experience specializing in web development. Focused in creating optimized user friendly experiences and automating tasks.</p>
           
           <div className='resume-big-title'>Projects</div>
           
@@ -109,18 +109,6 @@ class Resume extends Component {
             </div>
           </div>
 
-          <div className='resume-item-right-container'>
-            <div className='resume-item-right-when'>2017</div>
-            <div className='resume-item-right-subcontainer'>
-              <div className='resume-item-right-heading'>jdanmello.com (offline) </div>
-              <div className='resume-item-right-subheading'>Repo: github.com/DanMello/jdanmello.com</div>
-              <ul className='resume-ul'>
-                <li>First Javascript and NodeJS project without using a Javascript framework.</li>
-                <li>Although never finished, thousands of lines of Javascript were written and a lot was learned.</li>
-              </ul>
-            </div>
-          </div>
-
           <div className='resume-big-title'>Education</div>
           
           <div className='resume-line' />
@@ -140,3 +128,18 @@ class Resume extends Component {
 }
 
 export default hot(module)(Resume)
+
+
+          // <div className='resume-item-right-container'>
+          //   <div className='resume-item-right-when'>2017</div>
+          //   <div className='resume-item-right-subcontainer'>
+          //     <div className='resume-item-right-heading'>jdanmello.com (offline) </div>
+          //     <div className='resume-item-right-subheading'>Repo: github.com/DanMello/jdanmello.com</div>
+          //     <ul className='resume-ul'>
+          //       <li>First Javascript and NodeJS project without using a Javascript framework.</li>
+          //       <li>Although never finished, thousands of lines of Javascript were written and a lot was learned.</li>
+          //     </ul>
+          //   </div>
+          // </div>
+
+          // Self taught computer programmer with 3 years of experience specializing in web development. Focused in creating optimized user friendly experiences and automating tasks.

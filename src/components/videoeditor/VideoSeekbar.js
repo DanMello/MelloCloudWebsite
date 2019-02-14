@@ -13,7 +13,8 @@ class VideoSeekbar extends Component {
     this.state = {
       x: 0,
       offset: 0,
-      loadedPercentage: 0
+      loadedPercentage: 0,
+      pausedBeforeSeek: null
     }
 
     this.startEvent = this.startEvent.bind(this)
@@ -59,8 +60,20 @@ class VideoSeekbar extends Component {
   startEvent(e) {
     
     if (this.props.hide || this.props.loading) return
+    if (this.props.delay && this.props.isMobile) clearTimeout(this.props.delay)
 
-    this.props.seeking()
+    let pausedBeforeSeek
+
+    if (!this.props.videoref.current.paused) {
+
+      this.props.videoref.current.playbackRate = 0
+
+      pausedBeforeSeek = false
+
+    } else {
+
+      pausedBeforeSeek = true
+    }
 
     if (e.type === 'touchstart') {
 
@@ -72,6 +85,12 @@ class VideoSeekbar extends Component {
       document.onmousemove = this.moveEvent
       document.onmouseup = this.endEvent
     }
+
+    this.setState({
+      pausedBeforeSeek
+    })
+
+    this.props.startSeekbarInteraction()
   }
 
   moveEvent(e) {
@@ -114,7 +133,10 @@ class VideoSeekbar extends Component {
 
     e.preventDefault()
 
-    this.props.seeked()
+    if (!this.state.pausedBeforeSeek) {
+
+      this.props.videoref.current.playbackRate = 1
+    }
 
     if (e.type === 'touchend') {
 
@@ -126,6 +148,8 @@ class VideoSeekbar extends Component {
       document.onmousemove = null
       document.onmouseup = null
     }
+
+    this.props.endSeekbarInteraction()
   }
 
   seekToPosition(e) {
@@ -148,7 +172,7 @@ class VideoSeekbar extends Component {
 
     this.props.videoref.current.currentTime = videoTime
 
-    this.props.seeked()
+    this.props.endSeekbarInteraction()
 
     this.setState({
       x: position

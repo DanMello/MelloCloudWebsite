@@ -4,7 +4,7 @@ import { Route, withRouter, Redirect, Switch} from 'react-router-dom'
 import classNames from 'classnames'
 
 //import Image from './components/image/Image'
-//import Resume from './components/resume/Resume'
+import Resume from './components/resume/Resume'
 
 import Home from './components/home/Home'
 import About from './components/about/About'
@@ -84,6 +84,7 @@ class AppRoutes extends Component {
 
       <Switch>
 
+        <Route component={Resume} path='/resume' />
         <PropsRoute path="/" exact strict component={Home} config={config} dispatch={dispatch} user={user} />
         <PropsRoute path="/about" component={About} config={config} dispatch={dispatch} user={user} />
         <PropsRoute path="/terms" component={Terms} config={config} dispatch={dispatch} user={user} />

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import { hot } from 'react-hot-loader'
 import ToggleVideo from './ToggleVideo'
 import VideoSeekbar from './VideoSeekbar'
-import classNames from 'classnames'
 import Loader from '../partials/myloader'
 import { timeConvert } from '../../helpers/numbers'
 
@@ -21,6 +20,7 @@ class Video extends Component {
       playing: false,
       pausedBeforeSeek: false,
       seeking: false,
+      seekInteraction: false,
       loadedPercentage: 0,
       positionLeft: 0,
       error: false,
@@ -40,13 +40,17 @@ class Video extends Component {
     this.timeupdate = this.timeupdate.bind(this)
     this.loading = this.loading.bind(this)
     this.loaded = this.loaded.bind(this)
-    this.seeking = this.seeking.bind(this)
-    this.seeked = this.seeked.bind(this)
     this.progress = this.progress.bind(this)
     this.error = this.error.bind(this)
     this.back15 = this.back15.bind(this)
     this.ahead15 = this.ahead15.bind(this)
     this.manageClickDesktop = this.manageClickDesktop.bind(this)
+    this.waiting = this.waiting.bind(this)
+    this.canplay = this.canplay.bind(this)
+    this.seeking = this.seeking.bind(this)
+    this.seeked = this.seeked.bind(this)
+    this.startSeekbarInteraction = this.startSeekbarInteraction.bind(this)
+    this.endSeekbarInteraction = this.endSeekbarInteraction.bind(this)
   }
 
   componentDidMount() {
@@ -61,6 +65,10 @@ class Video extends Component {
     }
 
     this.props.videoRef.current.addEventListener('playing', this.playing)
+    this.props.videoRef.current.addEventListener('canplay', this.canplay)
+    this.props.videoRef.current.addEventListener('waiting', this.waiting)
+    this.props.videoRef.current.addEventListener('seeking', this.seeking)
+    this.props.videoRef.current.addEventListener('seeked', this.seeked)
     this.props.videoRef.current.addEventListener('pause', this.pause)
     this.props.videoRef.current.addEventListener('timeupdate', this.timeupdate)
     this.props.videoRef.current.addEventListener('loadstart', this.loading)
@@ -74,6 +82,8 @@ class Video extends Component {
     if (this.state.delay) clearTimeout(this.state.delay)
 
     this.props.videoRef.current.removeEventListener('playing', this.playing)
+    this.props.videoRef.current.removeEventListener('canplay', this.canplay)
+    this.props.videoRef.current.removeEventListener('waiting', this.waiting)
     this.props.videoRef.current.removeEventListener('pause', this.pause)
     this.props.videoRef.current.removeEventListener('timeupdate', this.timeupdate)
     this.props.videoRef.current.removeEventListener('loadstart', this.loading)
@@ -118,8 +128,6 @@ class Video extends Component {
       this.setState({
         delay: setTimeout(() => {
 
-          console.log('move delay play')
-
           this.setState({
             hide: true
           })
@@ -131,8 +139,6 @@ class Video extends Component {
       this.setState({
         hide: false,
         delay: setTimeout(() => {
-
-          console.log('move delay hide')
 
           this.setState({
             hide: true
@@ -166,8 +172,6 @@ class Video extends Component {
 
       stateObj.delay = setTimeout(() => {
 
-        console.log('click delay')
-
         this.setState({
           hide: true,
           clicked: false
@@ -176,6 +180,20 @@ class Video extends Component {
     }
 
     this.setState(stateObj)
+  }
+
+  waiting() {
+
+    this.setState({
+      loading: true
+    })
+  }
+
+  canplay() {
+
+    this.setState({
+      loading: false
+    })
   }
 
   playing() {
@@ -249,73 +267,63 @@ class Video extends Component {
 
   progress() {
 
-    const video = this.props.videoRef.current
-    
-    const buffered = video.buffered
-    const duration = video.duration
-    const time  = video.currentTime
-    
-    let range = 0
+    let video = this.props.videoRef.current
+    let buffered = video.buffered
+    let duration = video.duration
+    let time  = video.currentTime
+    let loadedPercentage
 
-    if (this.props.videoRef.current.readyState > 2) {
+    if (duration > 0) {
 
-      while(!(buffered.start(range) <= time && time <= buffered.end(range))) {
+      for (var i = 0; i < buffered.length; i++) {
 
-        range += 1
+        if (buffered.start(buffered.length - 1 - i) < time) {
+
+          this.setState({
+            loadedPercentage: buffered.end(buffered.length - 1 - i) / duration * 100
+          })
+          break;
+        }
       }
-
-      const loadEndPercentage = buffered.end(range) / duration
-      const loadedPercentage = 100 * loadEndPercentage
-
-      this.setState({
-        loadedPercentage: loadedPercentage
-      })
     }
   }
 
   seeking() {
 
-    let stateObj = {
+    this.setState({
       seeking: true
-    }
-
-    if (this.state.delay && this.props.isMobile) clearTimeout(this.state.delay)
-
-    if (!this.props.videoRef.current.paused) {
-
-      this.props.videoRef.current.pause()
-
-      stateObj.pausedBeforeSeek = false
-      stateObj.loading = true
-
-    } else {
-
-      stateObj.pausedBeforeSeek = true
-    }
-
-    this.setState(stateObj)
+    })
   }
 
-  async seeked() {
+  seeked() {
+
+    this.setState({
+      seeking: false
+    })
+  }
+
+  startSeekbarInteraction() {
+
+    this.setState({
+      seekInteraction: true
+    })
+  }
+
+  endSeekbarInteraction() {
 
     let stateObj = {
-      seeking: false
+      seekInteraction: false
     }
 
-    if (!this.state.pausedBeforeSeek) {
+    if (this.props.isMobile) {
 
-      await this.props.videoRef.current.play()
+      stateObj.delay = setTimeout(() => {
 
-      if (this.props.isMobile) {
-
-        stateObj.delay = setTimeout(() => {
-
-          this.setState({
-            hide: true,
-            clicked: false
-          })
-        }, 2500)
-      }
+        this.setState({
+          hide: true,
+          clicked: false
+        })
+      }, 2500)
     }
 
     this.setState(stateObj)
@@ -379,7 +387,7 @@ class Video extends Component {
 
             </video>
 
-            <div className={this.state.hide || this.state.seeking || this.state.loading ? 'video-play-button-container video-hide' : 'video-play-button-container video-show'}>
+            <div className={this.state.hide || this.state.loading || this.state.seekInteraction || this.state.seeking ? 'video-play-button-container video-hide' : 'video-play-button-container video-show'}>
 
               <div className='video-skip-container video-skip-left' onClick={this.back15}>
                 <img src='assets/back15.png' className='video-skip-image'/>
@@ -405,11 +413,12 @@ class Video extends Component {
                 loading={this.state.loading}
                 hide={this.state.hide}
                 videoref={this.props.videoRef}
+                delay={this.state.delay}
                 isMobile={this.props.isMobile} 
                 button={this._button}
                 progressbar={this._progressBar}
-                seeking={this.seeking}
-                seeked={this.seeked}
+                startSeekbarInteraction={this.startSeekbarInteraction}
+                endSeekbarInteraction={this.endSeekbarInteraction}
                 loadedPercentage={this.state.loadedPercentage}
                 positionLeft={this.state.positionLeft}
               />
