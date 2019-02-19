@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { hot } from 'react-hot-loader'
 import ToggleVideo from './ToggleVideo'
 import VideoSeekbar from './VideoSeekbar'
+import VideoAudio from './VideoAudio'
 import Loader from '../partials/myloader'
 import { timeConvert } from '../../helpers/numbers'
 
@@ -57,6 +58,7 @@ class Video extends Component {
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
 
       this.props.videoRef.current.autoplay = true
+      this.props.videoRef.current.muted = true
 
       this.setState({
         initialLoad: true
@@ -83,6 +85,8 @@ class Video extends Component {
     this.props.videoRef.current.removeEventListener('playing', this.playing)
     this.props.videoRef.current.removeEventListener('canplay', this.canplay)
     this.props.videoRef.current.removeEventListener('waiting', this.waiting)
+    this.props.videoRef.current.removeEventListener('seeking', this.seeking)
+    this.props.videoRef.current.removeEventListener('seeked', this.seeked)
     this.props.videoRef.current.removeEventListener('pause', this.pause)
     this.props.videoRef.current.removeEventListener('timeupdate', this.timeupdate)
     this.props.videoRef.current.removeEventListener('loadstart', this.loading)
@@ -95,7 +99,7 @@ class Video extends Component {
 
     if (this.state.delay) clearTimeout(this.state.delay)
 
-    if (!this.state.clicked || !e.target.classList.contains('video-play-button-container')) {
+    if (!this.state.clicked || !e.target.classList.contains('video-center-controls-container')) {
 
       this.setState({
         hide: false,
@@ -149,9 +153,11 @@ class Video extends Component {
 
   manageClickDesktop(e) {
 
+    console.log(e.target.classList)
+
     if (this.state.delay) clearTimeout(this.state.delay)
 
-    if (e.target.classList.contains('video-play-button-container')) {
+    if (e.target.classList.contains('video-center-controls-container')) {
 
       if (this.props.videoRef.current.currentTime > 0 && !this.props.videoRef.current.paused && !this.props.videoRef.current.ended && this.props.videoRef.current.readyState > 2) {
 
@@ -236,7 +242,7 @@ class Video extends Component {
 
   timeupdate() {
 
-    if (!this.state.seeking && !this.state.loading) {
+    if (!this.state.seeking && !this.state.loading && !this.state.seekInteraction) {
 
       let offset = this._progressBar.current.offsetWidth
 
@@ -297,11 +303,14 @@ class Video extends Component {
   seeked() {
 
     this.setState({
-      seeking: false
+      seeking: false,
+      currentVideoTime: timeConvert(this.props.videoRef.current.currentTime, this.props.videoRef.current.duration)
     })
   }
 
   startSeekbarInteraction() {
+
+    if (this.state.delay && this.props.isMobile) clearTimeout(this.state.delay)
 
     this.setState({
       seekInteraction: true
@@ -379,32 +388,38 @@ class Video extends Component {
               ref={this.props.videoRef}
               poster={this.props.videoObj.video_thumbnail}
               playsInline
-              muted
               >
               
               <source type="video/mp4" src={this.props.videoObj.videopath} />
 
             </video>
 
-            <div className={this.state.hide || this.state.loading || this.state.seekInteraction ? 'video-play-button-container video-hide' : 'video-play-button-container video-show'}>
+            <div className={this.state.hide || this.state.loading || this.state.seekInteraction ? 'video-hide' : 'video-show'}>
 
-              <div className='video-skip-container video-skip-left' onClick={this.back15}>
-                <img src='assets/back15.png' className='video-skip-image'/>
-              </div>
-
-              <ToggleVideo
-                videoref={this.props.videoRef} 
-                hide={this.state.hide}
-                playing={this.state.playing}
-              />
-
-              <div className='video-skip-container video-skip-right' onClick={this.ahead15}>
-                <img src='assets/ahead15.png' className='video-skip-image'/>
-              </div>
+              <VideoAudio videoref={this.props.videoRef} isMobile={this.props.isMobile}/>
 
             </div>
 
-            <div className={!this.state.hide ? 'video-play-controller-container video-show' : 'video-play-controller-container video-hide'}>
+            <div className={this.state.hide || this.state.loading || this.state.seekInteraction ? 'video-hide' : 'video-show'}>
+
+                <div className={'video-center-controls-container'}>
+                  <div className='video-skip-container video-skip-left' onClick={this.back15}>
+                    <img src='assets/back15.png' className='video-skip-image'/>
+                  </div>
+
+                  <ToggleVideo
+                    videoref={this.props.videoRef} 
+                    hide={this.state.hide}
+                    playing={this.state.playing}
+                  />
+
+                  <div className='video-skip-container video-skip-right' onClick={this.ahead15}>
+                    <img src='assets/ahead15.png' className='video-skip-image'/>
+                  </div>
+                </div>
+            </div>
+
+            <div className={!this.state.hide || this.state.seekInteraction ? 'video-play-controller-container video-show' : 'video-play-controller-container video-hide'}>
 
               <div className={'video-time'}>{this.state.currentVideoTime !== null ? this.state.currentVideoTime : '--:--'}</div>
 

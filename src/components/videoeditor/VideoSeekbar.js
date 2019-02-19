@@ -60,7 +60,8 @@ class VideoSeekbar extends Component {
   startEvent(e) {
     
     if (this.props.hide || this.props.loading) return
-    if (this.props.delay && this.props.isMobile) clearTimeout(this.props.delay)
+
+    this.props.startSeekbarInteraction()
 
     let pausedBeforeSeek
 
@@ -89,8 +90,6 @@ class VideoSeekbar extends Component {
     this.setState({
       pausedBeforeSeek
     })
-
-    this.props.startSeekbarInteraction()
   }
 
   moveEvent(e) {
@@ -133,6 +132,8 @@ class VideoSeekbar extends Component {
 
     e.preventDefault()
 
+    this.props.endSeekbarInteraction()
+
     if (!this.state.pausedBeforeSeek) {
 
       this.props.videoref.current.playbackRate = 1
@@ -148,8 +149,6 @@ class VideoSeekbar extends Component {
       document.onmousemove = null
       document.onmouseup = null
     }
-
-    this.props.endSeekbarInteraction()
   }
 
   seekToPosition(e) {
