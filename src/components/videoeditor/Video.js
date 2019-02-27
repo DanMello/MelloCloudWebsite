@@ -4,8 +4,11 @@ import { hot } from 'react-hot-loader'
 import ToggleVideo from './ToggleVideo'
 import VideoSeekbar from './VideoSeekbar'
 import VideoAudio from './VideoAudio'
+import HideButtons from './HideButtons'
 import Loader from '../partials/myloader'
+import { IoMdQrScanner } from 'react-icons/io'
 import { timeConvert } from '../../helpers/numbers'
+import Portal from '../../portal/Portal'
 
 class Video extends Component {
 
@@ -27,11 +30,13 @@ class Video extends Component {
       error: false,
       initialLoad: false,
       currentVideoTime: null,
-      videoDuration: null
+      videoDuration: null,
+      iphoneFullscreen: false
     }
 
     this._button = React.createRef()
     this._progressBar = React.createRef()
+    this.videoContainer = React.createRef()
 
     this.manageControllerMobile = this.manageControllerMobile.bind(this)
     this.manageControllerDesktop = this.manageControllerDesktop.bind(this)
@@ -51,6 +56,9 @@ class Video extends Component {
     this.seeked = this.seeked.bind(this)
     this.startSeekbarInteraction = this.startSeekbarInteraction.bind(this)
     this.endSeekbarInteraction = this.endSeekbarInteraction.bind(this)
+    this.toggleFullScreen = this.toggleFullScreen.bind(this)
+    this.changedFullscreenIOS = this.changedFullscreenIOS.bind(this)
+    this.ended = this.ended.bind(this)
   }
 
   componentDidMount() {
@@ -59,6 +67,8 @@ class Video extends Component {
 
       this.props.videoRef.current.autoplay = true
       this.props.videoRef.current.muted = true
+
+      this.props.videoRef.current.addEventListener("webkitendfullscreen", this.changedFullscreenIOS)
 
       this.setState({
         initialLoad: true
@@ -76,11 +86,17 @@ class Video extends Component {
     this.props.videoRef.current.addEventListener('loadeddata', this.loaded)
     this.props.videoRef.current.addEventListener('progress', this.progress)
     this.props.videoRef.current.addEventListener('error', this.error)
+    this.props.videoRef.current.addEventListener('ended', this.ended)
   }
 
   componentWillUnmount() {
 
     if (this.state.delay) clearTimeout(this.state.delay)
+
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+
+      this.props.videoRef.current.remove('webkitendfullscreen', this.changedFullscreenIOS)
+    }
 
     this.props.videoRef.current.removeEventListener('playing', this.playing)
     this.props.videoRef.current.removeEventListener('canplay', this.canplay)
@@ -152,8 +168,6 @@ class Video extends Component {
   }
 
   manageClickDesktop(e) {
-
-    console.log(e.target.classList)
 
     if (this.state.delay) clearTimeout(this.state.delay)
 
@@ -363,46 +377,122 @@ class Video extends Component {
     this.props.videoRef.current.currentTime = time
   }
 
+  toggleFullScreen() {
+
+    if (this.state.hide || this.state.loading) return
+
+    if (!/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+
+      var isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
+          (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
+          (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+          (document.msFullscreenElement && document.msFullscreenElement !== null);
+
+      if (!isInFullScreen) {
+        
+        let i = this.videoContainer.current
+
+        if (i.requestFullscreen) {
+          i.requestFullscreen();
+        } else if (i.webkitRequestFullscreen) {
+          i.webkitRequestFullscreen();
+        } else if (i.mozRequestFullScreen) {
+          i.mozRequestFullScreen();
+        } else if (i.msRequestFullscreen) {
+          i.msRequestFullscreen();
+        }
+      
+      } else {
+
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      }
+    } else {
+
+      if (!this.state.iphoneFullscreen) {
+
+        this.setState({
+          iphoneFullscreen: true
+        }, () => {
+
+          this.props.videoRef.current.pause()
+          this.props.videoRef.current.play()          
+        })
+      }
+    }
+  }
+
+  changedFullscreenIOS() {
+
+    if(!document.fullScreenElement || document.webkitIsFullScreen == false || !document.mozFullScreen || !document.msFullscreenElement){
+
+      this.setState({
+        iphoneFullscreen: false
+      })
+    }
+  }
+
+  ended() {
+
+    this.props.videoRef.current.currentTime = 0
+
+    this.setState({
+      loadedPercentage: 0,
+      positionLeft: 0
+    })
+  }
+
   render() {
 
     return (
       <div style={{position: 'relative'}}>
-        
-        {this.state.error ?
 
-          <h1>Error</h1>
-          :
-          <div
-            className='video-player-outer-container'
-            onMouseMove={!this.props.isMobile ? this.manageControllerDesktop : null}
-            onClick={this.props.isMobile ? this.manageControllerMobile : this.manageClickDesktop}
-            >
-            
-            {this.state.loading &&
+          {this.state.error ?
 
-              <Loader width={'30px'} height={'30px'} color={'white'} containerClass={'video-loader'} />
-            }
-
-            <video
-              className='video-player-container'
-              ref={this.props.videoRef}
-              poster={this.props.videoObj.video_thumbnail}
-              playsInline
+            <h1>Error</h1>
+            :
+            <div
+              ref={this.videoContainer}
+              className={'video-player-outer-container'}
+              onMouseMove={!this.props.isMobile ? this.manageControllerDesktop : null}
+              onClick={this.props.isMobile ? this.manageControllerMobile : this.manageClickDesktop}
+              style={this.state.hide ? {cursor: 'none'} : {cursor: 'default'}}
               >
               
-              <source type="video/mp4" src={this.props.videoObj.videopath} />
+              {this.state.loading &&
 
-            </video>
+                <Loader width={'30px'} height={'30px'} color={'white'} containerClass={'video-loader'} />
+              }
 
-            <div className={this.state.hide || this.state.loading || this.state.seekInteraction ? 'video-hide' : 'video-show'}>
+              <video
+                className='video-player-container'
+                ref={this.props.videoRef}
+                poster={this.props.videoObj.video_thumbnail}
+                playsInline={this.state.iphoneFullscreen ? false : true}
+                controls={this.state.iphoneFullscreen ? true : false}
+                >
 
-              <VideoAudio videoref={this.props.videoRef} isMobile={this.props.isMobile}/>
+                <source type="video/mp4" src={this.props.videoObj.videopath} />
 
-            </div>
+              </video>
 
-            <div className={this.state.hide || this.state.loading || this.state.seekInteraction ? 'video-hide' : 'video-show'}>
+              <div className={this.state.hide || this.state.loading || this.state.seekInteraction || this.state.iphoneFullscreen ? 'video-hide' : 'video-show'}>
+
+                <div className={'video-fullscreenButtonContainer'} onClick={this.toggleFullScreen}>
+                  <IoMdQrScanner className={'video-fullscreenButton'} />
+                </div>
+
+                <VideoAudio videoref={this.props.videoRef} isMobile={this.props.isMobile} hide={this.state.hide} loading={this.state.loading} />
 
                 <div className={'video-center-controls-container'}>
+                  
                   <div className='video-skip-container video-skip-left' onClick={this.back15}>
                     <img src='assets/back15.png' className='video-skip-image'/>
                   </div>
@@ -417,32 +507,34 @@ class Video extends Component {
                     <img src='assets/ahead15.png' className='video-skip-image'/>
                   </div>
                 </div>
+              </div>
+
+              <div className={this.state.hide || this.state.iphoneFullscreen ? 'video-hide' : 'video-show'}>
+
+                <div className={'video-play-controller-container'}>
+
+                  <div className={'video-time'}>{this.state.currentVideoTime !== null ? this.state.currentVideoTime : '--:--'}</div>
+
+                  <VideoSeekbar
+                    loading={this.state.loading}
+                    hide={this.state.hide}
+                    videoref={this.props.videoRef}
+                    delay={this.state.delay}
+                    isMobile={this.props.isMobile} 
+                    button={this._button}
+                    progressbar={this._progressBar}
+                    startSeekbarInteraction={this.startSeekbarInteraction}
+                    endSeekbarInteraction={this.endSeekbarInteraction}
+                    loadedPercentage={this.state.loadedPercentage}
+                    positionLeft={this.state.positionLeft}
+                  />
+
+                  <div className={'video-time'}>{this.state.videoDuration !== null ? this.state.videoDuration : '--:--'}</div>
+
+                </div>
+              </div>
             </div>
-
-            <div className={!this.state.hide || this.state.seekInteraction ? 'video-play-controller-container video-show' : 'video-play-controller-container video-hide'}>
-
-              <div className={'video-time'}>{this.state.currentVideoTime !== null ? this.state.currentVideoTime : '--:--'}</div>
-
-              <VideoSeekbar
-                loading={this.state.loading}
-                hide={this.state.hide}
-                videoref={this.props.videoRef}
-                delay={this.state.delay}
-                isMobile={this.props.isMobile} 
-                button={this._button}
-                progressbar={this._progressBar}
-                startSeekbarInteraction={this.startSeekbarInteraction}
-                endSeekbarInteraction={this.endSeekbarInteraction}
-                loadedPercentage={this.state.loadedPercentage}
-                positionLeft={this.state.positionLeft}
-              />
-
-              <div className={'video-time'}>{this.state.videoDuration !== null ? this.state.videoDuration : '--:--'}</div>
-
-            </div>
-          </div>
-        }
-
+          }
       </div>
     )
   }

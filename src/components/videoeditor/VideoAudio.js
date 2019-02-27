@@ -41,10 +41,21 @@ class VideoAudio extends Component {
       let offset = 0
 
       //the container for the video player must have position relative
-      while (seekbarParent.tagName !== 'BODY') {
+      if (document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
 
-        offset += seekbarParent.offsetLeft
-        seekbarParent = seekbarParent.parentElement
+        while (!seekbarParent.classList.contains('video-player-outer-container')) {
+
+          offset += seekbarParent.offsetLeft
+          seekbarParent = seekbarParent.parentElement
+        }
+        
+      } else {
+
+        while (seekbarParent.tagName !== 'BODY') {
+
+          offset += seekbarParent.offsetLeft
+          seekbarParent = seekbarParent.parentElement
+        }
       }
 
       if (offset !== this.state.offset) {
@@ -56,9 +67,9 @@ class VideoAudio extends Component {
     }
   }
 
-  toggleMute(e) {
+  toggleMute() {
 
-    e.preventDefault()
+    if (this.props.hide || this.props.loading) return
 
     if (!!this.props.videoref.current.muted) {
       this.props.videoref.current.muted = false
@@ -76,6 +87,8 @@ class VideoAudio extends Component {
   }
 
   moveEvent(e) {
+
+    if (this.props.hide || this.props.loading) return
 
     if (this.props.videoref.current.muted) {
 

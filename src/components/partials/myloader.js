@@ -6,7 +6,7 @@ class Loader extends Component {
   render() {
     return (
       <div
-        className={this.props.containerClass} 
+        className={this.props.containerClass}
         style={{
         display: 'flex',
         alignItems: 'center'

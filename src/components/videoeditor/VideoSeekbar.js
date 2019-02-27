@@ -29,10 +29,22 @@ class VideoSeekbar extends Component {
     let offset = 0
 
     //the container for the video player must have position relative
-    while (seekbarParent.tagName !== 'BODY') {
 
-      offset += seekbarParent.offsetLeft
-      seekbarParent = seekbarParent.parentElement
+    if (document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+
+      while (!seekbarParent.classList.contains('video-player-outer-container')) {
+
+        offset += seekbarParent.offsetLeft
+        seekbarParent = seekbarParent.parentElement
+      }
+      
+    } else {
+
+      while (seekbarParent.tagName !== 'BODY') {
+
+        offset += seekbarParent.offsetLeft
+        seekbarParent = seekbarParent.parentElement
+      }
     }
 
     if (offset !== this.state.offset) {
@@ -152,6 +164,8 @@ class VideoSeekbar extends Component {
   }
 
   seekToPosition(e) {
+
+    console.log(e.pageX, this.state.offset)
 
     const progressbarwidth = this.props.progressbar.current.offsetWidth
 

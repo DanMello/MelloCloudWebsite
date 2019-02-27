@@ -302,6 +302,25 @@
   top: 50%;
 }
 
+.video-fullscreenButtonContainer {
+  background: rgba(0,0,0,.5);
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+  position: absolute;
+  z-index: 999;
+  top: 15px;
+  left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.video-fullscreenButton {
+  color: white;
+  font-size: 20px;
+}
+
 @keyframes fade {
   0% {
     opacity: 0;
