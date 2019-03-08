@@ -77,6 +77,14 @@ class DesktopNav extends Component {
                           {listItem.name}
                         </div>
                       )
+                    },
+                    alink: (listItem) => {
+
+                      return (
+                        <a href={listItem.to} className={'nav-NavLinks'}>
+                          {listItem.name}
+                        </a>
+                      )
                     }
                   }
 

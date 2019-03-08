@@ -129,7 +129,7 @@ class PdfViewer extends Component {
         <div className='pdfviewer-topheader'>
           
           <div className='pdfviewer-iconContainer'>
-            <Link to={`/about#${this.state.fileName}`}>
+            <Link to={`/notes#${this.state.fileName}`}>
               <FaAngleLeft className='pdfviewer-backicon'/>
             </Link>
             <div className='pdfviewer-filename'>{this.state.fileNameWithoutnum}</div>

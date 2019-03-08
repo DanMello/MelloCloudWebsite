@@ -6,6 +6,7 @@ import VideoSeekbar from './VideoSeekbar'
 import VideoAudio from './VideoAudio'
 import HideButtons from './HideButtons'
 import Loader from '../partials/myloader'
+import { FaExclamationTriangle } from 'react-icons/fa'
 import { IoMdQrScanner } from 'react-icons/io'
 import { timeConvert } from '../../helpers/numbers'
 import Portal from '../../portal/Portal'
@@ -27,7 +28,7 @@ class Video extends Component {
       seekInteraction: false,
       loadedPercentage: 0,
       positionLeft: 0,
-      error: false,
+      error: true,
       initialLoad: false,
       currentVideoTime: null,
       videoDuration: null,
@@ -59,22 +60,27 @@ class Video extends Component {
     this.toggleFullScreen = this.toggleFullScreen.bind(this)
     this.changedFullscreenIOS = this.changedFullscreenIOS.bind(this)
     this.ended = this.ended.bind(this)
+    this.reloadPage = this.reloadPage.bind(this)
   }
 
   componentDidMount() {
 
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
 
+      if (!this.state.error) {
       this.props.videoRef.current.autoplay = true
       this.props.videoRef.current.muted = true
 
-      this.props.videoRef.current.addEventListener("webkitendfullscreen", this.changedFullscreenIOS)
+
+        this.props.videoRef.current.addEventListener("webkitendfullscreen", this.changedFullscreenIOS)
+      }
 
       this.setState({
         initialLoad: true
       })
     }
 
+    if (!this.state.error) {
     this.props.videoRef.current.addEventListener('playing', this.playing)
     this.props.videoRef.current.addEventListener('canplay', this.canplay)
     this.props.videoRef.current.addEventListener('waiting', this.waiting)
@@ -87,6 +93,7 @@ class Video extends Component {
     this.props.videoRef.current.addEventListener('progress', this.progress)
     this.props.videoRef.current.addEventListener('error', this.error)
     this.props.videoRef.current.addEventListener('ended', this.ended)
+    }
   }
 
   componentWillUnmount() {
@@ -449,6 +456,11 @@ class Video extends Component {
     })
   }
 
+  reloadPage() {
+
+    window.location.reload()
+  }
+
   render() {
 
     return (
@@ -456,7 +468,15 @@ class Video extends Component {
 
           {this.state.error ?
 
-            <h1>Error</h1>
+            <div className={'video-error-container'} onClick={this.props.isMobile ? this.reloadPage : null}>
+              <div className='video-error-subContainer'>
+                <FaExclamationTriangle className={'video-error-icon'} />
+                <h1 className={'video-errormessage'}>Video not available.</h1>
+              </div>
+              <div className={!this.props.isMobile ? 'video-retryButton' : 'video-retryButton-mobile'} onClick={!this.props.isMobile ? this.reloadPage : null}>
+                {this.props.isMobile ? 'Tap to refresh' : 'Click to refresh'}
+              </div>
+            </div>
             :
             <div
               ref={this.videoContainer}

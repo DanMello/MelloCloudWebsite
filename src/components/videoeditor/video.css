@@ -321,6 +321,40 @@
   font-size: 20px;
 }
 
+.video-error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 28.125%;
+  padding-bottom: 28.125%;
+  background: #F0F3F4;
+}
+
+.video-error-subContainer {
+  display: flex;
+}
+
+.video-error-icon {
+  color: #444;
+}
+
+.video-retryButton{
+  color: blue;
+  cursor: pointer;
+}
+
+.video-retryButton-mobile {
+  font-weight: bold;
+  color: #444;
+}
+
+.video-errormessage {
+  text-align: center;
+  font-size: 1em;
+  color: #444;
+  padding-left: 5px; 
+}
+
 @keyframes fade {
   0% {
     opacity: 0;

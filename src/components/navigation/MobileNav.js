@@ -137,6 +137,14 @@ class MobileNav extends Component {
                         {listItem.name}
                       </div>
                     )
+                  },
+                  alink: (listItem) => {
+
+                    return (
+                      <a href={listItem.to} className={'nav-mobile-navlinks'}>
+                        {listItem.name}
+                      </a>
+                    )
                   }
                 }
 
