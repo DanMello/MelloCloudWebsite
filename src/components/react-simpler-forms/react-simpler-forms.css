@@ -1,0 +1,251 @@
+.react-simpler-forms-heading-container {
+  background-color: rgb(58, 61, 80);
+  padding: 10px;
+  color: white;
+  min-width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.react-simpler-forms-version {
+  padding-top: 10px;
+  font-weight: bold;
+}
+
+.react-simpler-forms-title {
+  margin-top: 10px;
+}
+
+.react-simpler-seperate-containers {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  min-width: 1100px;
+  align-self: center;
+  margin-bottom: 20px;
+}
+
+.react-simpler-forms-container-left {
+  overflow-y: scroll;
+}
+
+.react-simpler-forms-container-right {
+  position: relative;
+}
+
+.react-simpler-forms-container-left,  .react-simpler-forms-container-right {
+  background: white;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0px 2px 10px rgba(0,0,0,.2);
+  flex-grow: 1;
+  flex-shrink: 0;
+  margin: 5px;
+  min-height: 720px;
+}
+
+.react-simpler-forms-container-top {
+  background: white;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0px 2px 10px rgba(0,0,0,.2);
+  margin: 5px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.react-simpler-forms-heading-subcontainer {
+  display: flex;
+  align-items: center;
+}
+
+.react-simpler-forms-heading-subcontainer-items {
+  flex-grow: 1;
+}
+
+.react-simpler-forms-disable-button {
+  cursor: pointer;
+  color: darkblue;
+  font-size: 17px;
+}
+
+.react-simpler-forms-text {
+  color: #444;
+  padding-top: 10px;
+}
+
+.react-simpler-forms-properties {
+  margin-left: 15px;
+}
+
+.react-simpler-forms-statement {
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.react-simpler-forms-sub-headings {
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.react-simpler-state-container{
+  color: #444;
+}
+
+.react-simpler-forms-label {
+  color: #444;
+  font-size: 18px;
+}
+
+.react-simple-forms-input {
+  width: 100%;
+  font-size: 17px;
+  padding: 2px;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid #ccc;
+  color: #444;
+}
+
+.react-simple-forms-input-error {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid red;
+}
+
+.react-simple-forms-input-focused {
+  outline: none !important;
+  border-bottom: 1px solid rgb(0, 125, 255) !important;
+}
+
+.react-simpler-forms-response-error {
+  color: red;
+}
+
+.react-simpler-forms-input-container {
+  padding: 10px;
+}
+
+.react-simple-forms-select {
+  width: 100%;
+  margin-top: 10px;
+  padding: 4px;
+  font-size: 16px;
+}
+
+.react-simpler-forms-button, .react-simpler-forms-button-previous{
+  padding: 10px;
+  background-color: rgb(58, 61, 80);
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.react-simpler-forms-button-previous {
+  background-color: #4CAF50;
+}
+
+.react-simpler-forms-response-success{
+  color: green;
+}
+
+.react-simpler-forms-button-disabled {
+  opacity: .5;
+  cursor: default;
+}
+
+.react-simpler-forms-string {
+  color: brown;
+  display: inline-block;
+}
+
+.react-simpler-forms-number {
+  color: red;
+  display: inline-block;
+}
+
+.react-simpler-forms-bool {
+  color: blue;
+  display: inline-block;
+}
+
+.react-simpler-forms-object {
+  color: purple;
+  display: inline-block;
+}
+
+.react-simpler-forms-default-property {
+  display: inline-block;
+}
+
+.react-simpler-forms-loader {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.react-simpler-forms-form-type {
+  font-size: 20px;
+  padding: 5px;
+  width: 400px;
+  margin-bottom: 10px;
+}
+
+.react-simpler-forms-form-type-container {
+  margin-left: 10px;
+}
+
+.react-simpler-forms-form-type-heading {
+  color: #444;
+  font-size: 22px;
+}
+
+.react-simpler-forms-form-type-labels {
+  margin-left: 5px;
+  color: #444;
+}
+
+.react-simpler-forms-form-type-radio-containers {
+  padding: 5px;
+}
+
+.react-simpler-forms-step-heading {
+  color: #444;
+  text-align: center;
+  font-size: 24px;
+}
+
+.react-simpler-forms-success-response {
+  color: green;
+}
+
+.react-simpler-forms-error-response {
+  color: red;
+}
+
+.react-simpler-forms-bottom-links {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.react-simpler-forms-logo-container {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.react-simpler-forms-logo-cloud {
+  font-size: 35px;
+  margin-right: 10px;
+}
+
+.react-simpler-forms-note {
+  color: #444;
+  margin-top: 10px;
+  font-size: 15px;
+}

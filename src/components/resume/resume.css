@@ -97,7 +97,7 @@
 
 .resume-item-right-subheading {
   margin-top: 10px;
-  color: blue;
+  color: rgb(0, 125, 255);
 }
 
 .resume-ul {
@@ -107,7 +107,8 @@
 
 .resume-ul li {
   color: #444;
-  padding: 2px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .resume-image-maincontainer {
@@ -152,4 +153,9 @@
   color: #444;
   margin-top: 10px;
   font-weight: bold;
+}
+
+.resume-statement {
+  color: #444;
+  margin-bottom: 10px;
 }

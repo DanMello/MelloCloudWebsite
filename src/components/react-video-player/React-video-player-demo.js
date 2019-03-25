@@ -18,9 +18,9 @@ class ReactVideoPlayerDemo extends Component {
             mobileClassName={'react-video-player-container-mobile'}
             isMobile={this.props.config.isMobile}
           />
-          <div className={this.props.config.isMobile && 'react-video-sub-container-mobile'}>
+          <div className={this.props.config.isMobile ? 'react-video-sub-container-mobile' : null}>
             <h1 className={!this.props.config.isMobile ? 'react-video-heading' : 'react-video-heading-mobile'}>React-Video-Player Demo</h1>
-            <div className='react-video-version'>Version 1.2.2</div>
+            <div className='react-video-version'>Version 1.2.3</div>
             <div className='react-video-link-container'>View React-Video-Player on <a className='footer-link' href='https://github.com/DanMello/react-video-player'>GitHub</a></div>
             <div className='react-video-link-container'>View React-Video-Player on <a className='footer-link' href='https://www.npmjs.com/package/react-vp'>npm</a></div>
           </div>

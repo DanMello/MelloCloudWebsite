@@ -1,51 +1,15 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
-import queryString from 'query-string'
+import { Link } from 'react-router-dom'
 import ContentWrapper from '../contentwrapper/ContentWrapper'
-import { userUpdate } from '../../actions/userActions'
 import './home.css'
 
 class Home extends Component {
 
-  constructor() {
-
-    super ()
-
-    this.state = {
-      message: null,
-      error: null
-    }
-  }
-
-  componentDidMount() {
-
-    const values = queryString.parse(this.props.location.search)
-
-    if (values.emailVerified === 'true') {
-
-      this.props.dispatch(userUpdate({token: this.props.user.profile.token}))
-
-      this.setState({
-        message: 'Thank you for verifying your email.'
-      })
-    }
-
-    if (values.emailVerifiedError) {
-
-      this.setState({
-        error: values.emailVerifiedError
-      })
-    }
-  }
-
   render() {
 
     return (
-      <ContentWrapper config={this.props.config} dispatch={this.props.dispatch} user={this.props.user}>
-
-        {!!this.state.message && <div className='home-successtext'>{this.state.message}</div>}
-        {!!this.state.error && <div className='home-errortext'>{this.state.error}</div>}
-        {this.props.location.state && this.props.location.state.redirectMessage && <div className='home-successtext'>{this.props.location.state.redirectMessage}</div>}
+      <ContentWrapper config={this.props.config}>
 
         <div className={!this.props.config.isMobile ? 'home-intro-container' : 'home-intro-container-mobile'}>
 
@@ -57,8 +21,8 @@ class Home extends Component {
             <p className='home-paragraph'> 
               Welcome to my website. My name is Dan Mello and I am a Front End Developer.
             </p>
-            <p className='home-paragraph home-margin-top'> 
-              Here you can find some examples of my work, the latest version of my resume and a way to get in touch. Also, check out my open source projects on GitHub.
+            <p className='home-paragraph home-margin-top'>
+              Here you can find some examples of my work, my web development notes, the latest version of my resume and a way to get in touch. Also, check out my open source projects on GitHub.
             </p>
           </div>
 
@@ -70,11 +34,30 @@ class Home extends Component {
           
           <div className='home-line'/>
           
-          <div className='home-project-box'>
+          <div className='home-project-box' id='react-simpler-forms'>
+            <h2 className='home-project-name'>react-simpler-forms</h2>
+            <p className={!this.props.config.isMobile ? 'home-project-paragraph' : 'home-project-paragraph-mobile'}>
+              React Higher Order component that manages all of your forms state along with other components 
+              that make it easy to create, validate, perform search queries, and submit single or multi-step forms. 
+            </p>
+            <ul className='home-ul'>
+              {!this.props.config.isMobile ?
+                <li className='home-li'>View <Link className='footer-link' to='/react-simpler-forms'>live demo</Link></li>
+                :
+                <li className='home-li'>Live demo available on desktop</li>
+              }
+              <li className='home-li'>View react-simpler-forms on <a className='footer-link' href='https://github.com/DanMello/react-simpler-forms'>GitHub</a></li>
+              <li className='home-li'>View react-simpler-forms on <a className='footer-link' href='https://www.npmjs.com/package/react-vp'>npm</a></li>
+            </ul>
+          </div>
+
+          <div className='home-line'/>
+
+          <div className='home-project-box home-margin-top' id='react-video-player'>
             <h2 className='home-project-name'>react-video-player</h2>
             <p className={!this.props.config.isMobile ? 'home-project-paragraph' : 'home-project-paragraph-mobile'}>A React component for easily playing videos on mobile and desktop devices. Comes with video controls and customization for audio slider and video seekbar to match the theme of your website.</p>
             <ul className='home-ul'>
-              <li className='home-li'>View <a className='footer-link' href='/react-video-player'>live demo</a></li>
+              <li className='home-li'>View <Link className='footer-link' to='/react-video-player'>live demo</Link></li>
               <li className='home-li'>View react-video-player on <a className='footer-link' href='https://github.com/DanMello/react-video-player'>GitHub</a></li>
               <li className='home-li'>View react-video-player on <a className='footer-link' href='https://www.npmjs.com/package/react-vp'>npm</a></li>
             </ul>
@@ -87,18 +70,3 @@ class Home extends Component {
 }
 
 export default hot(module)(Home)
-
-// Here you can find some examples of my work, the latest version of my resume and a way to get in touch. Also, check out my open source projects at GitHub
-
-
-          // <h1 className='home-main-heading'>mello cloud IOS</h1>
-
-          // <h2 className='home-sub-heading'>Coming 2019</h2>
-
-          // <p className='home-paragraph'>Automate your small business with your voice.</p>
-
-          // <div className='home-image-container'>
-          //   <div className='home-image-box'>
-          //     <img src='/assets/app.png' className='home-app-image'/>
-          //   </div>
-          // </div>

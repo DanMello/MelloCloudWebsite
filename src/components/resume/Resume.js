@@ -33,10 +33,6 @@ class Resume extends Component {
               <div className='resume-item-heading'>Github</div>
               <div className='resume-item'>github.com/DanMello</div>
             </div>
-            <div>
-              <div className='resume-item-heading'>Website</div>
-              <div className='resume-item'>https://mellocloud.com</div>
-            </div>
           </div>
           <div className='resume-category-container'>Web Development Skills</div>
           <div className='resume-padding-container'>
@@ -68,6 +64,10 @@ class Resume extends Component {
 
         <div className='resume-right-container'>
           
+          <div className='resume-statement'>
+            Self taught computer programmer learning and coding on occasion eight to ten hours a day for the past three years.
+            Contributing to open source and looking to become a professional front end developer.
+          </div>
           
           <div className='resume-big-title'>Projects</div>
           
@@ -75,10 +75,14 @@ class Resume extends Component {
 
           <div className='resume-item-right-container'>
             <div className='resume-item-right-subcontainer'>
-              <div className='resume-item-right-heading'>redux-smart-forms</div>
-              <div className='resume-item-right-subheading'>https://github.com/DanMello/redux-smart-forms</div>
+              <div className='resume-item-right-heading'>react-simpler-forms</div>
+              <div className='resume-item-right-subheading'>https://github.com/DanMello/react-simpler-forms</div>
               <ul className='resume-ul'>
-                <li>Built site from scratch using ReactJS.</li>
+                <li>Developed a higher-order component that manages your forms state and form submissions.</li>
+                <li>Also developed three other components that make it easy for developers to create, 
+                    validate, perform search queries, and submit single or multi-step forms without writing any logic using only declarative code.
+                </li>
+                <li>Developed everything with zero dependencies and published to npm.</li>
               </ul>
             </div>
           </div>
@@ -88,7 +92,8 @@ class Resume extends Component {
               <div className='resume-item-right-heading'>react-video-player</div>
               <div className='resume-item-right-subheading'>https://github.com/DanMello/react-video-player</div>
               <ul className='resume-ul'>
-                <li>Built site from scratch using ReactJS.</li>
+                <li>Developed and published to npm, a component that can play videos easily on mobile and desktop devices.</li>
+                <li>Created all the controls using media events, including custom video seekbar, audio slider, play and pause button etc.</li>
               </ul>
             </div>
           </div>
@@ -98,7 +103,11 @@ class Resume extends Component {
               <div className='resume-item-right-heading'>My Website</div>
               <div className='resume-item-right-subheading'>https://mellocloud.com</div>
               <ul className='resume-ul'>
-                <li>Developt</li>
+                <li className='resume-li'>Developed front end using React and back end using NGINX and Node js.</li>
+                <li className='resume-li'>Run server from home using ubuntu server 16 on an old computer. Update 
+                    https certificate and maintain server to make sure it stays up and running.
+                </li>
+                <li className='resume-li'>Update website with the latest versions of my resume, notes, projects and live demos.</li>
               </ul>
             </div>
           </div>
@@ -122,7 +131,24 @@ class Resume extends Component {
 }
 
 export default hot(module)(Resume)
+          
+                   // <li>Developed everything with zero dependencies and published to npm.</li>
 
+
+                // <li>Developed a higher-order component that manages your forms state and form submissions.</li>
+                // <li>Also made three other components that make it easy for developers to create, 
+                //     validate, perform search queries, and submit single or multi-step forms without writing any logic using only declarative code.
+                // </li>
+
+                // <li>Developed and published to npm, a component that can play videos easily on mobile and desktop devices.</li>
+                // <li>Created all the controls using media events, including custom video seekbar, audio slider, play and pause button etc.</li>
+                // <li>Developed and published to npm, a component that can play videos easily on mobile and desktop devices.</li>
+                // <li>Created all the controls using the media events api, including custom video seek bar, audio slider, play and pause button etc.</li>
+
+          // Setup physical server at home using ubuntu server 16 on an old computer. Update 
+          // https certificate and maintain server to make sure it stays up and running. 
+
+          // Developed front end using react and back end using NGINX and Node js including setting up server at home.
 
           // <div className='resume-item-right-container'>
           //   <div className='resume-item-right-when'>2017</div>
@@ -143,3 +169,11 @@ export default hot(module)(Resume)
 
           // <li>Developed entire website with React and Node js.</li>
           //
+
+// Self taught computer programmer learning and coding on occasion 8 to 10 hours a day for the past 3 years.
+// contributing to open source and looking to become a professional front end developer.
+
+            // <div>
+            //   <div className='resume-item-heading'>Website</div>
+            //   <div className='resume-item'>https://mellocloud.com</div>
+            // </div>

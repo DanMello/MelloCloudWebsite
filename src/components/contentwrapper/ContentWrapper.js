@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
-import classNames from 'classnames'
 import Header from '../header/Header'
 import Footer from '../footer/Footer'
 
@@ -8,15 +7,17 @@ class ContentWrapper extends Component {
 
   render() {
 
+    let isMobile = this.props.config.isMobile
+
     return (
       <div>
         
-        <Header config={this.props.config} dispatch={this.props.dispatch} user={this.props.user} />
+        <Header isMobile={isMobile} />
 
-        <div className={!this.props.config.isMobile ? 'routeWrapper' : 'routeWrapper-mobile'} style={this.props.background ? {background: this.props.background} : null}> 
+        <div className={!isMobile ? 'routeWrapper' : 'routeWrapper-mobile'} style={this.props.background ? {background: this.props.background} : null}> 
 
           <div
-            className={!this.props.config.isMobile ? 'main-content-wrapper' : null}
+            className={!isMobile ? 'main-content-wrapper' : null}
             style={this.props.desktopwidth ? {width: '100%', maxWidth: 'initial', borderBottom: '1px solid #ccc' } : null}
           >
             {this.props.children}
@@ -24,7 +25,7 @@ class ContentWrapper extends Component {
           
         </div>
 
-        <Footer config={this.props.config} user={this.props.user} dispatch={this.props.dispatch} />
+        <Footer isMobile={isMobile} />
 
       </div>
     )

@@ -2,42 +2,19 @@ import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import { NavLink, Link } from 'react-router-dom'
 import { NavItems } from '../../data/Navigation'
-import { userLogout } from '../../actions/userActions'
 
 import './navigation.css'
 
 class DesktopNav extends Component {
 
-  constructor() {
-    super()
-
-    this.logOut = this.logOut.bind(this)
-  }
-
-  logOut() {
-
-    this.props.dispatch(userLogout())
-  }
-
   render() {
-
-    let loggedIn = this.props.LoggedIn
-    let developer = this.props.user.profile.developer
 
     return (
       <ul className={'nav-navUl'}>
 
         <div className={'nav-triangle'} />
 
-        {NavItems.filter(array => {
-
-          return loggedIn ? (array.loginRequired !== false) : (array.loginRequired !== true)
-
-        }).filter(array => {
-
-          return developer ? (array.development !== false) : (array.development !== true)
-
-        }).map((list, i, arr) => {
+        {NavItems.map((list, i, arr) => {
 
           return (
             <div className='nav-separator' key={list.key}>
@@ -46,15 +23,7 @@ class DesktopNav extends Component {
 
                 <h3 className='nav-listMainHeading'>{list.category}</h3>
 
-                {list.items.filter(array => {
-
-                  return loggedIn ? (array.loginRequired !== false) : (array.loginRequired !== true)
-
-                }).filter(array => {
-
-                  return developer ? (array.development !== false) : (array.development !== true)
-
-                }).map(item => {
+                {list.items.map(item => {
 
                   let component = {
                     link: (listItem) => {

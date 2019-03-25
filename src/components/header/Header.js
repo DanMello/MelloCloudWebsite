@@ -4,7 +4,6 @@ import { FaBars, FaTimes, FaCloud } from 'react-icons/fa'
 import classNames from 'classnames'
 import Portal from '../../portal/Portal'
 import { Link } from 'react-router-dom'
-import { userLogout } from '../../actions/userActions'
 
 import MobileNavandHeader from '../navigation/MobileNavandHeader'
 import DesktopNav from '../navigation/DesktopNav'
@@ -63,7 +62,7 @@ class Header extends Component {
 
   render() {
 
-    let Mobile = this.props.config.isMobile
+    let Mobile = this.props.isMobile
 
     return (
       <div className={!Mobile ? 'header-headingContainer header-min-width' : 'header-headingContainer'}>
@@ -80,12 +79,10 @@ class Header extends Component {
 
             <Portal rootClass={this.state.navOpen ? 'dark' : null} method={this.closeMobileNavWhenClickedAway}>
               <MobileNavandHeader
-                user={this.props.user}
                 navOpen={this.state.navOpen} 
                 mobileStickyHeaderRef={this._mobileStickyHeaderRef}
                 mobileNavRef={this._mobileNavRef}
                 closeWhenLinkClicked={this.closeWhenLinkClicked}
-                dispatch={this.props.dispatch}
               />
             </Portal>
 
@@ -109,7 +106,7 @@ class Header extends Component {
             onMouseLeave={this.toggleNav}
             >
 
-            <Welcome user={this.props.user}/>
+            <Welcome />
 
             <FaBars 
               className='header-logoIcon'
@@ -118,10 +115,7 @@ class Header extends Component {
 
             {!!this.state.navOpen &&
               <DesktopNav
-                user={this.props.user}
                 toggleNav={this.toggleNav}
-                LoggedIn={this.props.user.loggedIn}
-                dispatch={this.props.dispatch}
               />
             }
           </div>

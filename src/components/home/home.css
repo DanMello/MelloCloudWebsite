@@ -125,3 +125,10 @@
 .home-li {
   padding: 5px;
 }
+
+.home-disclaimer {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #444;
+  font-style: italic;
+}

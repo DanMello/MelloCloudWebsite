@@ -1,20 +1,15 @@
-import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import { Provider } from 'react-redux'
 import { Router } from 'react-router-dom'
-import history from './history'
-
 import AppRouter from './routes'
-import store from './store'
-
+import history from './history'
+import { checkHostName } from './helpers/config'
 import './index.css'
 
+let config = checkHostName(window.location.hostname)
+
 ReactDOM.render(
-  <Provider store={store}>
-    <Router history={history}>
-      <AppRouter />
-    </Router>
-  </Provider>,
+  <Router history={history}>
+    <AppRouter config={config}/>
+  </Router>,
   document.getElementById('root'))

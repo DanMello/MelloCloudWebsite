@@ -84,7 +84,6 @@
   width: 100%;
   font-size: 17px;
   padding: 10px;
-  margin-top: 10px;
   margin-bottom: 10px;
   resize: none;
   height: 60vh;
@@ -154,6 +153,7 @@
 }
 
 .contact-loader-container {
+  display: flex;
   justify-content: center;
 }
 

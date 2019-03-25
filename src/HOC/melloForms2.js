@@ -178,8 +178,6 @@ const ValidateInput = function (WrappedComponent) {
 
     render() {
 
-      console.log(this.props.location)
-
       let allValid
       let required = this.props.required || !!this.props.location && !!this.props.location.state && this.props.location.state.required
 

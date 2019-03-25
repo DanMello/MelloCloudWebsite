@@ -1,31 +1,12 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Route, withRouter, Redirect, Switch} from 'react-router-dom'
-import classNames from 'classnames'
-
-//import Image from './components/image/Image'
-import Resume from './components/resume/Resume'
-
+import { Route, Switch} from 'react-router-dom'
 import Home from './components/home/Home'
 import Notes from './components/notes/Notes'
-import About from './components/about/About'
-import Terms from './components/terms/Terms'
-import Privacy from './components/terms/Privacy'
 import Contact from './components/contact/Contact'
 import PdfViewer from './components/pdfViewer/PdfViewer'
-import Login from './components/authentication/Login'
-import Signup from './components/authentication/Signup'
-import Forgot from './components/authentication/Forgot'
-import Reset from './components/authentication/Reset'
 import NoMatch from './components/nomatch/NoMatch'
-import VerifyUser from './components/videoeditor/VerifyUser'
-import VideoProject from './components/videoeditor/VideoProject'
-import VideoPreview from './components/videoeditor/VideoPreview'
 import ReactVideoPlayerDemo from './components/react-video-player/React-video-player-demo'
-import Settings from './components/settings/Settings'
-import Edit from './components/settings/Edit'
-import { login, checkEmail, contact, forgot, resetPassword, update } from './actions/formActions'
-import { required, delayErrors, matchRequired } from './data/ResetToken'
+import SimplerFormsVisualRepresentation from './components/react-simpler-forms/react-simpler-forms-visual-representation'
 
 const renderMergedProps = (component, ...rest) => {
   const finalProps = Object.assign({}, ...rest)
@@ -42,71 +23,45 @@ const PropsRoute = ({ component, ...rest }) => {
   )
 }
 
-const ProtectedPropsRoute = ({ component, ...rest }) => {
-
-  return rest.user.loggedIn ?
-    <Route {...rest} render={routeProps => {
-      return renderMergedProps(component, routeProps, rest)
-    }}/>
-    :
-    <Redirect to='/account/login' />
-}
-
-const DeveloperRoute = ({ component, ...rest }) => {
-
-  return rest.user.profile.developer ?
-    <Route {...rest} render={routeProps => {
-      return renderMergedProps(component, routeProps, rest)
-    }}/>
-    :
-    <Redirect to='/' />
-}
-
-
-const NotloggedInRoute = ({ component, ...rest }) => {
-
-  return !rest.user.loggedIn ?
-    <Route {...rest} render={routeProps => {
-      return renderMergedProps(component, routeProps, rest)
-    }}/>
-    :
-    <Redirect to='/' />
-}
-
 class AppRoutes extends Component {
 
   render() {
 
-    let { config, user, form, video }  =   this.props.state,
-    dispatch                           =   this.props.dispatch
+    let config = this.props.config
     
     return (
 
       <Switch>
 
-        <Route component={Resume} path='/resume' />
-
-        <PropsRoute path="/" exact strict component={Home} config={config} dispatch={dispatch} user={user} />
-        <PropsRoute path="/notes" exact strict component={Notes} config={config} dispatch={dispatch} user={user} />
-        <PropsRoute path="/contact" component={Contact} config={config} dispatch={dispatch} user={user} form={form} dispatch={dispatch} onSubmit={contact} required={['name', 'email', 'message']} delayErrors={[{ input: 'email', time: 1400 }]} />
+        <PropsRoute path="/" exact strict component={Home} config={config} />
+        <PropsRoute path="/notes" exact strict component={Notes} config={config} />
+        <PropsRoute path="/contact" component={Contact} config={config} />
         <PropsRoute path="/pdfviewer" exact strict component={PdfViewer} config={config} />
-        <PropsRoute path="/react-video-player" exact strict component={ReactVideoPlayerDemo} config={config} dispatch={dispatch} user={user} />
-
-        <PropsRoute component={NoMatch} config={config} dispatch={dispatch} user={user} />
+        <PropsRoute path="/react-video-player" exact strict component={ReactVideoPlayerDemo} config={config} />
+        <PropsRoute path="/react-simpler-forms" exact strict component={SimplerFormsVisualRepresentation} config={config} />
+        <PropsRoute component={NoMatch} config={config} />
 
       </Switch>
     )
   }
 }
 
-function mapStateToProps(state) {
+export default AppRoutes
+          
+          //        <Route component={Resume} path='/resume' />
 
-  return {
-    state
-  }
-}
+        // <PropsRoute path="/notes" exact strict component={Notes} config={config} dispatch={dispatch} user={user} />
+        // <PropsRoute path="/contact" component={Contact} config={config} dispatch={dispatch} user={user} form={form} dispatch={dispatch} onSubmit={contact} required={['name', 'email', 'message']} delayErrors={[{ input: 'email', time: 1400 }]} />
+        // <PropsRoute path="/pdfviewer" exact strict component={PdfViewer} config={config} />
+        // <PropsRoute path="/react-video-player" exact strict component={ReactVideoPlayerDemo} config={config} dispatch={dispatch} user={user} />
 
-export default withRouter(connect(mapStateToProps)(AppRoutes))
+        // /react-simpler-forms/single-step
+
+        // <PropsRoute component={NoMatch} config={config} dispatch={dispatch} user={user} />
+
+
+
+
 
 
 //<Route component={Resume} path='/resume' />

@@ -14,7 +14,7 @@ class Notes extends Component {
     return (
       <ContentWrapper config={this.props.config} dispatch={this.props.dispatch} user={this.props.user}>
 
-        <div className='about-container'>
+        <div className='notes-container'>
           
           <h1 className={this.props.config.isMobile ? 'notes-heading' : null}>Web development notes.</h1>
           
@@ -22,7 +22,7 @@ class Notes extends Component {
             Every time I learn something new, I like to write things down. Here are all my notes from when I started learning web development. 
           </p>
 
-          <div className='about-pdfFlexContainer'>
+          <div className='notes-pdfFlexContainer'>
 
             {pdfInfo.map(file => {
 
@@ -31,12 +31,12 @@ class Notes extends Component {
                   key={file.name}
                   to={`/pdfviewer?file=${file.name}`}
                   id={file.name}
-                  className='about-thumbnailContainer'
+                  className='notes-thumbnailContainer'
                 >
-                  <div className='about-imageContainer'>
-                    <img className='about-image' src={file.thumbnailPath} alt='oops thumbnail not found.'/>
-                    <div className='about-filename-container'>
-                      <span className='about-filename'>{file.nameWithoutNum}</span>
+                  <div className='notes-imageContainer'>
+                    <img className='notes-image' src={file.thumbnailPath} alt='oops thumbnail not found.'/>
+                    <div className='notes-filename-container'>
+                      <span className='notes-filename'>{file.nameWithoutNum}</span>
                     </div>
                   </div>
                 </Link>
