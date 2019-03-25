@@ -49,8 +49,8 @@ class AppRoutes extends Component {
 
 export default AppRoutes
           
-        // <Route component={Resume} path='/resume' />
 
+        // <Route component={Resume} path='/resume' />
         // <PropsRoute path="/notes" exact strict component={Notes} config={config} dispatch={dispatch} user={user} />
         // <PropsRoute path="/contact" component={Contact} config={config} dispatch={dispatch} user={user} form={form} dispatch={dispatch} onSubmit={contact} required={['name', 'email', 'message']} delayErrors={[{ input: 'email', time: 1400 }]} />
         // <PropsRoute path="/pdfviewer" exact strict component={PdfViewer} config={config} />

@@ -120,6 +120,8 @@ class Step2 extends Component {
             ]}
           />
 
+          <div className='react-simpler-forms-note'>psst jdanmello@gmail.com is not available</div>
+
         </div>
 
       </div>
@@ -215,6 +217,8 @@ class Step3 extends Component {
           ]}
           type='password'
         />
+
+        <div className='react-simpler-forms-note'>Password must contain at least 8 characters and 1 number.</div>
 
       </div>
 

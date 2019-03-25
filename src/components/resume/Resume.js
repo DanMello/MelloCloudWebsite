@@ -104,8 +104,8 @@ class Resume extends Component {
               <div className='resume-item-right-subheading'>https://mellocloud.com</div>
               <ul className='resume-ul'>
                 <li className='resume-li'>Developed front end using React and back end using NGINX and Node js.</li>
-                <li className='resume-li'>Ran server from home using ubuntu server 16 on an old computer for a while. Recently moved it to 
-                digital ocean after the old computers power supply broke. Configured ssh key, https, and deploy user. 
+                <li className='resume-li'>Run server from home using ubuntu server 16 on an old computer. 
+                Configured ssh key, https, and deploy user. Maintain server to make sure it stays up and running.
                 </li>
                 <li className='resume-li'>Update website with the latest versions of my resume, notes, projects and live demos.</li>
               </ul>
@@ -180,3 +180,7 @@ export default hot(module)(Resume)
 
             // Ran server from home using ubuntu server 16 on an old computer for a while. Recently moved it to 
             //     digital ocean after the old computers power supply broke. Configured ssh key, https, and deploy user. 
+
+                //             <li className='resume-li'>Developed front end using React and back end using NGINX and Node js.</li>
+                // <li className='resume-li'>Run server from home using ubuntu server 16 on an old computer. 
+                // Configured ssh key, https, and deploy user. Maintain server to make sure it stays up and running.

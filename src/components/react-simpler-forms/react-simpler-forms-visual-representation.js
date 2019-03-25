@@ -278,9 +278,9 @@ class SimplerFormsVisualRepresentation extends Component {
         
         <div className='react-simpler-forms-bottom-links'>
           <div>View react-simpler-forms on 
-            <a className='footer-link' href=''>GitHub</a> 
+            <a className='footer-link' href='https://github.com/DanMello/react-simpler-forms'>GitHub</a> 
             or 
-            <a className='footer-link' href=''>npm</a>
+            <a className='footer-link' href='https://www.npmjs.com/package/react-simpler-forms'>npm</a>
             V1.0.0
           </div>
         </div>

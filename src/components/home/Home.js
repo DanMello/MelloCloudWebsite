@@ -47,7 +47,7 @@ class Home extends Component {
                 <li className='home-li'>Live demo available on desktop</li>
               }
               <li className='home-li'>View react-simpler-forms on <a className='footer-link' href='https://github.com/DanMello/react-simpler-forms'>GitHub</a></li>
-              <li className='home-li'>View react-simpler-forms on <a className='footer-link' href='https://www.npmjs.com/package/react-vp'>npm</a></li>
+              <li className='home-li'>View react-simpler-forms on <a className='footer-link' href='https://www.npmjs.com/package/react-simpler-forms'>npm</a></li>
             </ul>
           </div>
 

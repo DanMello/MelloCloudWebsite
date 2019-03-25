@@ -15,14 +15,14 @@ class SingleStepForm extends Component {
         <Response 
           {...formProps}
           errorClassName='react-simpler-forms-response-error'
-          for='first_name'
+          for='name'
         />
 
         <label className='react-simpler-forms-label'>Name: </label>
 
         <Input
           {...formProps}
-          name='first_name'
+          name='name'
           className='react-simple-forms-input'
           focusedClassName='react-simple-forms-input-focused'
           errorClassName='react-simple-forms-input-error'
