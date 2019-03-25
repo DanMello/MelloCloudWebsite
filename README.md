@@ -14,3 +14,5 @@ Front end for https://www.mellocloud.com which is my personal website.
 
 5. I wanted to put all of my web development notes on the site but it was a lot of pdf files and when I first put them on there it took a while to open some of them, especially my node js one which is 96 pages. So I used imageMagick which is a command line tool and I turned my pdf files to png images page by page. Then I created a node js functions that checks how many pages each pdf has, orders them based on the last digits in the name 01, 02, 03 and create a JSON file that displays all the details.
 With that json file I can lazy load the images and no matter how big the pdf file is they load at the same time.
+
+6. Learned how to send files to server using rsync and only updating what has changed.
