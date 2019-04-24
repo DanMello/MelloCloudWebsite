@@ -17,7 +17,7 @@ class Footer extends Component {
             <div className='footer-flex-break'>
               <Link to='/' className='footer-link'>Home</Link>
               <Link to='/notes' className='footer-link'>Notes</Link>
-              <a href="/assets/DansResume.pdf" className='footer-link'>Resume</a>
+              <a href="/assets/pdf/DansResume.pdf" className='footer-link'>Resume</a>
               <a href="https://github.com/DanMello" className='footer-link'>GitHub</a>
               <Link to='/contact' className='footer-link'>Contact</Link>
             </div>

@@ -53,11 +53,15 @@ class Resume extends Component {
               <div className='resume-item'>Git</div>
               <div className='resume-item'>NPM</div>
               <div className='resume-item'>Ubuntu</div>
+              <div className='resume-item'>Ubuntu Server 16</div>
+              <div className='resume-item'>Linux Terminal</div>
+              <div className='resume-item'>Tmux</div>
+              <div className='resume-item'>Visual Studio Code</div>
+              <div className='resume-item'>Jest</div>
+              <div className='resume-item'>Enzyme</div>
               <div className='resume-item'>Webpack 4</div>
               <div className='resume-item'>Babel 7</div>
-              <div className='resume-item'>Sublime Text</div>
               <div className='resume-item'>Chrome DevTools</div>
-              <div className='resume-item'>Ubuntu Server 16</div>
             </div>
           </div>
         </div>
@@ -72,6 +76,18 @@ class Resume extends Component {
           <div className='resume-big-title'>Projects</div>
           
           <div className='resume-line' />
+
+          <div className='resume-item-right-container'>
+            <div className='resume-item-right-subcontainer'>
+              <div className='resume-item-right-heading'>react-tic-tac-toe</div>
+              <div className='resume-item-right-subheading'>https://github.com/DanMello/react-tic-tac-toe</div>
+              <ul className='resume-ul'>
+                <li>Developed a tic tac toe app using React Hooks.</li>
+                <li>Implemented unit tests using test-driven development with Jest and Enzyme.</li>
+                {/* <li>Created all the controls using media events, including custom video seekbar, audio slider, play and pause button etc.</li> */}
+              </ul>
+            </div>
+          </div>
 
           <div className='resume-item-right-container'>
             <div className='resume-item-right-subcontainer'>

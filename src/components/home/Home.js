@@ -14,7 +14,7 @@ class Home extends Component {
         <div className={!this.props.config.isMobile ? 'home-intro-container' : 'home-intro-container-mobile'}>
 
           <div className={!this.props.config.isMobile ? 'home-pic-container' : 'home-pic-container-mobile'}>
-            <img className='home-my-pic' src='/assets/dan.jpeg' />
+            <img className='home-my-pic' src='/assets/img/dan.jpeg' />
           </div>
 
           <div className={!this.props.config.isMobile ? 'home-paragraph-container' : 'home-paragraph-container-mobile'}>

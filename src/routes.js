@@ -7,7 +7,7 @@ import PdfViewer from './components/pdfViewer/PdfViewer'
 import NoMatch from './components/nomatch/NoMatch'
 import ReactVideoPlayerDemo from './components/react-video-player/React-video-player-demo'
 import SimplerFormsVisualRepresentation from './components/react-simpler-forms/react-simpler-forms-visual-representation'
-// import Resume from './components/resume/Resume'
+import Resume from './components/resume/Resume'
 
 const renderMergedProps = (component, ...rest) => {
   const finalProps = Object.assign({}, ...rest)
@@ -34,6 +34,7 @@ class AppRoutes extends Component {
 
       <Switch>
 
+        <Route component={Resume} path='/resume' />
         <PropsRoute path="/" exact strict component={Home} config={config} />
         <PropsRoute path="/notes" exact strict component={Notes} config={config} />
         <PropsRoute path="/contact" component={Contact} config={config} />
@@ -50,7 +51,6 @@ class AppRoutes extends Component {
 export default AppRoutes
           
 
-        // <Route component={Resume} path='/resume' />
         // <PropsRoute path="/notes" exact strict component={Notes} config={config} dispatch={dispatch} user={user} />
         // <PropsRoute path="/contact" component={Contact} config={config} dispatch={dispatch} user={user} form={form} dispatch={dispatch} onSubmit={contact} required={['name', 'email', 'message']} delayErrors={[{ input: 'email', time: 1400 }]} />
         // <PropsRoute path="/pdfviewer" exact strict component={PdfViewer} config={config} />

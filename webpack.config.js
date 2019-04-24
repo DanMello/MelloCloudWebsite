@@ -12,8 +12,8 @@ module.exports = (env) => {
       './src/index'
     ],
     output: {
-      filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
+      filename: 'assets/[name].bundle.js',
       publicPath: '/'
     },
     optimization: {
@@ -68,8 +68,8 @@ module.exports = (env) => {
         template: './public/index.html'
       }),
       new MiniCssExtractPlugin({
-        filename: "[name].css",
-        chunkFilename: "[id].css"
+        filename: "assets/[name].css",
+        chunkFilename: "assets/[id].css"
       })
     ]
   }
