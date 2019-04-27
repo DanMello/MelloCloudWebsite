@@ -78,6 +78,7 @@ class Header extends Component {
 
             <Portal rootClass={this.state.navOpen ? 'dark' : null} method={this.closeMobileNavWhenClickedAway}>
               <MobileNavandHeader
+                config={this.props.config}
                 navOpen={this.state.navOpen} 
                 mobileStickyHeaderRef={this._mobileStickyHeaderRef}
                 mobileNavRef={this._mobileNavRef}
@@ -115,6 +116,7 @@ class Header extends Component {
             {!!this.state.navOpen &&
               <DesktopNav
                 toggleNav={this.toggleNav}
+                config={this.props.config}
               />
             }
           </div>

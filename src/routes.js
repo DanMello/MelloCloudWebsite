@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 //prod
 import Home from './components/home/Home'
 import Notes from './components/notes/Notes'
@@ -26,14 +26,14 @@ const PropsRoute = ({ component, ...rest }) => {
   )
 };
 
-const DeveloperRoute = ({ component, ...rest }) => {	
-
+const DeveloperRoute = ({ component, ...rest }) => {
+  
   return rest.config.environment === 'development' ?	
-   <Route {...rest} render={routeProps => {	
+   <Route {...rest} render={routeProps => {
      return renderMergedProps(component, routeProps, rest)	
    }}/>	
    :	
-   <Redirect to='/' />	
+   <Redirect to='/' />
 };
 
 class AppRoutes extends Component {
@@ -51,9 +51,10 @@ class AppRoutes extends Component {
         <PropsRoute path="/pdfviewer" exact strict component={PdfViewer} config={config} />
         <PropsRoute path="/react-video-player" exact strict component={ReactVideoPlayerDemo} config={config} />
         <PropsRoute path="/react-simpler-forms" exact strict component={SimplerFormsVisualRepresentation} config={config} />
-        <PropsRoute component={NoMatch} config={config} />
-
+        
         <DeveloperRoute path='/resume' exact strict component={Resume} config={config} />
+
+        <PropsRoute component={NoMatch} config={config} />
 
       </Switch>
     );

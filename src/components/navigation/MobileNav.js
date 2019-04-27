@@ -71,13 +71,19 @@ class MobileNav extends Component {
         'nav-openMobileNav': this.props.navOpen,
         'nav-closeMobileNav': !this.props.navOpen,
       }
-    )
+    );
+
+    let development = this.props.config.environment === 'development'
 
     return (
       
       <ul className={navClass} ref={this.props.mobileNavRef}>
 
-        {NavItems.map((list, i, arr) => {
+        {NavItems.filter(array => {	
+
+          return development ? (array.development !== false) : (array.development !== true)
+
+        }).map((list, i, arr) => {
 
           return (
 

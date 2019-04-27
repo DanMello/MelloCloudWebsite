@@ -1,5 +1,5 @@
 const NavItems = [
-  { 
+  {
     category: 'Main Menu',
     key: 'Main Menu',
     items: [
@@ -8,6 +8,14 @@ const NavItems = [
       {key: 'Resume', name: 'Resume', type: 'alink', to: '/assets/pdf/DansResume.pdf'},
       {key: 'GitHub', name: 'GitHub', type: 'alink', to: 'https://github.com/DanMello'},
       {key: 'Contact', name: 'Contact', type: 'link', to: '/contact'}
+    ]
+  },
+  {
+    category: 'Development',
+    key: 'Projects',
+    development: true,
+    items: [	
+      {key: 'ResumeEditor', name: 'Resume Editor', type: 'link', to: '/resume'}
     ]
   }
 ]

@@ -10,16 +10,14 @@ class MobileNavandHeader extends Component {
     return (
       <div>
         <MobileStickyHeader 
-          user={this.props.user}
           navOpen={this.props.navOpen}
           mobileStickyHeaderRef={this.props.mobileStickyHeaderRef}
         />
         <MobileNav
-          user={this.props.user}
+          config={this.props.config}
           navOpen={this.props.navOpen}
           mobileNavRef={this.props.mobileNavRef}
           closeWhenLinkClicked={this.props.closeWhenLinkClicked}
-          dispatch={this.props.dispatch} 
         />
       </div>
     ) 

@@ -9,12 +9,18 @@ class DesktopNav extends Component {
 
   render() {
 
+    let development = this.props.config.environment === 'development'
+
     return (
       <ul className={'nav-navUl'}>
 
         <div className={'nav-triangle'} />
 
-        {NavItems.map((list, i, arr) => {
+        {NavItems.filter(array => {	
+
+          return development ? (array.development !== false) : (array.development !== true)
+
+        }).map((list, i, arr) => {
 
           return (
             <div className='nav-separator' key={list.key}>

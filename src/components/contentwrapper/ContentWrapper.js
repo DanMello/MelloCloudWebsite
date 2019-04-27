@@ -12,7 +12,7 @@ class ContentWrapper extends Component {
     return (
       <div>
         
-        <Header isMobile={isMobile} />
+        <Header isMobile={isMobile} config={this.props.config}/>
 
         <div className={!isMobile ? 'routeWrapper' : 'routeWrapper-mobile'} style={this.props.background ? {background: this.props.background} : null}> 
 
