@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
-import { NavLink, Link } from 'react-router-dom'
-import { FaBars, FaTimes, FaCloud, FaUserCircle, FaAngleRight } from 'react-icons/fa'
+import { NavLink } from 'react-router-dom'
 import classNames from 'classnames'
 import { NavItems } from '../../data/Navigation'
 

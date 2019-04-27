@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import { FaBars, FaTimes, FaCloud } from 'react-icons/fa'
-import classNames from 'classnames'
 import Portal from '../../portal/Portal'
 import { Link } from 'react-router-dom'
 

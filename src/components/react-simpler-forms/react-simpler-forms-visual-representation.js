@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
-import { FaAngleLeft, FaPaperPlane, FaCloud } from 'react-icons/fa'
+import { FaCloud } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import Loader from '../partials/myloader'
-import { SimplerForm, Input, Response, Button } from 'react-simpler-forms'
+import { SimplerForm } from 'react-simpler-forms'
 import SingleStepForm from './react-simpler-forms-single-step-form'
 import MultiStep from './react-simpler-forms-multi-step'
 
@@ -87,14 +87,10 @@ class SimplerFormsVisualRepresentation extends Component {
 
   render() {
 
-    let isMobile = !this.props.config.isMobile
-
     let formProps = {
       form: this.props.form,
       updateform: this.props.updateform
     }
-
-    // console.log(this.state.formType)
 
     return (
 

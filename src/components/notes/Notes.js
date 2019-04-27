@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import ContentWrapper from '../contentwrapper/ContentWrapper'
 import { Link } from 'react-router-dom'
-
 import './notes.css'
 
 const pdfInfo = require('../../data/pdfInfo.json')

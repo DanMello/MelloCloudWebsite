@@ -148,7 +148,7 @@ class PdfViewer extends Component {
                 
                 <img
                   className='pdfviewer-pdfImages'
-                  src={'/assets/pdf.png'}
+                  src={'/assets/img/pdf.png'}
                   data-source={src}
                   ref={src}
                 />
