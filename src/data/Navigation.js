@@ -15,7 +15,8 @@ const NavItems = [
     key: 'Projects',
     development: true,
     items: [	
-      {key: 'ResumeEditor', name: 'Resume Editor', type: 'link', to: '/resume'}
+      {key: 'ResumeEditor', name: 'Resume Editor', type: 'link', to: '/resume'},
+      // {key: 'TicTacChat', name: 'Tic-Tac-Chat', type: 'link', to: '/tic-tac-chat'}
     ]
   }
 ]

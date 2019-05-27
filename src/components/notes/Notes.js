@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
+import { Helmet } from 'react-helmet'
 import ContentWrapper from '../contentwrapper/ContentWrapper'
 import { Link } from 'react-router-dom'
 import './notes.css'
@@ -12,6 +13,10 @@ class Notes extends Component {
 
     return (
       <ContentWrapper config={this.props.config} dispatch={this.props.dispatch} user={this.props.user}>
+
+        <Helmet>
+          <title>mellocloud.com: Notes</title>
+        </Helmet>
 
         <div className='notes-container'>
           

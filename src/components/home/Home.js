@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 import ContentWrapper from '../contentwrapper/ContentWrapper'
 import './home.css'
 
@@ -10,6 +11,10 @@ class Home extends Component {
 
     return (
       <ContentWrapper config={this.props.config}>
+        
+        <Helmet>
+          <title>mellocloud.com (Mello Cloud): Home of Dan Mello, Web Developer</title>
+        </Helmet>
 
         <div className={!this.props.config.isMobile ? 'home-intro-container' : 'home-intro-container-mobile'}>
 
@@ -31,6 +36,22 @@ class Home extends Component {
         <div className={!this.props.config.isMobile ? 'home-projects-container' : 'home-projects-container-mobile'}> 
           
           <h1 className='home-project-heading'>Projects</h1>
+
+          <div className='home-line'/>
+          
+          <div className='home-project-box' id='react-simpler-forms'>
+            <div className={'tic-tac-button-container'}>
+              <h2 className='home-project-name'>tic-tac-chat</h2>
+              <Link className='tic-tac-link' to='/tic-tac-chat'>Play now</Link>
+            </div>
+            <ul className='home-ul'>
+              <p className={!this.props.config.isMobile ? 'home-project-paragraph' : 'home-project-paragraph-mobile'}>
+                Tic tac toe game that let's you create or join games and chat while you play. You can also play offline with a friend. Created with: React Hooks, Node js, and WebSockets
+              </p>
+              <li className='home-li'>View (Front-end) on <a className='footer-link' href='https://github.com/DanMello/tic-tac-chat'>GitHub</a></li>
+              <li className='home-li'>View (Back-end) on <a className='footer-link' href='https://github.com/DanMello/tic-tac-chat-websocket'>Github</a></li>
+            </ul>
+          </div>
           
           <div className='home-line'/>
           

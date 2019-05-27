@@ -1,0 +1,25 @@
+.tic-tac-mainContainer {
+  width: 100%;
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  background-color: #F0F3F4;
+  height: 100vh;
+}
+
+.tic-tac-mainContainer-mobile {
+  width: 100%;
+  padding: 1px;
+}
+
+.tic-tac-subContainer-mobile {
+  width: 100%;
+}
+
+.tic-tac-subContainer {
+  width: 500px;
+}
+
+.tic-tac-marginTop {
+  margin-top: 10px;
+}

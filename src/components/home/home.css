@@ -132,3 +132,22 @@
   color: #444;
   font-style: italic;
 }
+
+.tic-tac-link {
+  padding: 6px;
+  font-weight: bold;
+  background: #03a9f4;
+  border-radius: 5px;
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.tic-tac-button-container {
+  display: flex;
+  align-items: center;
+}

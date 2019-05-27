@@ -8,6 +8,7 @@ import PdfViewer from './components/pdfViewer/PdfViewer'
 import NoMatch from './components/nomatch/NoMatch'
 import ReactVideoPlayerDemo from './components/react-video-player/React-video-player-demo'
 import SimplerFormsVisualRepresentation from './components/react-simpler-forms/react-simpler-forms-visual-representation'
+import TicTacChat from './components/tic-tac-chat/tic-tac-chat';
 //dev
 import Resume from './components/resume/Resume'
 
@@ -52,7 +53,10 @@ class AppRoutes extends Component {
         <PropsRoute path="/react-video-player" exact strict component={ReactVideoPlayerDemo} config={config} />
         <PropsRoute path="/react-simpler-forms" exact strict component={SimplerFormsVisualRepresentation} config={config} />
         
+        <PropsRoute path='/tic-tac-chat' exact strict component={TicTacChat} config={config} />
+
         <DeveloperRoute path='/resume' exact strict component={Resume} config={config} />
+        {/* <DeveloperRoute path='/tic-tac-chat' exact strict component={TicTacChat} config={config}/> */}
 
         <PropsRoute component={NoMatch} config={config} />
 

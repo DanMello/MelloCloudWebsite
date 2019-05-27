@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
+import { Helmet } from 'react-helmet'
 import { FaAngleLeft, FaPaperPlane, FaCloud } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import Loader from '../partials/myloader'
@@ -20,6 +21,9 @@ class Contact extends Component {
 
     return (
      <FormWrapper isMobile={isMobile}>
+          <Helmet>
+            <title>mellocloud.com: Contact</title>
+          </Helmet>
           <div className='contact-mainContainter'>
           <div className='contact-input-container'>
             <div className='contact-heading-container'>

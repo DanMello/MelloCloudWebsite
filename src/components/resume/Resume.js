@@ -84,7 +84,6 @@ class Resume extends Component {
               <ul className='resume-ul'>
                 <li>Developed a tic tac toe app using React Hooks.</li>
                 <li>Implemented unit tests using test-driven development with Jest and Enzyme.</li>
-                {/* <li>Created all the controls using media events, including custom video seekbar, audio slider, play and pause button etc.</li> */}
               </ul>
             </div>
           </div>
@@ -147,56 +146,3 @@ class Resume extends Component {
 }
 
 export default hot(module)(Resume)
-          
-                   // <li>Developed everything with zero dependencies and published to npm.</li>
-
-
-                // <li>Developed a higher-order component that manages your forms state and form submissions.</li>
-                // <li>Also made three other components that make it easy for developers to create, 
-                //     validate, perform search queries, and submit single or multi-step forms without writing any logic using only declarative code.
-                // </li>
-
-                // <li>Developed and published to npm, a component that can play videos easily on mobile and desktop devices.</li>
-                // <li>Created all the controls using media events, including custom video seekbar, audio slider, play and pause button etc.</li>
-                // <li>Developed and published to npm, a component that can play videos easily on mobile and desktop devices.</li>
-                // <li>Created all the controls using the media events api, including custom video seek bar, audio slider, play and pause button etc.</li>
-
-          // Setup physical server at home using ubuntu server 16 on an old computer. Update 
-          // https certificate and maintain server to make sure it stays up and running. 
-
-          // Developed front end using react and back end using NGINX and Node js including setting up server at home.
-
-          // <div className='resume-item-right-container'>
-          //   <div className='resume-item-right-when'>2017</div>
-          //   <div className='resume-item-right-subcontainer'>
-          //     <div className='resume-item-right-heading'>jdanmello.com (offline) </div>
-          //     <div className='resume-item-right-subheading'>Repo: github.com/DanMello/jdanmello.com</div>
-          //     <ul className='resume-ul'>
-          //       <li>First Javascript and NodeJS project without using a Javascript framework.</li>
-          //       <li>Although never finished, thousands of lines of Javascript were written and a lot was learned.</li>
-          //     </ul>
-          //   </div>
-          // </div>
-
-          // Self taught computer programmer with 3 years of experience specializing in web development. Focused in creating optimized user friendly experiences and automating tasks.
-
-          // <p className='resume-paragraph'>Self taught computer programmer with 3 years of experience specializing in web development. Focused in creating optimized user friendly experiences and automating tasks.</p>
-
-
-          // <li>Developed entire website with React and Node js.</li>
-          //
-
-// Self taught computer programmer learning and coding on occasion 8 to 10 hours a day for the past 3 years.
-// contributing to open source and looking to become a professional front end developer.
-
-            // <div>
-            //   <div className='resume-item-heading'>Website</div>
-            //   <div className='resume-item'>https://mellocloud.com</div>
-            // </div>
-
-            // Ran server from home using ubuntu server 16 on an old computer for a while. Recently moved it to 
-            //     digital ocean after the old computers power supply broke. Configured ssh key, https, and deploy user. 
-
-                //             <li className='resume-li'>Developed front end using React and back end using NGINX and Node js.</li>
-                // <li className='resume-li'>Run server from home using ubuntu server 16 on an old computer. 
-                // Configured ssh key, https, and deploy user. Maintain server to make sure it stays up and running.
