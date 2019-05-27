@@ -100,7 +100,7 @@ class SimplerFormsVisualRepresentation extends Component {
 
           <div>
             <h1>react-simpler-forms</h1>
-            <div className='react-simpler-forms-version'>Version 1.0.0</div>
+            <div className='react-simpler-forms-version'>Version 1.0.1</div>
             <div className='react-simpler-forms-title'>Live demo.</div>
           </div>
 
