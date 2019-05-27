@@ -159,3 +159,24 @@
   color: #444;
   margin-bottom: 10px;
 }
+
+.resume-item-right-repo-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.resume-item-right-subheading2 {
+  color: rgb(0, 125, 255);
+  margin-left: 10px;
+}
+
+.resume-item-right-repo-heading {
+  color: #444;
+  font-size: 16px;
+}
+
+.resume-item-right-littleHeading {
+  font-size: 15px;
+  font-weight: normal;
+}

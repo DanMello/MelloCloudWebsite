@@ -46,7 +46,7 @@ class Home extends Component {
             </div>
             <ul className='home-ul'>
               <p className={!this.props.config.isMobile ? 'home-project-paragraph' : 'home-project-paragraph-mobile'}>
-                Tic tac toe game that let's you create or join games and chat while you play. You can also play offline with a friend. Created with: React Hooks, Node js, and WebSockets
+                Tic Tac Toe game that let's you create or join games and chat while you play. You can also play offline with a friend. Created with: React Hooks, Node js, MongoDB, and WebSockets
               </p>
               <li className='home-li'>View (Front-end) on <a className='footer-link' href='https://github.com/DanMello/tic-tac-chat'>GitHub</a></li>
               <li className='home-li'>View (Back-end) on <a className='footer-link' href='https://github.com/DanMello/tic-tac-chat-websocket'>Github</a></li>

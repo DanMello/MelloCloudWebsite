@@ -79,11 +79,18 @@ class Resume extends Component {
 
           <div className='resume-item-right-container'>
             <div className='resume-item-right-subcontainer'>
-              <div className='resume-item-right-heading'>react-tic-tac-toe</div>
-              <div className='resume-item-right-subheading'>https://github.com/DanMello/react-tic-tac-toe</div>
+              <div className='resume-item-right-heading'>tic-tac-chat <span className='resume-item-right-littleHeading'>(Play now at mellocloud.com)</span></div>
+              <div className='resume-item-right-repo-container'>
+                <div className='resume-item-right-repo-heading'>Front-end:</div>
+                <div className='resume-item-right-subheading2'>https://github.com/DanMello/tic-tac-chat</div>
+              </div>
+              <div className='resume-item-right-repo-container'>
+                <div className='resume-item-right-repo-heading'>Back-end:</div>
+                <div className='resume-item-right-subheading2'>https://github.com/DanMello/tic-tac-chat-websocket</div>
+              </div>
               <ul className='resume-ul'>
-                <li>Developed a tic tac toe app using React Hooks.</li>
-                <li>Implemented unit tests using test-driven development with Jest and Enzyme.</li>
+                <li>Developed Tic Tac Toe game using React Hooks, Node js, MongoDB, and WebSockets.</li>
+                <li>Implemented features including allowing users to create, join, play, and chat together all in real time or play offline with a friend.</li>
               </ul>
             </div>
           </div>
