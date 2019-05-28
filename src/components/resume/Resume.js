@@ -109,7 +109,7 @@ class Resume extends Component {
             </div>
           </div>
 
-          <div className='resume-item-right-container'>
+          {/* <div className='resume-item-right-container'>
             <div className='resume-item-right-subcontainer'>
               <div className='resume-item-right-heading'>react-video-player</div>
               <div className='resume-item-right-subheading'>https://github.com/DanMello/react-video-player</div>
@@ -118,7 +118,7 @@ class Resume extends Component {
                 <li>Created all the controls using media events, including custom video seekbar, audio slider, play and pause button etc.</li>
               </ul>
             </div>
-          </div>
+          </div> */}
 
           <div className='resume-item-right-container'>
             <div className='resume-item-right-subcontainer'>
