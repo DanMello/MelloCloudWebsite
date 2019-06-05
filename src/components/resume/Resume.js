@@ -58,7 +58,6 @@ class Resume extends Component {
               <div className='resume-item'>Tmux</div>
               <div className='resume-item'>Visual Studio Code</div>
               <div className='resume-item'>Jest</div>
-              <div className='resume-item'>Enzyme</div>
               <div className='resume-item'>Webpack 4</div>
               <div className='resume-item'>Babel 7</div>
               <div className='resume-item'>Chrome DevTools</div>
