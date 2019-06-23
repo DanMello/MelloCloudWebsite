@@ -1,0 +1,43 @@
+.tic-tac-notes-mainContainer * {
+  color: #444;
+}
+
+.tic-tac-notes-mainContainer {
+  background: white;
+  margin: 10px 5px 10px 5px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.tic-tac-notes-heading {
+  /* font-size: 2px; */
+}
+
+.tic-tac-notes-subHeading {
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.tic-tac-notes-heading-2 {
+  font-size: 16px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.tic-tac-notes-date {
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.tic-tac-notes-ul {
+  /* list-style-position: inside; */
+  margin-top: 10px;
+  margin-left: 25px;
+  font-size: 16px;
+}
+
+.tic-tac-notes-li {
+  padding: 5px;
+}
+
+
