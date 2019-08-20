@@ -13,7 +13,7 @@ class Resume extends Component {
         <div className='resume-left-container'>
           <div className='resume-padding-container'>
             <h1 className='resume-name'>Dan Mello</h1>
-            <h2 className='resume-title'>Software Engineer</h2>
+            <h2 className='resume-title'>Front End Developer</h2>
           </div>
           <div className='resume-category-container'>Personal Info</div>
           <div className='resume-padding-container'>
@@ -48,12 +48,13 @@ class Resume extends Component {
             <div className='resume-item-container'>
               <div className='resume-item'>HTML5</div>
               <div className='resume-item'>CSS3</div>
-              <div className='resume-item'>JavaScript ES6</div>
+              <div className='resume-item'>JavaScript</div>
+              <div className='resume-item'>ES6</div>
               <div className='resume-item'>React</div>
-              <div className='resume-item'>React Hooks</div>
+              {/* <div className='resume-item'>React Hooks</div> */}
               <div className='resume-item'>NGINX</div>
               <div className='resume-item'>Nodejs</div>
-              <div className='resume-item'>WebSockets</div>
+              <div className='resume-item'>Mysql</div>
               <div className='resume-item'>MongoDB</div>
             </div>
           </div>
@@ -67,7 +68,7 @@ class Resume extends Component {
               <div className='resume-item'>Linux Terminal</div>
               <div className='resume-item'>Tmux</div>
               <div className='resume-item'>Visual Studio Code</div>
-              {/* <div className='resume-item'>Unit testing with Jest</div> */}
+              <div className='resume-item'>Unit testing with Jest</div>
               <div className='resume-item'>Webpack 4 & Babel 7</div>
               {/* <div className='resume-item'>Babel 7</div> */}
               <div className='resume-item'>Chrome DevTools</div>
@@ -77,37 +78,17 @@ class Resume extends Component {
 
         <div className='resume-right-container'>
 
-          {/* <div className='resume-statement'>
-            I got into web development when one of my old bosses asked me if I could build him a website, since I was good with computers I gave it a try.
-          </div> */}
-
-          <div className='resume-big-title'>How I learned to code</div>
+          <div className='resume-statement'>
+            I got into web development when one of my old bosses asked me if I could build him a website, since I was good with computers I gave it a try. I really enjoyed it and continued learning and coding. Now three years later I feel comfortable enough with my coding skills and I am looking to become a professional front end developer.
+          </div>
           
-          <div className='resume-line' />
-
-          <ul className='resume-ul'>
-            <li>I started learning to code on April 22, 2016. I got a brief introduction with Dreamweaver when one of my old bosses asked me if I could help him build a website. 
-              Things weren't working out in the construction industry so I took some time off to learn code full time.
-            </li>
-            <li>I did a lot of research and decided to start learning the fundamentals of web development HTML, CSS and JavaScript. 
-              I learned a lot from the following resources: W3Schools, CSS-Tricks, MDN and Stack Overflow along with some YouTube channels like LearnCode.academy which I bought a Node.js course from and mpj (Fun Fun Function).
-              I documented everything I learned a long the way, over 400 pages of notes which are all available on my website categorized in order from when I started.
-            </li>
-            <li>I got into React Native before React because I wanted to try and build an app to help me track receipts for one of my old employers. I used to help him track receipts with excel.
-              It ended up being a hassle since I didn't own a MacBook and I decided to continue learning React on the web, since I really enjoyed it. 
-            </li>
-            <li>
-              I spent over three years learning and building things. I wanted to make sure that I could really do things on my own before applying to any job.
-            </li>
-          </ul>
-          
-          <div className='resume-big-title'>The Best Piece of Software I've Built So Far</div>
+          <div className='resume-big-title'>Projects</div>
           
           <div className='resume-line' />
 
           <div className='resume-item-right-container'>
             <div className='resume-item-right-subcontainer'>
-              <div className='resume-item-right-heading'>tic-tac-chat <span className='resume-item-right-littleHeading'>(Play now at mellocloud.com/tic-tac-chat)</span></div>
+              <div className='resume-item-right-heading'>tic-tac-chat <span className='resume-item-right-littleHeading'>(Play now at mellocloud.com)</span></div>
               <div className='resume-item-right-repo-container'>
                 <div className='resume-item-right-repo-heading'>Front-end:</div>
                 <div className='resume-item-right-subheading2'>https://github.com/DanMello/tic-tac-chat</div>
@@ -116,25 +97,15 @@ class Resume extends Component {
                 <div className='resume-item-right-repo-heading'>Back-end:</div>
                 <div className='resume-item-right-subheading2'>https://github.com/DanMello/tic-tac-chat-websocket</div>
               </div>
-              <div className={'resume-item-right-repo-container'}>
-                <div className='resume-item-right-repo-heading'>Release notes:</div>
-                <div className='resume-item-right-subheading2'>https://mellocloud.com/tic-tac-chat/notes</div>
-              </div>
-              <div className={'resume-software-version'}>Version 1.0.0 Released June 22, 2019</div>
               <ul className='resume-ul'>
                 <li>Developed a Tic Tac Toe game with a chat system using React Hooks, Node js, MongoDB, and WebSockets.</li>
                 <li>Created a RESTful API allowing users to create or join games, play, and chat together all in real time.</li>
                 <li>Developed a responsive user interface that works great on all devices.</li>
               </ul>
-              <div className={'resume-software-version'}>Version 1.1.1 Released August 18, 2019</div>
-              <ul className='resume-ul'>
-                <li>Added some new features including allowing users to invite players via sms or email, kick players and make games private.</li>
-                <li>Fixed bug where game would not be deleted if the game was left idle.</li>
-              </ul>
             </div>
           </div>
 
-          {/* <div className='resume-item-right-container'>
+          <div className='resume-item-right-container'>
             <div className='resume-item-right-subcontainer'>
               <div className='resume-item-right-heading'>react-simpler-forms</div>
               <div className='resume-item-right-subheading'>https://github.com/DanMello/react-simpler-forms</div>
@@ -142,7 +113,7 @@ class Resume extends Component {
                 <li>Developed and published to npm a higher-order component along with three other components that manage your forms state and form submissions making it easy to create, 
                     validate, perform search queries, and submit single or multi-step forms without writing any logic using only declarative code.
                 </li>
-                <li>Developed everything with zero dependencies and published to npm.</li>
+                {/* <li>Developed everything with zero dependencies and published to npm.</li> */}
               </ul>
             </div>
           </div>
@@ -156,7 +127,7 @@ class Resume extends Component {
                 <li>Created all the controls using media events, including custom video seekbar, audio slider, play and pause button etc.</li>
               </ul>
             </div>
-          </div> */}
+          </div>
 
           {/* <div className='resume-item-right-container'>
             <div className='resume-item-right-subcontainer'>
@@ -173,7 +144,7 @@ class Resume extends Component {
             </div>
           </div> */}
 
-          <div className='resume-big-title' style={{marginTop: '10px'}}>Most Recent Professional Experience</div>
+          <div className='resume-big-title' style={{marginTop: '10px'}}>Professional Experience</div>
           
           <div className='resume-line' />
 
@@ -191,7 +162,7 @@ class Resume extends Component {
             </div>
           </div>
 
-          {/* <div className='resume-item-right-container'>
+          <div className='resume-item-right-container'>
             <div className='resume-item-right-subcontainer'>
               <div className='resume-item-right-heading'>Carpenter</div>
               <div className='resume-job-name'>Paul Caruso Inc. /<span className={'resume-date-work'}> 2014 - 2016</span></div>
@@ -199,7 +170,7 @@ class Resume extends Component {
                 <li>Worked as a carpenter along side a small team on a variety of projects including dozens of interior apartment renovations at the brook house in Brookline, home renovations and framing of a house.</li>
               </ul>
             </div>
-          </div> */}
+          </div>
 
           {/* <div className='resume-big-title' style={{marginTop: '10px'}}>Education</div>
           

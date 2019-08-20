@@ -51,12 +51,17 @@
   margin-top: 10px;
 }
 
+.resume-item-container-date {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
 .resume-item {
   padding: 2px;
 }
 
 .resume-right-container {
-  flex: 1.9;
+  flex: 2.2;
   padding: 20px 10px 10px 10px;
 }
 
@@ -70,14 +75,14 @@
 
 .resume-big-title {
   color: #444;
-  font-size: 30px;
+  font-size: 26px;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
 .resume-item-right-container {
   display: flex;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .resume-item-right-subcontainer {
@@ -107,6 +112,7 @@
 
 .resume-ul li {
   color: #444;
+  font-size: 16px;
   padding-top: 5px;
   padding-bottom: 5px;
 }
@@ -157,6 +163,7 @@
 
 .resume-statement {
   color: #444;
+  font-size: 17px;
   margin-bottom: 10px;
 }
 
@@ -179,4 +186,23 @@
 .resume-item-right-littleHeading {
   font-size: 15px;
   font-weight: normal;
+}
+
+.resume-date-work {
+  /* font-style: italic; */
+  font-weight: normal;
+  font-size: 16px;
+  /* margin-left: 10px;  */
+}
+
+.resume-job-name {
+  margin-top: 10px;
+  color: #444;
+  font-size: 16px;
+}
+
+.resume-software-version {
+  color: #444;
+  margin-top: 10px;
+  font-weight: bold;
 }

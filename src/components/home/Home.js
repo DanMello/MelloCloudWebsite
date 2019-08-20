@@ -24,7 +24,7 @@ class Home extends Component {
 
           <div className={!this.props.config.isMobile ? 'home-paragraph-container' : 'home-paragraph-container-mobile'}>
             <p className='home-paragraph'> 
-              Welcome to my website. My name is Dan Mello and I am a Front End Developer.
+              Welcome to my website. My name is Dan Mello and I am a Software Engineer.
             </p>
             <p className='home-paragraph home-margin-top'>
               Here you can find some examples of my work, my web development notes, the latest version of my resume and a way to get in touch. Also, check out my open source projects on GitHub.
@@ -43,6 +43,7 @@ class Home extends Component {
             <div className={'tic-tac-button-container'}>
               <h2 className='home-project-name'>tic-tac-chat</h2>
               <Link className='tic-tac-link' to='/tic-tac-chat'>Play now</Link>
+              {/* <Link className='tic-tac-link' to='/tic-tac-chat'>Play now</Link> */}
             </div>
             <ul className='home-ul'>
               <p className={!this.props.config.isMobile ? 'home-project-paragraph' : 'home-project-paragraph-mobile'}>
@@ -50,7 +51,7 @@ class Home extends Component {
               </p>
               <li className='home-li'>View (Front-end) on <a className='footer-link' href='https://github.com/DanMello/tic-tac-chat'>GitHub</a></li>
               <li className='home-li'>View (Back-end) on <a className='footer-link' href='https://github.com/DanMello/tic-tac-chat-websocket'>Github</a></li>
-              <li className='home-li'>View <Link className='footer-link' to='/tic-tac-chat/notes'>release notes</Link></li>
+              <li className='home-li'>View <Link className='footer-link' to='/tic-tac-chat/notes'>release notes for all versions</Link></li>
             </ul>
           </div>
           

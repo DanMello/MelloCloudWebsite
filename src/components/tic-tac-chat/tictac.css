@@ -22,3 +22,14 @@
   margin-top: 15px;
   margin-bottom: 15px;
 }
+
+.tic-tac-chat-select-mobile {
+  width: 100%;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.tic-tac-chat-select {
+  font-size: 16px;
+  margin-top: 20px;
+}
