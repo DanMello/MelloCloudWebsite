@@ -6,6 +6,7 @@ import Notes from './components/notes/Notes'
 import Contact from './components/contact/Contact'
 import PdfViewer from './components/pdfViewer/PdfViewer'
 import NoMatch from './components/nomatch/NoMatch'
+import MediaZact from './components/mediazact/mediazact';
 import ReactVideoPlayerDemo from './components/react-video-player/React-video-player-demo'
 import SimplerFormsVisualRepresentation from './components/react-simpler-forms/react-simpler-forms-visual-representation'
 import TicTacChat from './components/tic-tac-chat/tic-tac-chat';
@@ -54,13 +55,14 @@ class AppRoutes extends Component {
         <PropsRoute path="/pdfviewer" exact strict component={PdfViewer} config={config} />
         <PropsRoute path="/react-video-player" exact strict component={ReactVideoPlayerDemo} config={config} />
         <PropsRoute path="/react-simpler-forms" exact strict component={SimplerFormsVisualRepresentation} config={config} />
-        
         {/* <PropsRoute path='/tic-tac-chat' exact strict component={TicTacChat} config={config} /> */}
         <PropsRoute path='/tic-tac-chat' exact strict component={TicTacChatv111} config={config} />
         <PropsRoute path='/tic-tac-chat/notes' exact strict component={TicTacChatNotes} config={config} />
 
         <DeveloperRoute path='/resume' exact strict component={Resume} config={config} />
         {/* <DeveloperRoute path='/tic-tac-chat' exact strict component={TicTacChat} config={config}/> */}
+
+        <PropsRoute path="/mediazact" exact strict component={MediaZact} config={config} />
 
         <PropsRoute component={NoMatch} config={config} />
 

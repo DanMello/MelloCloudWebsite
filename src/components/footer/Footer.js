@@ -17,13 +17,14 @@ class Footer extends Component {
             <div className='footer-flex-break'>
               <Link to='/' className='footer-link'>Home</Link>
               <Link to='/notes' className='footer-link'>Notes</Link>
-              <a href="/assets/pdf/DansResume.pdf" className='footer-link'>Resume</a>
+              {/* <a href="/assets/pdf/DansResume.pdf" className='footer-link'>Resume</a> */}
               <a href="https://github.com/DanMello" className='footer-link'>GitHub</a>
+              <a href="https://www.linkedin.com/in/jdanmello/" className='footer-link'>LinkedIn</a>
               <Link to='/contact' className='footer-link'>Contact</Link>
             </div>
 
           <div className={!isMobile ? 'footer-copyright-container' : 'footer-copyright-container-mobile'}>
-            <span>&copy; 2019 Dan Mello</span>
+            <span>&copy; 2020 Dan Mello</span>
           </div>
         </div>
       </div>

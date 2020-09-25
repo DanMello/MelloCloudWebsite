@@ -1,0 +1,5 @@
+
+invalid hook call issue.
+sudo npm link ../tic-tac-chat/node_modules/react
+
+sudo npm link ../mediazact/node_modules/react

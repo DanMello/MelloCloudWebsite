@@ -1,9 +1,8 @@
 import React from 'react';
-import { Game } from 'tic-tac-chatv1.1.1';
+import { Game } from 'tic-tac-chat';
 import { FaCloud } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import 'tic-tac-chatv1.1.1/dist/main.css';
 import './tictac.css';
 
 export default function TicTacChatv111({config}) {

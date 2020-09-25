@@ -80,6 +80,10 @@
   margin-bottom: 5px;
 }
 
+.resume-margin-top {
+  margin-top: 10px;
+}
+
 .resume-item-right-container {
   display: flex;
   margin-top: 15px;
